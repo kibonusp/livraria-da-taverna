@@ -15,7 +15,66 @@
 </head>
 <body>        
         
-    <nav>
+    <body>
+        <nav class="row">
+            <div class="left row">
+                <img id="menuicon" src="img/menu.svg" alt="Menu lateral">
+                <a href="#">
+                    <div class="row">
+                        <img id="user" src="img/kibon.jpg" alt="Foto do usuário">
+                        <p>Oi, Gabriel!</p>
+                    </div>
+                </a>
+            </div>
+            <a href="./home.html">
+                <img id="logo" src="img/logo_marrom.jpg" alt="Logo">
+            </a>
+            <div class="row right">
+                <a href="#">
+                    <img src="img/cart.svg" alt="Carrinho de compras">
+                </a>
+                <img id="pesquisa" src="img/search.png" alt="Busca">
+                <input type="text" class="search-hover" name="" placeholder="search here..." />
+            </div>
+        </nav>
+        <div id="sidenav" class="column">
+            <img src="img/menu.svg" alt="Menu lateral">
+            <div class="column" id="sidenav-items">
+                <a href="">Início</a>
+                <a href="">Gêneros</a>
+                <a href="">Admin</a>
+                <a href="">Perfil</a>
+                <a href="">Sair</a>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+        console.log('oi')
+        $(function() {
+            $('#menuicon').mouseenter(function() {
+                $('#sidenav').css('left', '0');
+                $('nav').css('width', '90%');
+                $('#menuicon').css('position', 'relative');
+                $('#menuicon').css('left', '-4em');
+                $('#menuicon').css('opacity', '0');
+            });
+        });
+        $(function() {
+            $('#sidenav').mouseleave(function() {
+                $('#sidenav').css('left', '-10%');
+                $('nav').css('width', '100%');
+                $('#menuicon').css('left', '0em');
+                $('#menuicon').css('position', 'relative');
+                $('#menuicon').css('opacity', '1');
+            })
+        })
+        $(function() {
+            $('#pesquisa').mouseenter(function() {
+                // adicionar coisas aqui
+            })
+        })
+        </script>
+    <!-- <nav>
         <div id="left">
             <a>
                 <i class="fa fa-bars" aria-hidden="true"></i>
@@ -38,7 +97,7 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
             </a>
         </div>
-    </nav> 
+    </nav>  -->
     
 
     <div id="painel">
@@ -68,13 +127,15 @@
                 </div>
             </li>
             <li>
-                <img id="img_livro" src="./img/sapiens.jpg" alt="livro2">
-                <p class="titulo_livro">Sapiens: Uma breve história da humanidade</p>
-                <p class="autor">Yuval Noah Harari</p>
-                <div class="preco_taverna">
-                    <i class="fa fa-beer" aria-hidden="true"></i>
-                    <p class="preco">R$ 10,00</p> 
-                </div>
+                <a href="./book.html">
+                    <img id="img_livro" src="./img/sapiens.jpg" alt="livro2">
+                    <p class="titulo_livro">Sapiens: Uma breve história da humanidade</p>
+                    <p class="autor">Yuval Noah Harari</p>
+                    <div class="preco_taverna">
+                        <i class="fa fa-beer" aria-hidden="true"></i>
+                        <p class="preco">R$ 10,00</p> 
+                    </div>
+                </a>
             </li>
             <li>
                 <img id="img_livro" src="./img/duna.jpeg" alt="livro3">
@@ -107,9 +168,9 @@
                 <img id="dir_svg" src="./img/arrow-right-solid.svg" alt="seta">
             </li>
         </ul>
-    </div>
+    </div>  
     <hr>
-    <div id="mais_vendidos">
+    <div id="lancamento">
         <h1>Lançamentos</h1>
         <ul>
             <li id="seta_esq">
@@ -125,13 +186,15 @@
                 </div>
             </li>
             <li>
-                <img id="img_livro" src="./img/sapiens.jpg" alt="livro2">
-                <p class="titulo_livro">Sapiens: Uma breve história da humanidade</p>
-                <p class="autor">Yuval Noah Harari</p>
-                <div class="preco_taverna">
-                    <i class="fa fa-beer" aria-hidden="true"></i>
-                    <p class="preco">R$ 10,00</p> 
-                </div>
+                <a href="./book.html">
+                    <img id="img_livro" src="./img/sapiens.jpg" alt="livro2">
+                    <p class="titulo_livro">Sapiens: Uma breve história da humanidade</p>
+                    <p class="autor">Yuval Noah Harari</p>
+                    <div class="preco_taverna">
+                        <i class="fa fa-beer" aria-hidden="true"></i>
+                        <p class="preco">R$ 10,00</p> 
+                    </div>
+                </a>
             </li>
             <li>
                 <img id="img_livro" src="./img/duna.jpeg" alt="livro3">
