@@ -1,0 +1,199 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Gilroy;
+}
+
+@font-face {
+    font-family: Gilroy;
+    src: url(./font/Gilroy-SemiBold.ttf);
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: Gilroy;
+    src: url(./font/Gilroy-Medium.ttf);
+    font-weight: 500;
+}
+nav {
+    width: 100%;
+    display: flex;
+    background-color: #502514;
+    justify-content: space-between;
+    color: #F5F5F5;
+    font-size: 40px;
+}
+
+#right{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 10%;
+}
+#left{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 25%;
+    
+}
+#left p{
+    margin: 0px;
+    font-weight: 700;
+    font-size: 30px;
+}
+#middle{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 65%;
+}
+img[alt="perfil"] {
+    border-radius: 100%;
+    display: block;
+    max-width:50px;
+    max-height:50px;
+    width: auto;
+    height: auto;
+    margin-right: 10px;
+}
+img[alt="logo"] {
+    display: block;
+    max-height:80px;
+    width: auto;
+    height: auto;
+    margin-right: 20%;
+}
+.flexbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#painel {
+    padding-top: 70px;
+    width: 100%;
+    height: auto;
+    background-color: #B4441C;
+    text-align:center; 
+}
+
+#img_logo{
+    width: 30%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#scroll{
+    display:inline-flex;
+}
+
+.circulo {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#atual {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #502514;
+}
+
+h1{
+    padding:20px;
+    color: #502514;
+}
+
+.titulo_livro{
+    font-weight: bold;
+    margin: 2px;
+    color: #502514;
+    font-size:23px;
+    width: 180px;
+}
+
+.autor{
+    margin:0;
+    color: #9F6A54;
+}
+
+.preco{
+    font-weight: bold;
+    margin: 2px;
+    color: #502514;
+    font-size:20px;
+}
+
+
+#img_livro{
+    width: 120px;
+    height: 180px;
+    border-radius: 5% 15% 15% 5%;
+}
+
+div li {
+    margin: auto 20px auto 40px;
+    text-decoration: none;
+    float: left;
+    list-style: none;
+}
+
+#seta_esq{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #502514;
+    margin: 80px -20px 0px -20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#esq_svg{
+    width:20px;
+}
+
+#seta_dir{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #502514;
+    margin: 80px -20px 0px -20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dir_svg{
+    width:20px;
+}
+
+hr {
+	padding: 0;
+	width: 20%;
+    border-top: 1px solid #B4441C;
+}
+
+.preco_taverna{
+    display: flex;
+    align-items: center;
+}
+
+.fa-beer{
+    margin-right: 8px;
+    color: #502514;
+    font-size:20px;
+}
+
+li:hover{
+    color: red;
+}
