@@ -1,0 +1,119 @@
+.container {
+    position: absolute;
+    top: 5.2em;
+    width: 100%;
+    z-index: -1;
+    color: #502514;
+    display: flex;
+    margin-top: 2em;
+    margin-bottom: 4em;
+}
+
+.filtros {
+    margin-left: 1.1em;
+    color: #502514;
+    font-weight: 600;
+}
+
+.filtros p {
+    font-size: 1.1rem;
+}
+
+.filtros h3 {
+    font-size: 1.4rem;
+}
+
+#generos h3 {
+    margin: 0.7rem;
+    margin-left: 0;
+    margin-bottom: 1rem;
+}
+
+#generos p {
+    margin-left: 2ch;
+    margin-top: 0.2em;
+}
+
+#preco-input {
+    margin-left: 2ch;
+}
+
+#preco-input input {
+    width: 4.25em;
+    border: solid 3px #502514;
+    height: 25px;
+    width: 4.4em;
+    font-weight: 600;
+}
+
+#disponibilidade {
+    margin-left: 2ch;
+}
+
+#disponibilidade input {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.resultados {
+    margin: 0.75rem;
+    margin-left: 1em;
+}
+
+.resultados h2 {    
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.filtros {
+    margin-right: 3em;
+}
+
+.livro {
+    display: flex;
+    justify-content: flex-start;
+    margin: 1.5em;
+    margin-left: 0;
+}
+
+.descricao {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2.7em;
+}
+
+.descricao h3{
+    width: 15em;
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.descricao h4 {
+    width: 15em;
+    margin-top: 0.3em;
+    color: #9F6A54;
+    font-size: 1.1rem;
+}
+
+.descricao div {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-top: 1em;
+}
+
+.descricao div i {
+    margin-right: 0.4em;
+}
+
+.cover {
+    width: 11em;
+    border-radius: 10px 25px 25px 10px;
+}
+
+hr {
+    width: 40%;
+    background-color: #9F6A54; /* Modern Browsers */
+}

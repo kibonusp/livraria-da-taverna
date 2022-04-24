@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sapiens</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" type="text/css" href="book.css" />
 
 </head>
@@ -42,57 +43,6 @@
         </div>
     </div>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        console.log('oi')
-        $(function() {
-            $('#menuicon').mouseenter(function() {
-                $('#sidenav').css('left', '0');
-                $('nav').css('width', '90%');
-                $('#menuicon').css('position', 'relative');
-                $('#menuicon').css('left', '-4em');
-                $('#menuicon').css('opacity', '0');
-            });
-        });
-        $(function() {
-            $('#sidenav').mouseleave(function() {
-                $('#sidenav').css('left', '-10%');
-                $('nav').css('width', '100%');
-                $('#menuicon').css('left', '0em');
-                $('#menuicon').css('position', 'relative');
-                $('#menuicon').css('opacity', '1');
-            })
-        })
-        $(function() {
-            $('#pesquisa').mouseenter(function() {
-                // adicionar coisas aqui
-            })
-        })
-    </script>
-    <!-- <nav>
-        <div id="left">
-            <a>
-                <i class="fa fa-bars" aria-hidden="true"></i>
-            </a>
-            <a class="flexbox">
-                <img src="./img/kibon.jpg" alt="perfil"></li>
-                <p>Oi, Gabriel</p>
-            </a>
-        </div>
-        <div id="middle">
-            <a>
-                <img src="./img/logo_marrom.jpg" alt="logo">
-            </a>
-        </div>
-        <div id="right">
-            <a>
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            </a>
-            <a>
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </a>
-        </div>
-    </nav>  -->
     <div class="fit">
         <div id="livro">
             <div class="tags">
@@ -128,7 +78,28 @@
             </div>
         </div>
     </div>
-
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $('#menuicon').mouseenter(function() {
+                $('#sidenav').css('left', '0');
+                $('nav').css('width', '90%');
+                $('#menuicon').css('position', 'relative');
+                $('#menuicon').css('left', '-4em');
+                $('#menuicon').css('opacity', '0');
+            });
+        });
+        $(function() {
+            $('#sidenav').mouseleave(function() {
+                $('#sidenav').css('left', '-10%');
+                $('nav').css('width', '100%');
+                $('#menuicon').css('left', '0em');
+                $('#menuicon').css('position', 'relative');
+                $('#menuicon').css('opacity', '1');
+            })
+        });
+    </script>
     
 </body>
 </html>
