@@ -1,8 +1,7 @@
 .container {
-    position: absolute;
+    position: relative;
     top: 5.2em;
     width: 100%;
-    z-index: -1;
     color: #502514;
     display: flex;
     margin-top: 2em;
@@ -75,6 +74,7 @@
     justify-content: flex-start;
     margin: 1.5em;
     margin-left: 0;
+    color: #502514;
 }
 
 .descricao {

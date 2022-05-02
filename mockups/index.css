@@ -146,3 +146,40 @@ a {
     width: 300px;
     padding-left: 20px;
 }
+
+footer {
+    background-color: #B4441C;
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+footer div {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+footer h2 {
+    margin-bottom: 0;
+}
+
+footer div ul {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1em;
+    width: 50%;
+}
+
+footer div ul li {
+    margin-bottom: 1em;
+}
+
+footer div p {
+    text-justify: center;
+}
+
+#info p {
+    margin: 0.3em;
+}

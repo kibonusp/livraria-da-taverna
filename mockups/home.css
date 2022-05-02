@@ -10,7 +10,18 @@
 }
 
 .livro {
-    margin: 0;
+    text-decoration: none;
+    float: left;
+    list-style: none;
+}
+
+.livro #img_livro {
+    transition: all 0.3s ease-in-out;
+}
+
+.livro:hover #img_livro{
+    width: 140px;
+    height: 210px;
 }
 
 #painel {
@@ -84,12 +95,14 @@ h1{
     border-radius: 5% 15% 15% 5%;
 }
 
+/*
 div li {
     margin: auto 20px auto 40px;
     text-decoration: none;
     float: left;
     list-style: none;
 }
+*/
 
 #seta_esq{
     width: 40px;
