@@ -95,16 +95,7 @@ h1{
     border-radius: 5% 15% 15% 5%;
 }
 
-/*
-div li {
-    margin: auto 20px auto 40px;
-    text-decoration: none;
-    float: left;
-    list-style: none;
-}
-*/
-
-#seta_esq{
+.seta {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -113,25 +104,26 @@ div li {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
 }
 
-#esq_svg{
+.seta .seta_svg {
+    transition: all 0.2s ease-in-out;
+}
+
+.seta:hover {
+    width: 50px;
+    height: 50px;
+}
+
+.seta_svg {
     width:20px;
 }
 
-#seta_dir{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #502514;
-    margin: 80px -20px 0px -20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#dir_svg{
-    width:20px;
+.seta:hover .seta_svg {
+    width: 25px;
 }
 
 hr {
@@ -143,16 +135,12 @@ hr {
 .preco_taverna{
     display: flex;
     align-items: center;
-}
+}   
 
 .fa-beer{
     margin-right: 8px;
     color: #502514;
     font-size:20px;
-}
-
-li:hover{
-    color: red;
 }
 
 #container {

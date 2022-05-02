@@ -81,8 +81,16 @@ a {
     margin: 0em 2em;
 }
 
-#pesquisa {
+.logos_nav {
     position: relative;
+    padding-right: 20px;
+    transition: all 0.1s ease-in-out;
+    padding-left: 20px;
+    font-size: 2em;
+}
+.logos_nav:hover{
+    color: #B4441C;
+    font-size: 2.5em;
 }
 
 #sidenav {
@@ -95,6 +103,7 @@ a {
     top: 0px;
     justify-content: flex-start;
     transition: all 0.5s ease-in-out;
+    z-index: 1;
 }
 
 #menuicon {
@@ -176,10 +185,23 @@ footer div ul li {
     margin-bottom: 1em;
 }
 
+footer div ul li:hover a {
+    color: #502514;
+}
+
 footer div p {
     text-justify: center;
 }
 
 #info p {
     margin: 0.3em;
+}
+
+#nome_nav{
+    transition: all 0.2s ease-in-out;
+}
+
+#nome_nav:hover{
+    color: #B4441C;
+    font-size: 150%;
 }

@@ -113,6 +113,14 @@
     border-radius: 10px 25px 25px 10px;
 }
 
+.livro .cover {
+    transition: all 0.2s ease-in-out;
+}
+
+.livro:hover .cover {
+    width: 12em;
+}
+
 hr {
     width: 40%;
     background-color: #9F6A54; /* Modern Browsers */
