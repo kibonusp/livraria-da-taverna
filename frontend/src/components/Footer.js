@@ -1,4 +1,4 @@
-import { Container, Section } from "../styles/FooterStyle"
+import { Container, Section } from "../styles/componentsStyles/FooterStyle"
 
 export default function Footer() {
     return (

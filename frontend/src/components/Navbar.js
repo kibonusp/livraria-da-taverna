@@ -3,7 +3,7 @@ import logo from "../assets/logo.png"
 import userPhoto from "../assets/user.jpg"
 import search from "../assets/search.svg"
 import cart from "../assets/cart.svg"
-import { NavHeader, UserPhoto, Profile, Logo, Item, Utils, Links } from "../styles/NavbarStyle"
+import { NavHeader, UserPhoto, Profile, Logo, Item, Utils, Links } from "../styles/componentsStyles/NavbarStyle"
 
 export default function Navbar() {
     return (

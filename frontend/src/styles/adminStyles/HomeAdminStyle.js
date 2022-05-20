@@ -12,20 +12,24 @@ export const Description = styled.h1`
     font-size: 1.9rem;
 `
 
-export const Action = styled.a`
+export const Action = styled.div`
     width: 17em;
     height: 14em;
     background-color: #B4441C;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     h2 {
         color: #F5F5F5;
         font-size: 1.8rem;
     }
     border-radius: 15px;
-    text-decoration: none;
-
+    a {
+        position: absolute;
+        padding: 7em 8.5em;
+        z-index: 2;
+    }
     &:hover {
         background-color: #b35939;
     }
