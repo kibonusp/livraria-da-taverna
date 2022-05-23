@@ -1,20 +1,23 @@
 import admin from '../assets/admin.jpg'
 import close from '../assets/close.svg'
 
-import { Description } from '../styles/adminStyles/HomeAdminStyle'
+import { Description, Container } from '../styles/adminStyles/HomeAdminStyle'
+import { ResultList, Result, Profile, Search } from '../styles/adminStyles/UsersStyles'
 
 export default function Users() {
     return (
-        <div>
+        <Container>
             <Description>Escolha um usuário para remover</Description>
-            <input type="text" />
-            <div>
-                <div>
-                    <img src={admin} alt="Admin" />
-                    <p>Raíssa Barreira (@rtbarreira)</p>
+            <Search />
+            <ResultList>
+                <Result>
+                    <Profile>
+                        <img src={admin} alt="Admin" />
+                        <p>Raíssa Barreira (@rtbarreira)</p>
+                    </Profile>
                     <button><img src={close} alt="Retirar privilégios de administrador" /></button>
-                </div>
-            </div>
-        </div>
+                </Result>
+            </ResultList>
+        </Container>
     )
 }
