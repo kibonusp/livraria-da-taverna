@@ -22,6 +22,19 @@ export const Profile = styled.div`
     font-size: 1.2rem;
 `
 
+export const Sair = styled.button`
+    background-color: #f5f5f5;
+    color: #B4441C;
+    border-radius: 10px;
+    margin-left: 1em;
+    padding: 0.4em 1em;
+    font-family: Gilroy;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: none;
+`
+
+
 export const Logo = styled.img`
     width: 13em;
 `

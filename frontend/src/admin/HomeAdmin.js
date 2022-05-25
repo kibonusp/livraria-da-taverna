@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
-import { Container, Description, Action, ActionDiv } from "../styles/adminStyles/HomeAdminStyle"
+import { Container, Description, Action, ActionDiv } from "../styles/adminStyles/HomeAdminStyle.js"
 
 export default function Admin() {
     return (
         <Container>
             <Description>Escolha uma ação para realizar</Description>
-            <ActionDiv>
+            <ActionDiv width="90">
                 <Action>
                     <Link to="/admin/users"></Link>
                     <h2>Usuários</h2>

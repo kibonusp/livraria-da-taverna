@@ -35,4 +35,5 @@ export const Section = styled.section`
     p {
         margin: 0;
     }
+    
 `

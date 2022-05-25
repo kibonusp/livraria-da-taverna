@@ -37,7 +37,7 @@ export const Action = styled.div`
 
 export const ActionDiv = styled.div`
     display: flex;
-    width: 80%;
-    justify-content: space-between;
+    width: ${props => props.width+"%"};
+    justify-content: space-around;
     margin-top: 4em;
 `
