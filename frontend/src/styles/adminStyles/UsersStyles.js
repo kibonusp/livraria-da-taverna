@@ -49,5 +49,12 @@ export const Search = styled.input`
     background-color: #E6E6E6;
     border-radius: 15px;
     border: none;
+    padding: 0.25em 0em;
+    color: #502514;
+    font-weight: 700;
+    &:focus {
+        outline: none;
+    }
     height: 1.5em;
+    text-align: center;
 `
