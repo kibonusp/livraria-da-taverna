@@ -6,18 +6,15 @@ export default function Admin() {
         <Container>
             <Description>Escolha uma ação para realizar</Description>
             <ActionDiv width="90">
-                <Action>
-                    <Link to="/admin/users"></Link>
-                    <h2>Usuários</h2>
-                </Action>
-                <Action>
-                    <Link to="/admin/admins"></Link>
-                    <h2>Admins</h2>
-                </Action>
-                <Action>
-                    <Link to="/admin/products"></Link>
-                    <h2>Produtos</h2>
-                </Action>
+                <Link to="/admin/users">
+                    <Action>Usuários</Action>
+                </Link>
+                <Link to="/admin/admins">
+                    <Action>Admins</Action>
+                </Link>
+                <Link to="/admin/products">
+                    <Action>Produtos</Action>
+                    </Link>
             </ActionDiv>
         </Container>
     )
