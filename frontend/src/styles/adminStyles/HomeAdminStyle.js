@@ -5,6 +5,7 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 1.5em;
+    min-height: 68vh;
 `
 
 export const Description = styled.h1`

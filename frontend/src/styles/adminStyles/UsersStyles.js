@@ -11,10 +11,11 @@ export const Result = styled.div`
     align-items: center;
     background-color: #B4441C;
     border-radius: 10px;
-    padding: 0.25em 0.75em;
+    padding: 0.25em 1em;
     width: 60vw;
     color: #f5f5f5;
     justify-content: space-between;  
+    font-size: 1.15rem;
     
     img {
         width: 2.5em;
@@ -52,6 +53,7 @@ export const Search = styled.input`
     padding: 0.25em 0em;
     color: #502514;
     font-weight: 700;
+    font-size: 1rem;
     &:focus {
         outline: none;
     }
