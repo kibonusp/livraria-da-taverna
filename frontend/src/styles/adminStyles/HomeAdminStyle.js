@@ -5,9 +5,7 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 1.5em;
-    margin-bottom: 3em;
-    position: relative;
-    min-height: max-content;
+    min-height: 68vh;
 `
 
 export const Description = styled.h1`

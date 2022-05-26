@@ -6,6 +6,7 @@ export const NavHeader = styled.nav`
     align-items: center;
     justify-content: space-between;
     padding: 0em 2em;
+    height: 12vh;
 `
 
 export const UserPhoto = styled.img`
@@ -47,7 +48,6 @@ export const Sair = styled.button`
     font-size: 0.95rem;
     border: none;
 `
-
 
 export const Logo = styled.img`
     width: 13em;

@@ -1,48 +1,5 @@
 import styled from "styled-components";
 
-export const FormLabel = styled.h2`
-    color: #B4441C;
-    font-size: 1.2rem;
-    margin-bottom: 0.5em;
-`
-
-export const FormDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-`
-
-export const FormInput = styled.input`
-    width: 65vw;
-    background-color: #E6E6E6;
-    border: none;
-    border-radius: 15px;
-    &:focus {
-        outline: none;
-    }
-    padding: 0.4em 1em;
-    color: #502514;
-    font-weight: 600;
-    
-`
-
-export const FormText = styled.textarea`
-    width: 65vw;
-    padding: 1em 1em;
-    background-color: #E6E6E6;
-    border: none;
-    border-radius: 15px;
-    resize: vertical;
-    min-height: 10vh;
-    &:focus {
-        outline: none;
-    }
-`
-export const ImageForm = styled.div`
-    display: flex;
-    align-items: center;
-    position: relative;
-`
-
 export const Button = styled.div`
     padding: 10%;
     width: max-content;
@@ -72,15 +29,47 @@ export const Delete = styled.div`
     }
 `
 
-export const ActionDiv = styled.div`
-    display: flex;
-    width: ${props => props.width+"%"};
-    justify-content: space-around;
-    margin-top: 4em;
-    a{
-        text-decoration: none;
-    }
+export const FormLabel = styled.h2`
+    color: #B4441C;
+    font-size: 1.2rem;
+    margin-bottom: 0.5em;
+    margin-top: 1em;
 `
+
+export const FormDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: ${props => props.centralize === "true" ? "center" : "flex-start"};
+`
+
+export const FormInput = styled.input`
+    width: 65vw;
+    background-color: #E6E6E6;
+    border: none;
+    border-radius: 15px;
+    &:focus {
+        outline: none;
+    }
+    padding: 0.4em 1em;
+    color: #502514;
+    font-weight: 600;
+`
+
+export const FormText = styled.textarea`
+    width: 65vw;
+    padding: 1em 1em;
+    background-color: #E6E6E6;
+    border: none;
+    border-radius: 15px;
+    resize: vertical;
+    min-height: 10vh;
+    &:focus {
+        outline: none;
+    }
+    color: #502514;
+    font-weight: 600;
+`
+
 export const FileDiv = styled.div`
     display: flex;
     width: 65vw;
@@ -111,5 +100,23 @@ export const FormFile = styled.label`
     height: 1em;
     input {
         display: none;
+    }
+`
+
+export const FormStock = styled.input`
+    border: 2px solid #B4441C;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 1.15rem;
+    color: #B4441C;
+    font-weight: 700;
+    width: 50%;
+    text-align: center;
+    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    &:focus {
+        outline: none;
     }
 `
