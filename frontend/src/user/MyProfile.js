@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { FormDiv, FormInput, FormLabel, FileDiv, FormFile, Button, ActionDiv, Delete } from "../styles/adminStyles/formStyle"
-import { Container, Description } from "../styles/adminStyles/HomeAdminStyle"
+import { FormDiv, FormInput, FormLabel, FileDiv, FormFile, Button, Delete } from "../styles/adminStyles/formStyle"
+import { Container, Description, ActionDiv } from "../styles/adminStyles/HomeAdminStyle"
 import { useState } from "react"
 
 export default function MyProfile() {
