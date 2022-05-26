@@ -6,14 +6,12 @@ export default function Products() {
         <Container>
             <Description>Escolha uma ação para realizar</Description>
             <ActionDiv width="50">
-                <Action>
-                    <h2>Adicionar Produto</h2>
-                    <Link to="/admin/products/add"></Link>
-                </Action>
-                <Action>
-                    <h2>Editar Produto</h2>
-                    <Link to="/admin/products/edit"></Link>
-                </Action>
+                <Link to="/admin/products/add">
+                    <Action>Adicionar Produto</Action>
+                </Link>
+                <Link to="/admin/products/edit">
+                    <Action>Editar Produto</Action>
+                </Link>
             </ActionDiv>
         </Container>
     )

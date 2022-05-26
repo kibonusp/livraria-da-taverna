@@ -14,25 +14,20 @@ export const Description = styled.h1`
 `
 
 export const Action = styled.div`
-    width: 17em;
-    height: 14em;
+    width: 20rem;
+    height: 15rem;
     background-color: #B4441C;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    h2 {
-        color: #F5F5F5;
-        font-size: 1.8rem;
-    }
+    transition: all 0.5s;
+    color: #F5F5F5;
+    font-size: 1.8rem;
     border-radius: 15px;
-    a {
-        position: absolute;
-        padding: 7em 8.5em;
-        z-index: 2;
-    }
     &:hover {
-        background-color: #b35939;
+        background-color: #502514;
+        color: #B4441C;
+
     }
 `
 
@@ -41,4 +36,7 @@ export const ActionDiv = styled.div`
     width: ${props => props.width+"%"};
     justify-content: space-around;
     margin-top: 4em;
+    a{
+        text-decoration: none;
+    }
 `

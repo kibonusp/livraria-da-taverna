@@ -10,7 +10,7 @@ export default function Navbar() {
         <NavHeader>
             <Profile>
                 <UserPhoto src={userPhoto} alt="Foto do usuário" />
-                <p>Oi, Gabriel!</p>
+                <Link to="/myProfile">Oi, Gabriel!</Link>
                 <Sair>Sair</Sair>
             </Profile>
             <Link to="/"><Logo src={logo} alt="Logo da livraria" /></Link>
@@ -18,11 +18,9 @@ export default function Navbar() {
                 <Links>
                     <Link to="/genders">Gêneros</Link>
                     <Link to="/admin">Admin</Link>
+                    <Link to="/cart"><i class="fa fa-shopping-cart logos_nav" aria-hidden="true"></i></Link>
+                    <Link to="/search"><i class="fa fa-search logos_nav" aria-hidden="true"></i></Link>
                 </Links>
-                <div>
-                    <a href="/cart"><Item src={cart} alt="Carrinho de compras" /></a>
-                    <Item src={search} alt="Pesquisa" />
-                </div>
             </Utils>
         </NavHeader>
     )

@@ -5,6 +5,8 @@ import Home from "./user/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cart from "./user/Cart";
+import Search from "./user/Search";
+import MyProfile from "./user/MyProfile";
 import AddAdmin from "./admin/AddAdmin";
 import RemoveAdmin from "./admin/RemoveAdmin";
 import Admins from "./admin/Admins";
@@ -30,6 +32,9 @@ function App() {
                 <Route path="admin/products/edit" element={<EditProduct />}/>
                 <Route path="genders" element={<Genders />} />
                 <Route path="cart" element={<Cart />} />
+                <Route path="myProfile" element={<MyProfile />} />
+                <Route path="search" element={<Search />} />
+
             </Routes>
             <Footer />
         </>

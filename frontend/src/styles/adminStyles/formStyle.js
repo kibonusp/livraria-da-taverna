@@ -1,5 +1,34 @@
 import styled from "styled-components";
 
+export const Button = styled.div`
+    padding: 10%;
+    width: max-content;
+    background-color: #B4441C;
+    transition: all 0.5s;
+    color: #F5F5F5;
+    font-size: 1.8rem;
+    border-radius: 15px;
+    &:hover {
+        background-color: #502514;
+        color: #B4441C;
+
+    }
+`
+export const Delete = styled.div`
+    padding: 10%;
+    width: max-content;
+    background-color: #F5F5F5;
+    transition: all 0.5s;
+    border: 2px solid red;
+    border-radius: 15px;
+    color: red;
+    font-size: 1.8rem;
+    &:hover {
+        background-color: red;
+        color: #F5F5F5;
+    }
+`
+
 export const FormLabel = styled.h2`
     color: #B4441C;
     font-size: 1.2rem;
