@@ -5,6 +5,7 @@ import { Description, Container } from '../styles/adminStyles/HomeAdminStyle'
 import { ResultList, Result, Profile, Search } from '../styles/adminStyles/UsersStyles'
 
 export default function AddAdmin() {
+
     return (
         <Container>
             <Description>Escolha um usuário para promover como administrador</Description>
