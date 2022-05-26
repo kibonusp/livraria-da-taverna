@@ -28,9 +28,16 @@ export const Result = styled.div`
         background-color: transparent;
         width: 3em;
         height: 3em;
+        cursor: pointer;
         img {
             width: 2em;
             height: 2em;
+        }
+    }
+    button:hover{
+        img {
+            width: 2.5em;
+            height: 2.5em;
         }
     }
 `

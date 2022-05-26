@@ -5,6 +5,7 @@ import Home from "./user/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cart from "./user/Cart";
+import Book from "./user/Book";
 import Search from "./user/Search";
 import MyProfile from "./user/MyProfile";
 import AddAdmin from "./admin/AddAdmin";
@@ -32,9 +33,9 @@ function App() {
                 <Route path="admin/products/edit" element={<EditProduct />}/>
                 <Route path="genders" element={<Genders />} />
                 <Route path="cart" element={<Cart />} />
+                <Route path="book" element={<Book />} />
                 <Route path="myProfile" element={<MyProfile />} />
                 <Route path="search" element={<Search />} />
-
             </Routes>
             <Footer />
         </>
