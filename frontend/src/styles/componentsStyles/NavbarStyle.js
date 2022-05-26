@@ -6,6 +6,7 @@ export const NavHeader = styled.nav`
     align-items: center;
     justify-content: space-between;
     padding: 0em 2em;
+    height: 12vh;
 `
 
 export const UserPhoto = styled.img`
@@ -20,6 +21,20 @@ export const Profile = styled.div`
     color: #F5F5F5;
     align-items: center;
     font-size: 1.2rem;
+    a {
+        text-decoration: none;
+        color: #F5F5F5;
+        font-size: 1.1rem;
+        transition: all 0.5s;
+    }
+
+    a:hover {
+        color: #B4441C;
+        font-size: 1.3rem;
+        transition-timing-function: ease-in-out;
+
+    }
+
 `
 
 export const Sair = styled.button`
@@ -34,14 +49,8 @@ export const Sair = styled.button`
     border: none;
 `
 
-
 export const Logo = styled.img`
     width: 13em;
-`
-
-export const Item = styled.img`
-    width: 2.4em;
-    margin-left: 2em;
 `
 
 export const Utils = styled.div`
@@ -55,11 +64,26 @@ export const Links = styled.div`
         color: #F5F5F5;
         font-size: 1.1rem;
         margin-left: 1.5em;
+        transition: all 0.5s;
+        i{
+            font-size: 1.3rem;
+            transition: font-size 0.3s;
+        }
+
     }
 
     a:hover {
         color: #B4441C;
+        font-size: 1.3rem;
+        transition-timing-function: ease-in-out;
+        transition: all 0.5s;
+        i:hover{
+            font-size: 2rem;
+            transition-timing-function: ease-in;
+
+        }
     }
+    
 
     margin-right: 2em; 
 `

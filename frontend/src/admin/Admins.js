@@ -6,14 +6,12 @@ export default function Admins() {
         <Container>
             <Description>Escolha uma ação para realizar</Description>
             <ActionDiv width="50">
-                <Action>
-                    <Link to="/admin/admins/add"></Link>
-                    <h2>Adicionar Admins</h2>
-                </Action>
-                <Action>
-                    <Link to="/admin/admins/remove"></Link>
-                    <h2>Remover Admins</h2>
-                </Action>
+                <Link to="/admin/admins/add">
+                    <Action>Adicionar Admins</Action>
+                </Link>
+                <Link to="/admin/admins/remove">
+                <Action>Remover Admins</Action>
+                </Link>
             </ActionDiv>
         </Container>
     )
