@@ -14,6 +14,8 @@ export const Button = styled.div`
 
     }
 `
+
+/*
 export const Delete = styled.div`
     padding: 10%;
     width: max-content;
@@ -28,6 +30,7 @@ export const Delete = styled.div`
         color: #F5F5F5;
     }
 `
+*/
 
 export const FormLabel = styled.h2`
     color: #B4441C;
@@ -98,20 +101,27 @@ export const FormFile = styled.label`
     border-radius: 15px;
     align-items: center;
     height: 1em;
+    transition: all 0.25s;
     input {
         display: none;
+    }
+    &:hover {
+        background-color: #B4441C;
+        color: #FFFFFF;
     }
 `
 
 export const FormStock = styled.input`
-    border: 2px solid #B4441C;
+    border: ${props => props.dark === "true" ? "none" : "2px solid #B4441C"};
     border-radius: 15px;
     text-align: center;
     font-size: 1.15rem;
-    color: #B4441C;
+    color: ${props => props.dark === "true" ? "white" : "#B4441C"};
     font-weight: 700;
     width: 50%;
     text-align: center;
+    background-color: ${props => props.dark === "true" ? "#502514" : ""};
+    
     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
@@ -120,3 +130,21 @@ export const FormStock = styled.input`
         outline: none;
     }
 `
+
+export const FormButton = styled.button`
+    border-radius: 15px;
+    width: 10em;
+    border: ${props => props.delete === "true" ? "2px solid red": "none"};
+    padding: 1em 0.5em;
+    font-size: 1.35rem;
+    background-color: ${props => props.delete === "true" ? "transparent": "#B4441C"};
+    color: ${props => props.delete === "true" ? "red": "#f5f5f5"};
+    font-family: Gilroy;
+    font-weight: 600;
+    transition: ${props => props.delete === "true" ? "all 0.5s" : "all 0.25s"};
+    &:hover {
+        background-color: ${props => props.delete === "true" ? "red" : "#502514"};
+        color: ${props => props.delete === "true" ? "#ffffff" : "#B4441C"};
+    }
+`
+
