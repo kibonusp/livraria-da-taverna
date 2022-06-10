@@ -1,8 +1,7 @@
 import livro from "../assets/sapiens.jpg"
 
-
-import { Fit, Livro, Tags, Fit2, Texto, Titulo, Autor, Descricao, Preco, Box, Flexbox, Flexbox2,
-        Qlabel, Qinput, Qbutton, FaBeer } from "../styles/userStyles/BookStyles"
+import { Fit, Livro, Tags, Fit2, Texto, Titulo, Autor, Descricao, Preco, Box, Flexbox2,
+        Qlabel, Qinput, Qbutton, PrecoTaverna } from "../styles/userStyles/BookStyles"
 
 export default function Book() {
     return (
@@ -30,10 +29,10 @@ export default function Book() {
             </Livro>
             <Preco>
                 <Box>
-                    <Flexbox>
-                        <FaBeer aria-hidden="true"></FaBeer>
-                        <p> R$ 39,90 </p>
-                    </Flexbox>
+                    <PrecoTaverna>
+                        <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                        <span>R$ 39,90</span>
+                    </PrecoTaverna>
                     <Flexbox2>
                         <Qlabel for="quantidade">Quantidade:</Qlabel>
                         <Qinput type="number" id="quantidade" name="quantidade" min="1"><br></br></Qinput>

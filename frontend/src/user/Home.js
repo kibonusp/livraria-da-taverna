@@ -37,9 +37,9 @@ export default function Home() {
                                 <TituloLivro>I, Robot</TituloLivro>
                                 <Autor>Isaac Asimov</Autor>
                                 <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
+                                    <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                    <span>R$ 10,00</span>
+                                </PrecoTaverna>
                             </Link>
                         </Livro>
                         <Livro>

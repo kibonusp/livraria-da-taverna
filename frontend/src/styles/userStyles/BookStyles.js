@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import taverna from "../../assets/taverna.png"
-//import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-//import Beer from '@styled-icons/typicons/Beer'
 
 
 export const Fit = styled.div`
@@ -17,11 +15,10 @@ export const Livro = styled.div`
 `
 
 export const Tags = styled.div`
-    width: 70%;
     display: flex;
     justify-content: flex-start;
-    margin-top: 100px;
-    margin-bottom: 40px;
+    margin-top: 1em;
+    margin-bottom: 1em;
     p{
         background-color: #502514;
         opacity: 70%;
@@ -58,7 +55,7 @@ export const Texto = styled.div`
 `
 
 export const Titulo = styled.p`
-    font-size: 48px;
+    font-size: 35px;
     font-weight: 600;
     line-height: 59px;
     letter-spacing: 0em;
@@ -69,7 +66,7 @@ export const Titulo = styled.p`
 
 export const Autor = styled.p`
     color: #999999;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 37px;
     letter-spacing: 0em;
@@ -79,7 +76,7 @@ export const Autor = styled.p`
 
 export const Descricao = styled.p`
     color: #502514;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 36px;
     letter-spacing: 0em;
@@ -96,6 +93,15 @@ export const Preco = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+`
+export const PrecoTaverna = styled.div`
+    display: flex;
+    align-items: center;
+    color: #502514;
+    i {
+        margin-right: 0.4em;
+    }
+    margin-bottom: 20px;
 `
 
 export const Box = styled.div`
@@ -116,16 +122,6 @@ export const Box = styled.div`
 `
 
 
-export const Flexbox = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 5em;
-    p{
-        margin-left: 5%;
-    }
-`
 export const Flexbox2 = styled.div`
     display: flex;
     flex-direction: row;
@@ -159,8 +155,8 @@ export const Qbutton = styled.div`
     border-width: 2px;
     border-color: #502514;
     border-style: solid;
-    text-align: center;
-    text-decoration: none;
+    display: flex;
+    align-items: center;
 `
 
 export const FaBeer = styled.i`
@@ -168,10 +164,3 @@ export const FaBeer = styled.i`
     color: #502514;
     font-size:20px;
 `
-
-// export const Cerveja = styled(Beer)`
-//     margin-right: 8px;
-//     color: #502514;
-//     font-size:20px;
-// `
-
