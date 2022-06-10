@@ -8,7 +8,7 @@ export const Container = styled.footer`
     font-size: 0.85rem;
     width: 100%;
     height: 12vh;
-    margin-top: 1em;
+    margin-top: 0;
     position: sticky;
 `
 
