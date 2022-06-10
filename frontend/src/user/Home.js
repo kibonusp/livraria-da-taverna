@@ -8,7 +8,7 @@ import livro3 from "../assets/duna.jpeg"
 import livro4 from "../assets/1984.jpg"
 import livro5 from "../assets/vermelho.jpeg"
 import { Painel, LogoPhoto, Scroll, Circulo, Container, Secao, SecaoUl, Titulo, Seta, 
-            Livro, ImgLivro, TituloLivro, Autor, PrecoTaverna, FaBeer, Preco } from "../styles/userStyles/HomeStyles"
+            Livro, ImgLivro, TituloLivro, Autor, PrecoTaverna } from "../styles/userStyles/HomeStyles"
 
 
 export default function Home() {
@@ -37,9 +37,9 @@ export default function Home() {
                                 <TituloLivro>I, Robot</TituloLivro>
                                 <Autor>Isaac Asimov</Autor>
                                 <PrecoTaverna>
-                                    <FaBeer aria-hidden="true"></FaBeer>
-                                    <Preco>R$ 10,00</Preco> 
-                                </PrecoTaverna>
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
+                            </PrecoTaverna>
                             </Link>
                         </Livro>
                         <Livro>
@@ -47,8 +47,8 @@ export default function Home() {
                             <TituloLivro>Sapiens: Uma breve história da humanidade</TituloLivro>
                             <Autor>Yuval Noah Harari</Autor>
                             <PrecoTaverna>
-                                <FaBeer aria-hidden="true"></FaBeer>
-                                <Preco>R$ 10,00</Preco> 
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
                             </PrecoTaverna>
                         </Livro>
                         <Livro>
@@ -56,8 +56,8 @@ export default function Home() {
                             <TituloLivro>Duna</TituloLivro>
                             <Autor>Frank Herbert</Autor>
                             <PrecoTaverna>
-                                <FaBeer aria-hidden="true"></FaBeer>
-                                <Preco>R$ 10,00</Preco> 
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
                             </PrecoTaverna>
                         </Livro>
                         <Livro>
@@ -65,8 +65,8 @@ export default function Home() {
                             <TituloLivro>1984</TituloLivro>
                             <Autor>George Orwell</Autor>
                             <PrecoTaverna>
-                                <FaBeer aria-hidden="true"></FaBeer>
-                                <Preco>R$ 10,00</Preco> 
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
                             </PrecoTaverna>
                         </Livro>
                         <Livro>
@@ -74,8 +74,8 @@ export default function Home() {
                             <TituloLivro>Sherlock Holmes: Um Estudo em Vermelho</TituloLivro>
                             <Autor>Arthur Conan Doyle</Autor>
                             <PrecoTaverna>
-                                <FaBeer aria-hidden="true"></FaBeer>
-                                <Preco>R$ 10,00</Preco> 
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
                             </PrecoTaverna>
                         </Livro>
                         <Seta>
@@ -95,8 +95,8 @@ export default function Home() {
                             <TituloLivro>I, Robot</TituloLivro>
                             <Autor>Isaac Asimov</Autor>
                             <PrecoTaverna>
-                                <FaBeer aria-hidden="true"></FaBeer>
-                                <Preco>R$ 10,00</Preco> 
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
                             </PrecoTaverna>
                         </Livro>
                         <Livro>
@@ -104,8 +104,8 @@ export default function Home() {
                             <TituloLivro>Sapiens: Uma breve história da humanidade</TituloLivro>
                             <Autor>Yuval Noah Harari</Autor>
                             <PrecoTaverna>
-                                <FaBeer aria-hidden="true"></FaBeer>
-                                <Preco>R$ 10,00</Preco> 
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
                             </PrecoTaverna>
                         </Livro>
                         <Livro>
@@ -113,8 +113,8 @@ export default function Home() {
                             <TituloLivro>Duna</TituloLivro>
                             <Autor>Frank Herbert</Autor>
                             <PrecoTaverna>
-                                <FaBeer aria-hidden="true"></FaBeer>
-                                <Preco>R$ 10,00</Preco> 
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
                             </PrecoTaverna>
                         </Livro>
                         <Livro>
@@ -122,8 +122,8 @@ export default function Home() {
                             <TituloLivro>1984</TituloLivro>
                             <Autor>George Orwell</Autor>
                             <PrecoTaverna>
-                                <FaBeer aria-hidden="true"></FaBeer>
-                                <Preco>R$ 10,00</Preco> 
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
                             </PrecoTaverna>
                         </Livro>
                         <Livro>
@@ -131,8 +131,8 @@ export default function Home() {
                             <TituloLivro>Sherlock Holmes: Um Estudo em Vermelho</TituloLivro>
                             <Autor>Arthur Conan Doyle</Autor>
                             <PrecoTaverna>
-                                <FaBeer aria-hidden="true"></FaBeer>
-                                <Preco>R$ 10,00</Preco> 
+                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                <span>R$ 10,00</span>
                             </PrecoTaverna>
                         </Livro>
                         <Seta>
