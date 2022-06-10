@@ -6,6 +6,7 @@ export const Container = styled.div`
     align-items: center;
     margin-top: 1.5em;
     min-height: 68vh;
+    margin-bottom: 3em;
 `
 
 export const Description = styled.h1`
@@ -27,7 +28,6 @@ export const Action = styled.div`
     &:hover {
         background-color: #502514;
         color: #B4441C;
-
     }
 `
 

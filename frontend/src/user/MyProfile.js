@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { FormDiv, FormInput, FormLabel, FileDiv, FormFile, Button, Delete } from "../styles/adminStyles/formStyle"
+import { FormDiv, FormInput, FormLabel, FileDiv, FormFile, FormButton } from "../styles/adminStyles/formStyle"
 import { Container, Description, ActionDiv } from "../styles/adminStyles/HomeAdminStyle"
 import { useState } from "react"
 
@@ -11,6 +11,7 @@ export default function MyProfile() {
         let paths = filepath.split("\\");
         setFileName(paths[paths.length - 1]);
     }
+    
     return (
         <Container>
             <Description>Seu Perfil</Description>
@@ -50,14 +51,10 @@ export default function MyProfile() {
             </FormDiv>
             <ActionDiv width="70">
                 <Link to="/admin/admins/add">
-                    <Button>Página Admin</Button>
+                    <FormButton>Salvar</FormButton>
                 </Link>
-                <Link to="/admin/admins/add">
-                    <Button>Editar Página</Button>
-                </Link>
-                <Link to="/admin/admins/add">
-                    <Delete>Apagar Perfil</Delete>
-                </Link>
+                <FormButton>Editar Página</FormButton>
+                <FormButton delete="true">Deletar Perfil</FormButton>
             </ActionDiv>
         </Container>
     )

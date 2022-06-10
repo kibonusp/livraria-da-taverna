@@ -1,147 +1,56 @@
-import { Link } from "react-router-dom"
 import logoPhoto from "../assets/logo_fundo.png"
-import setaE from "../assets/arrow-left-solid.svg"
-import setaD from "../assets/arrow-right-solid.svg"
-import livro1 from "../assets/robot.jpeg"
-import livro2 from "../assets/sapiens.jpg"
-import livro3 from "../assets/duna.jpeg"
-import livro4 from "../assets/1984.jpg"
-import livro5 from "../assets/vermelho.jpeg"
-import { Painel, LogoPhoto, Scroll, Circulo, Container, Secao, SecaoUl, Titulo, Seta, 
-            Livro, ImgLivro, TituloLivro, Autor, PrecoTaverna } from "../styles/userStyles/HomeStyles"
+import i_robot from "../assets/robot.jpeg"
+import sapiens from "../assets/sapiens.jpg"
+import duna from "../assets/duna.jpeg"
+import year from "../assets/1984.jpg"
+import vermelho from "../assets/vermelho.jpeg"
+import davinci from "../assets/davinci.jpg"
+import { Painel, LogoPhoto, Scroll, Circulo, Container } from "../styles/userStyles/HomeStyles"
 
+import HomeSecao from "./HomeSecao"
+
+import { useEffect, useState } from "react"
 
 export default function Home() {
+    const livros = [
+        {title: "I, Robot", author: "Isaac Asimov", price: "R$ 10,00", cover: i_robot},
+        {title: "Sapiens: Uma breve história da humanidade", author: "Yuval Noah Harari", price: "R$ 10,00", cover: sapiens},
+        {title: "Duna", author: "Frank Herbert", price: "R$ 10,00", cover: duna},
+        {title: "1984", author: "George Orwell", price: "R$ 10,00", cover: year},
+        {title: "Sherlock Holmes: Um Estudo em Vermelho", author: "Arthur Conan Doyle", price: "R$ 10,00", cover: vermelho},
+        {title: "O Código Da Vinci", author: "Dan Brown", price: "R$ 10,00", cover: davinci}
+    ]
+
+    const paineis = ["red", "blue", "green"]
+
+    const [painel, setPainel] = useState(0);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setPainel((painel+1)%paineis.length);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, [painel, paineis.length]);
+
     return (
         <>
-            <Painel>
+            <Painel color={paineis[painel]}>
                 <LogoPhoto src={logoPhoto} alt="Logo da livraria" />
                 <Scroll>
-                    <Circulo>
-                        <div id="atual"></div>
-                    </Circulo>
-                    <Circulo></Circulo>
-                    <Circulo></Circulo>
+                    {
+                        paineis.map((color, index) =>
+                        index === painel ? 
+                        <Circulo key={index}>
+                            <div id="atual"></div>
+                        </Circulo> :
+                        <Circulo key={index} />)
+                    }
                 </Scroll>
             </Painel>
             <Container>
-                <Secao>
-                    <Titulo>Mais Vendidos</Titulo>
-                    <SecaoUl>
-                        <Seta>
-                            <img class="seta_svg" src={setaE} alt="seta"></img>
-                        </Seta> 
-                        <Livro>
-                            <Link to="/book">
-                                <ImgLivro src={livro1} alt="livro1" />
-                                <TituloLivro>I, Robot</TituloLivro>
-                                <Autor>Isaac Asimov</Autor>
-                                <PrecoTaverna>
-                                    <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                    <span>R$ 10,00</span>
-                                </PrecoTaverna>
-                            </Link>
-                        </Livro>
-                        <Livro>
-                            <ImgLivro src={livro2} alt="livro2" />
-                            <TituloLivro>Sapiens: Uma breve história da humanidade</TituloLivro>
-                            <Autor>Yuval Noah Harari</Autor>
-                            <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
-                        </Livro>
-                        <Livro>
-                            <ImgLivro src={livro3} alt="livro3" />
-                            <TituloLivro>Duna</TituloLivro>
-                            <Autor>Frank Herbert</Autor>
-                            <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
-                        </Livro>
-                        <Livro>
-                            <ImgLivro src={livro4} alt="livro4" />
-                            <TituloLivro>1984</TituloLivro>
-                            <Autor>George Orwell</Autor>
-                            <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
-                        </Livro>
-                        <Livro>
-                            <ImgLivro src={livro5} alt="livro5" />
-                            <TituloLivro>Sherlock Holmes: Um Estudo em Vermelho</TituloLivro>
-                            <Autor>Arthur Conan Doyle</Autor>
-                            <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
-                        </Livro>
-                        <Seta>
-                            <img class="seta_svg" src={setaD} alt="seta"></img>
-                        </Seta>
-                    </SecaoUl>
-                </Secao>
+                <HomeSecao nome="Mais Vendidos" livros={livros}/>
                 <hr></hr>
-                <Secao>
-                    <Titulo>Lançamentos</Titulo>
-                    <SecaoUl>
-                        <Seta>
-                            <img class="seta_svg" src={setaE} alt="seta"></img>
-                        </Seta> 
-                        <Livro>
-                            <ImgLivro src={livro1} alt="livro1" />
-                            <TituloLivro>I, Robot</TituloLivro>
-                            <Autor>Isaac Asimov</Autor>
-                            <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
-                        </Livro>
-                        <Livro>
-                            <ImgLivro src={livro2} alt="livro2" />
-                            <TituloLivro>Sapiens: Uma breve história da humanidade</TituloLivro>
-                            <Autor>Yuval Noah Harari</Autor>
-                            <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
-                        </Livro>
-                        <Livro>
-                            <ImgLivro src={livro3} alt="livro3" />
-                            <TituloLivro>Duna</TituloLivro>
-                            <Autor>Frank Herbert</Autor>
-                            <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
-                        </Livro>
-                        <Livro>
-                            <ImgLivro src={livro4} alt="livro4" />
-                            <TituloLivro>1984</TituloLivro>
-                            <Autor>George Orwell</Autor>
-                            <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
-                        </Livro>
-                        <Livro>
-                            <ImgLivro src={livro5} alt="livro5" />
-                            <TituloLivro>Sherlock Holmes: Um Estudo em Vermelho</TituloLivro>
-                            <Autor>Arthur Conan Doyle</Autor>
-                            <PrecoTaverna>
-                                <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
-                                <span>R$ 10,00</span>
-                            </PrecoTaverna>
-                        </Livro>
-                        <Seta>
-                            <img class="seta_svg" src={setaD} alt="seta"></img>
-                        </Seta>
-                    </SecaoUl>
-                </Secao>
+                <HomeSecao nome="Lançamentos" livros={livros}/>
             </Container>
         </>
     )
 }
-
