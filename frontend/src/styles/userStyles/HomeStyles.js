@@ -4,9 +4,10 @@ export const Painel = styled.div`
     padding-top: 50px;
     width: 100%;
     height: auto;
-    background-color: #B4441C;
+    background-color: ${props => props.color};
     text-align:center; 
     padding-bottom: 10px;
+    
 `
 
 export const LogoPhoto = styled.img`
