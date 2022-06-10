@@ -94,14 +94,15 @@ export const Seta = styled.li`
 
 
 export const Livro = styled.li`
-    text-decoration: none;
-    float: left;
-    list-style: none;
-    transition: all 0.3s ease-in-out;
-    &:hover{
-        width: 140px;
-        height: 210px;
+    list-style-type: none;
+    a {
+        text-decoration: none;
+        float: left;
+        color: #502514;
+        list-style: none;
+        transition: all 0.3s ease-in-out;
     }
+    
 `
 
 export const ImgLivro = styled.img`
@@ -131,16 +132,10 @@ export const Autor = styled.p`
 export const PrecoTaverna = styled.div`
     display: flex;
     align-items: center;
+    color: #502514;
+    i {
+        margin-right: 0.4em;
+    }
 `
 
-export const FaBeer = styled.i`
-    margin-right: 8px;
-    color: #502514;
-    font-size:20px;
-`
-export const Preco = styled.p`
-    font-weight: bold;
-    margin: 2px;
-    color: #502514;
-    font-size:20px;
-`
+
