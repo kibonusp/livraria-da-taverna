@@ -4,6 +4,9 @@ export const ResultList = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    a {
+        text-decoration: none;
+    }
 `
 
 export const Result = styled.div`

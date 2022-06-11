@@ -15,6 +15,7 @@ import Users from "./admin/Users";
 import Products from "./admin/Products";
 import AddProduct from "./admin/AddProduct";
 import EditProduct from "./admin/EditProduct";
+import EditProductForm from "./admin/EditProductForm";
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                 <Route path="admin/products" element={<Products />} />
                 <Route path="admin/products/add" element={<AddProduct />}/>
                 <Route path="admin/products/edit" element={<EditProduct />}/>
+                <Route path="admin/products/edit/form" element={<EditProductForm />}/>
                 <Route path="genders" element={<Genders />} />
                 <Route path="cart" element={<Cart />} />
                 <Route path="book" element={<Book />} />
