@@ -38,7 +38,7 @@ export default function AddAdmin({data, setData}) {
                 {
                     users.map((user, index) => 
                         !user.admin ? 
-                        <Result key={index}onClick={() => turnAdmin(user.name)}>
+                        <Result key={index} onClick={() => turnAdmin(user.name)}>
                             <Profile>
                                 <img src={images[user.photo]} alt="Admin" />
                                 <p>{user.name}</p>
