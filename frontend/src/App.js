@@ -16,6 +16,9 @@ import Products from "./admin/Products";
 import AddProduct from "./admin/AddProduct";
 import EditProduct from "./admin/EditProduct";
 import EditProductForm from "./admin/EditProductForm";
+import Finalizar from "./user/Finalizar";
+import Login from "./user/Login";
+import Cadastro from "./user/Cadastro";
 
 function App() {
     return (
@@ -38,6 +41,9 @@ function App() {
                 <Route path="book" element={<Book />} />
                 <Route path="myProfile" element={<MyProfile />} />
                 <Route path="search" element={<Search />} />
+                <Route path="cart/confirm" element={<Finalizar />} />
+                <Route path="login" element={<Login />} />
+                <Route path="cadastro" element={<Cadastro />} />
             </Routes>
             <Footer />
         </>

@@ -13,7 +13,9 @@ export default function Navbar() {
             <Profile>
                 <UserPhoto src={userPhoto} alt="Foto do usuário" />
                 <Link to="/myProfile">Oi, Gabriel!</Link>
-                <Sair>Sair</Sair>
+                <Link to="/login">
+                    <Sair>Sair</Sair>
+                </Link>
             </Profile>
             <Link to="/"><Logo src={logo} alt="Logo da livraria" /></Link>
             <Utils>
