@@ -2,6 +2,10 @@ import { Link } from "react-router-dom"
 import logo from "../assets/logo.png"
 import userPhoto from "../assets/user.jpg"
 import { NavHeader, UserPhoto, Profile, Logo, Utils, Links, Sair } from "../styles/componentsStyles/NavbarStyle"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faCartShopping} from '@fortawesome/free-solid-svg-icons'
+
+
 
 export default function Navbar() {
     return (
@@ -16,8 +20,8 @@ export default function Navbar() {
                 <Links>
                     <Link to="/genders">Gêneros</Link>
                     <Link to="/admin">Admin</Link>
-                    <Link to="/cart"><i class="fa fa-shopping-cart logos_nav" aria-hidden="true"></i></Link>
-                    <Link to="/search"><i class="fa fa-search logos_nav" aria-hidden="true"></i></Link>
+                    <Link to="/cart"><FontAwesomeIcon icon={faCartShopping} /></Link>
+                    <Link to="/search"><FontAwesomeIcon icon={faSearch} /></Link>
                 </Links>
             </Utils>
         </NavHeader>
