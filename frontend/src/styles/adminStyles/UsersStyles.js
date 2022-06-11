@@ -19,6 +19,8 @@ export const Result = styled.div`
     color: #f5f5f5;
     justify-content: space-between;  
     font-size: 1.15rem;
+    margin-bottom: 1em;
+    transition: all 0.25s;
     
     img {
         width: 2.5em;
@@ -42,6 +44,10 @@ export const Result = styled.div`
             width: 2.5em;
             height: 2.5em;
         }
+    }
+
+    &:hover {
+        background-color: #703b26;
     }
 `
 

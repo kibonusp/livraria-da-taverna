@@ -16,28 +16,32 @@ import Products from "./admin/Products";
 import AddProduct from "./admin/AddProduct";
 import EditProduct from "./admin/EditProduct";
 import EditProductForm from "./admin/EditProductForm";
+import database from './data.json';
+import { useState } from "react";
 
 function App() {
+    const [data, setData] = useState(database);
+
     return (
         <>
             <Navbar />
             <Routes>
-                <Route path="/" element={<App />} />
-                <Route index element={<Home />} />
-                <Route path="admin" element={<Admin />}/>
-                <Route path="admin/admins" element={<Admins />} />
-                <Route path="admin/admins/add" element={<AddAdmin />} />
-                <Route path="admin/admins/remove" element={<RemoveAdmin />} />
-                <Route path="admin/users" element={<Users />} />
-                <Route path="admin/products" element={<Products />} />
-                <Route path="admin/products/add" element={<AddProduct />}/>
-                <Route path="admin/products/edit" element={<EditProduct />}/>
-                <Route path="admin/products/edit/form" element={<EditProductForm />}/>
-                <Route path="genders" element={<Genders />} />
-                <Route path="cart" element={<Cart />} />
-                <Route path="book" element={<Book />} />
-                <Route path="myProfile" element={<MyProfile />} />
-                <Route path="search" element={<Search />} />
+                <Route path="/" element={<App data={data} setData={setData}/>} />
+                <Route index element={<Home data={data} setData={setData}/>} />
+                <Route path="admin" element={<Admin data={data} setData={setData}/>}/>
+                <Route path="admin/admins" element={<Admins data={data} setData={setData}/>} />
+                <Route path="admin/admins/add" element={<AddAdmin data={data} setData={setData}/>} />
+                <Route path="admin/admins/remove" element={<RemoveAdmin data={data} setData={setData}/>} />
+                <Route path="admin/users" element={<Users data={data} setData={setData}/>} />
+                <Route path="admin/products" element={<Products data={data} setData={setData}/>} />
+                <Route path="admin/products/add" element={<AddProduct data={data} setData={setData}/>}/>
+                <Route path="admin/products/edit" element={<EditProduct data={data} setData={setData}/>}/>
+                <Route path="admin/products/edit/form" element={<EditProductForm data={data} setData={setData}/>}/>
+                <Route path="genders" element={<Genders data={data} setData={setData}/>} />
+                <Route path="cart" element={<Cart data={data} setData={setData}/>} />
+                <Route path="book" element={<Book data={data} setData={setData}/>} />
+                <Route path="myProfile" element={<MyProfile data={data} setData={setData}/>} />
+                <Route path="search" element={<Search data={data} setData={setData}/>} />
             </Routes>
             <Footer />
         </>
