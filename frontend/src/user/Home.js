@@ -1,4 +1,4 @@
-import logoPhoto from "../assets/logo_fundo.png"
+import logoPhoto from "../assets/logo_removido.png"
 import i_robot from "../assets/robot.jpeg"
 import sapiens from "../assets/sapiens.jpg"
 import duna from "../assets/duna.jpeg"
@@ -21,7 +21,8 @@ export default function Home() {
         {title: "O Código Da Vinci", author: "Dan Brown", price: "R$ 10,00", cover: davinci}
     ]
 
-    const paineis = ["red", "blue", "green"]
+    //const paineis = ["#9c3e25", "#b15427", "#B4441C"]
+    const paineis = ["#773622", "#cb7f2b", "#B4441C"]
 
     const [painel, setPainel] = useState(0);
     useEffect(() => {
