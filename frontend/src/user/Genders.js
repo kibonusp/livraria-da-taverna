@@ -5,7 +5,7 @@ import setaD from "../assets/arrow-right-solid.svg"
 import { Painel, LogoPhoto, Scroll, Circulo} from "../styles/userStyles/HomeStyles"
 import { Container, Description, ActionDiv, Row, Gender, Seta } from "../styles/userStyles/GenderStyles"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMasksTheater, faCoffee, faHandSpock, faGhost, faLandmark, faHeart, faSkullCrossbones} from '@fortawesome/free-solid-svg-icons'
+import { faMasksTheater, faHandSpock, faGhost, faLandmark, faHeart, faSkullCrossbones} from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Genders() {
