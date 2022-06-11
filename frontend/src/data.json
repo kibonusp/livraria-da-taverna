@@ -1,0 +1,53 @@
+{
+    "users": [
+        {
+            "name": "Gabriel Freitas Ximenes de Vasconcelos",
+            "email": "gabriel.vasconcelos@usp.br",
+            "telephone": "(61) 93213-6969",
+            "address": "Rua Cleyton da Silva, 69420",
+            "password": "123456",
+            "photo": "user",
+            "admin": true
+        },
+        {
+            "name": "Rodrigo Lopes Assaf",
+            "email": "roassaf@usp.br",
+            "telephone": "(11) 92834-9289",
+            "address": "Rua Cleyton da Silva, 69420",
+            "password": "123456",
+            "photo": "arabe",
+            "admin": false
+        },
+        {
+            "name": "Raíssa Torres Barreira",
+            "email": "raissabarreira@usp.br",
+            "telephone": "(21) 99132-1269",
+            "address": "Rua Cleyton da Silva, 69420",
+            "password": "123456",
+            "photo": "admin",
+            "admin": false
+        }
+    ],
+    "products": [
+        {
+            "name": "Sapiens: Uma breve história da humanidade",
+            "author": ["Yuval Noah Harari"],
+            "description": "O planeta Terra tem cerca de 4,5 bilhões de anos. Numa fração ínfima desse tempo, uma espécie entre incontáveis outras o dominou: nós, humanos. Somos os animais mais evoluídos e mais destrutivos que jamais viveram. Sapiens é a obra-prima de Yuval Noah Harari e o consagrou como um dos pensadores mais brilhantes da atualidade.",
+            "genders": ["Geografia", "História", "Educacional"],
+            "cover": "./assets/sapiens.jpg",
+            "price": 45,
+            "available": 50,
+            "sold": 70
+        },
+        {
+            "name": "1984",
+            "author": ["George Orwell"],
+            "description": "Após uma guerra global, semelhante à segunda grande guerra, porém com mais bombas atômicas, o mundo foi dividido em três continentes: Lestásia, Eurásia e Oceania, onde fica a cidade de Londres. Esse último é comandado pelo líder Big Brother, a figura máxima de poder e controle, “o olho que tudo vê”.",
+            "genders": ["Ficção", "Política", "Drama"],
+            "cover": "./assets/1984.jpg",
+            "price": 35.50,
+            "available": 30,
+            "sold": 80
+        }
+    ]
+}

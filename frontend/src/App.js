@@ -19,8 +19,12 @@ import EditProductForm from "./admin/EditProductForm";
 import Finalizar from "./user/Finalizar";
 import Login from "./user/Login";
 import Cadastro from "./user/Cadastro";
+import database from './data.json';
+import { useState } from "react";
 
 function App() {
+    const [data, setData] = useState(database);
+
     return (
         <>
             <Navbar />
