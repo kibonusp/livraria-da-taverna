@@ -35,7 +35,7 @@
             "description": "O planeta Terra tem cerca de 4,5 bilhões de anos. Numa fração ínfima desse tempo, uma espécie entre incontáveis outras o dominou: nós, humanos. Somos os animais mais evoluídos e mais destrutivos que jamais viveram. Sapiens é a obra-prima de Yuval Noah Harari e o consagrou como um dos pensadores mais brilhantes da atualidade.",
             "genders": ["Geografia", "História", "Educacional"],
             "cover": "./assets/sapiens.jpg",
-            "price": 45,
+            "price": "R$ 45,00",
             "available": 50,
             "sold": 70
         },
@@ -45,7 +45,7 @@
             "description": "Após uma guerra global, semelhante à segunda grande guerra, porém com mais bombas atômicas, o mundo foi dividido em três continentes: Lestásia, Eurásia e Oceania, onde fica a cidade de Londres. Esse último é comandado pelo líder Big Brother, a figura máxima de poder e controle, “o olho que tudo vê”.",
             "genders": ["Ficção", "Política", "Drama"],
             "cover": "./assets/1984.jpg",
-            "price": 35.50,
+            "price": "R$ 35,50",
             "available": 30,
             "sold": 80
         }

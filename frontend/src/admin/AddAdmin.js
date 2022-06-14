@@ -12,22 +12,27 @@ export default function AddAdmin({data, setData}) {
     useEffect(() => {
         let newUsers = []
         for (let user of data.users) {
-            if (!user.admin && user.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().startsWith(search.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()))
+            let formatedUser = user.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+            let formatedSearch = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+            if (!user.admin && formatedUser.includes(formatedSearch))
                 newUsers.push(user);
         }
         setUsers(newUsers);
     }, [search, update, data.users])
-    
-    const turnAdmin = (name) => {
-        console.log("turn to admin");
+
+    const turnAdmin = name => {
         let datacopy = data;
-        for (let i = 0; i < data.users.length; i++) {
+        let i = 0;
+        let found = false;
+        while (i < data.users.length && !found) {
             if (datacopy.users[i].name === name) {
                 datacopy.users[i].admin = true;
+                setData(datacopy);
                 setUpdate(!update);
+                found = true;
             }
+            i++;
         }
-        setData(datacopy);
     }
 
     return (
@@ -40,7 +45,7 @@ export default function AddAdmin({data, setData}) {
                         !user.admin ? 
                         <Result key={index} onClick={() => turnAdmin(user.name)}>
                             <Profile>
-                                <img src={images[user.photo]} alt="Admin" />
+                                <img src={images[user.photo]} alt={user.name} />
                                 <p>{user.name}</p>
                             </Profile>
                         </Result> :

@@ -13,7 +13,7 @@ export default function EditProductForm() {
 
     return (
         <Container>
-            <Description>Criação de Produto</Description>
+            <Description>Edição de Produto</Description>
             <FormDiv>
                 <FormLabel>Nome</FormLabel>
                 <FormInput />

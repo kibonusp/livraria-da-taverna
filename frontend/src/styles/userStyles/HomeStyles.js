@@ -76,6 +76,8 @@ export const Seta = styled.li`
     padding: 0px;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
+    user-select: none;
+
     & .seta_svg {
         transition: all 0.2s ease-in-out;
     }

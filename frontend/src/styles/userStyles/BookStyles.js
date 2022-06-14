@@ -89,7 +89,7 @@ export const Preco = styled.div`
     width:30%;
     background-image: url(${taverna});
     box-shadow: inset 0 0 0 1000px rgba(180,68,28,.4);
-    min-height: 100vh;
+    min-height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
