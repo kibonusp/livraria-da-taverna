@@ -15,22 +15,14 @@ export const Button = styled.div`
     }
 `
 
-/*
-export const Delete = styled.div`
-    padding: 10%;
-    width: max-content;
-    background-color: #F5F5F5;
-    transition: all 0.5s;
-    border: 2px solid red;
-    border-radius: 15px;
-    color: red;
-    font-size: 1.8rem;
-    &:hover {
-        background-color: red;
-        color: #F5F5F5;
-    }
+export const FormForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5em;
+    min-height: 68vh;
+    margin-bottom: 3em;
 `
-*/
 
 export const FormLabel = styled.h2`
     color: #B4441C;

@@ -21,14 +21,13 @@ export default function Home() {
         {title: "O Código Da Vinci", author: "Dan Brown", price: "R$ 10,00", cover: davinci}
     ]
 
-    //const paineis = ["#9c3e25", "#b15427", "#B4441C"]
     const paineis = ["#773622", "#cb7f2b", "#B4441C"]
 
     const [painel, setPainel] = useState(0);
     useEffect(() => {
         const timer = setTimeout(() => {
             setPainel((painel+1)%paineis.length);
-        }, 2000);
+        }, 4000);
         return () => clearTimeout(timer);
     }, [painel, paineis.length]);
 

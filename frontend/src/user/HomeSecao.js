@@ -9,7 +9,6 @@ export default function HomeSecao({nome, livros}) {
     const [livrosSection, setLivrosSection] = useState(livros);
 
     const moveLeft = () => {
-        console.log("quero mover pra esq")
         const newLivros = livrosSection;
         const lastBook = newLivros.pop()
         newLivros.unshift(lastBook);
@@ -17,7 +16,6 @@ export default function HomeSecao({nome, livros}) {
     }
 
     const moveRight = () => {
-        console.log("quero mover pra dir")
         const newLivros = livrosSection;
         const firstBook = newLivros.shift();
         newLivros.push(firstBook);
