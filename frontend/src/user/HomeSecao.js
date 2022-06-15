@@ -4,6 +4,8 @@ import { Secao, SecaoUl, Titulo, Seta,
     Livro, ImgLivro, TituloLivro, Autor, PrecoTaverna } from "../styles/userStyles/HomeStyles"
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBeer} from '@fortawesome/free-solid-svg-icons'
 
 export default function HomeSecao({nome, livros}) {
     const [livrosSection, setLivrosSection] = useState(livros);
@@ -39,7 +41,7 @@ export default function HomeSecao({nome, livros}) {
                                 <TituloLivro>{livro.title}</TituloLivro>
                                 <Autor>{livro.author}</Autor>
                                 <PrecoTaverna>
-                                    <i className="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                    <FontAwesomeIcon icon={faBeer} className="beer"/>
                                     <span>{livro.price}</span>
                                 </PrecoTaverna>
                             </Link>

@@ -11,7 +11,6 @@ export const Fit = styled.div`
 export const Livro = styled.div`
     width: 70%;
     padding-left: 5%;
-    z-index: -1;
 `
 
 export const Tags = styled.div`
@@ -19,16 +18,23 @@ export const Tags = styled.div`
     justify-content: flex-start;
     margin-top: 1em;
     margin-bottom: 1em;
-    p{
+    button{
         background-color: #502514;
         opacity: 70%;
         color: #F5F5F5;
-        display: inline;
         margin-right: 30px;
-        padding: 10px 50px;
+        padding: 8px 40px;
         border-radius: 5em;
+        border: none;
         text-align: center;
-        font-size: 20px;
+        font-size: 17px;
+        cursor: pointer;
+        transition: all 0.5s;
+        font-family: Gilroy;
+        &:hover {
+            background-color: #502514;
+            opacity: 100%;
+        }
     }
 `
 
@@ -37,7 +43,7 @@ export const Fit2 = styled.div`
     display: flex;
     padding-right: 50px;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 
     img[alt="Capa Sapiens"] {
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -98,7 +104,7 @@ export const PrecoTaverna = styled.div`
     display: flex;
     align-items: center;
     color: #502514;
-    i {
+    .beer {
         margin-right: 0.4em;
     }
     margin-bottom: 20px;
@@ -128,6 +134,14 @@ export const Flexbox2 = styled.div`
     justify-content: center;
     align-items: center;
     padding-bottom: 1.5em;
+    input {
+        width: 40px;
+        border: 2px solid #502514;
+        background-color: None;
+        color: #502514;
+        height: 25px;
+        border-radius: 1em;
+    }
 `
 
 
@@ -136,31 +150,17 @@ export const Qlabel = styled.div`
     padding-right: 0.5em;
 `
 
-export const Qinput = styled.div`
-    width: 40px;
-    border: 2px solid #502514;
-    background-color: None;
-    color: #502514;
-    height: 25px;
-    border-radius: 1em;
-`
-
 export const Qbutton = styled.div`
-    width: 70%;
-    height: 100px;
+    padding: 5%;
+    width: max-content;
+    transition: all 0.5s;
     background-color: #502514;
     color: #F5F5F5;
-    border-radius: 30px;
-    font-size: 20px;
-    border-width: 2px;
-    border-color: #502514;
-    border-style: solid;
-    display: flex;
-    align-items: center;
-`
-
-export const FaBeer = styled.i`
-    margin-right: 8px;
-    color: #502514;
-    font-size:20px;
+    font-size: 1.3rem;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+        background-color: #B4441C;
+    }
 `

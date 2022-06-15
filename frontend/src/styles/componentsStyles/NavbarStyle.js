@@ -47,6 +47,10 @@ export const Sair = styled.button`
     font-weight: 700;
     font-size: 0.95rem;
     border: none;
+    cursor: pointer;
+    &:hover {
+        font-size: 1rem;
+    }
 `
 
 export const Logo = styled.img`

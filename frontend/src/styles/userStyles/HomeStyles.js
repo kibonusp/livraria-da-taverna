@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
+
 export const Painel = styled.div`
-    padding-top: 50px;
     width: 100%;
-    height: auto;
+    height: 15.5rem;
     background-color: ${props => props.color};
     text-align:center; 
     padding-bottom: 10px;
@@ -11,7 +11,7 @@ export const Painel = styled.div`
 `
 
 export const LogoPhoto = styled.img`
-    width: 20%;
+    width: 18%;
     height: auto;
     display: block;
     margin-left: auto;
@@ -23,17 +23,17 @@ export const Scroll = styled.div`
 `
 
 export const Circulo = styled.div`
-    width: 15px;
-    height: 15px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
     background-color: rgb(255, 255, 255);
-    margin: 20px;
+    margin: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     #atual {
-        width: 10px;
-        height: 10px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background-color: #502514;
     }
@@ -61,6 +61,7 @@ export const SecaoUl = styled.ul`
 
 export const Titulo = styled.h1`
     padding:20px;
+    font-size: 1.8rem;
     color: #502514;
 `
 
@@ -136,7 +137,7 @@ export const PrecoTaverna = styled.div`
     display: flex;
     align-items: center;
     color: #502514;
-    i {
+    .beer {
         margin-right: 0.4em;
     }
 `
