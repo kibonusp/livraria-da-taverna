@@ -8,11 +8,12 @@ export default function Product() {
     const [inputButton, setInputButton] = useState(1);
 
     const addOne = () => {
-        document.getElementById('vol').value++;
+        setInputButton(inputButton + 1);
     }
 
     const minusOne = () => {
-        if(document.getElementById('vol').value > 1)document.getElementById('vol').value--;
+        if (inputButton > 1)
+            setInputButton(inputButton - 1);
     }
 
     return (
@@ -31,7 +32,7 @@ export default function Product() {
                 <Row space="center">
                     <InputButton onClick={() => addOne()}>+</InputButton>
                     <Quantidade>
-                        <input type="number" id="vol" name="vol" min="1" max="50" defaultValue="1"></input>
+                        <input type="number" min={1} max={50} value={inputButton} onChange={e => setInputButton(e.target.value)}/>
                     </Quantidade>
                     <InputButton onClick={() => minusOne()}>-</InputButton>
                 </Row>

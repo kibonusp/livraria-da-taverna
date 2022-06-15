@@ -1,4 +1,4 @@
-import { Cover, Container, Row, Items, Name, Preco,  Head} from "../styles/userStyles/CartStyles"
+import { Container, Row, Items, Name, Preco,  Head} from "../styles/userStyles/CartStyles"
 import {FormButton } from "../styles/adminStyles/formStyle";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer } from '@fortawesome/free-solid-svg-icons'
