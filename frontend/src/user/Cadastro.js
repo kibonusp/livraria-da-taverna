@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom"
-import { FormDiv, FormInput, FormLabel, Container, Description, Button, Box } from "../styles/userStyles/LoginStyles"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileArrowDown} from '@fortawesome/free-solid-svg-icons'
+import { FormDiv, FormInput, FormLabel, FormFile, FileDiv, Container, Description, Button, Box } from "../styles/userStyles/LoginStyles"
+import { useState } from "react"
 
 
 export default function Cadastro() {
+    const [fileName, setFileName] = useState("Não selecionado")
+
+    const changeFile = e => {
+        let filepath = e.target.value;
+        let paths = filepath.split("\\");
+        setFileName(paths[paths.length - 1]);
+    }
+
     return (
         <Container>
             <Box>
@@ -12,33 +19,39 @@ export default function Cadastro() {
                 
                 <FormDiv>
                     <FormLabel>Nome</FormLabel>
-                    <FormInput placeholder="Gabriel Freitas Ximenes Vasconcelos" readOnly="true"></FormInput>
+                    <FormInput placeholder="Gabriel Freitas Ximenes Vasconcelos"></FormInput>
                 </FormDiv>
                 <FormDiv>
                     <FormLabel>Email</FormLabel>
-                    <FormInput placeholder="gabriel.vasconcelos@usp.br" readOnly="true"></FormInput>
+                    <FormInput placeholder="gabriel.vasconcelos@usp.br"></FormInput>
                 </FormDiv>
                 <FormDiv>
                     <FormLabel>Telefone</FormLabel>
-                    <FormInput placeholder="(61) 991436969" readOnly="true"></FormInput>
+                    <FormInput placeholder="(61) 991436969"></FormInput>
                 </FormDiv>
                 <FormDiv>
                     <FormLabel>Nome</FormLabel>
-                    <FormInput placeholder="Rua Cleyton da Silva 69420" readOnly="true"></FormInput>
+                    <FormInput placeholder="Rua Cleyton da Silva 69420"></FormInput>
                 </FormDiv>
                 <FormDiv>
                     <FormLabel>Senha</FormLabel>
-                    <FormInput placeholder="********" readOnly="true"></FormInput>
+                    <FormInput placeholder="********"></FormInput>
                 </FormDiv>
                 <FormDiv>
                     <FormLabel>Confirme senha</FormLabel>
-                    <FormInput placeholder="********" readOnly="true"></FormInput>
+                    <FormInput placeholder="********"></FormInput>
                 </FormDiv>
                 <FormDiv>
-                    <FormLabel>Foto</FormLabel>
-                    <p>Faça upload da sua foto aqui</p>
-                    <FontAwesomeIcon icon={faFileArrowDown} color="#502514"/>
+                    <FormLabel className="foto" >Foto</FormLabel>
+                    <FileDiv>
+                        <p>{fileName}</p>
+                        <FormFile>
+                            Escolher arquivo
+                            <input type="file" onInput={e => changeFile(e)}/>
+                        </FormFile>
+                    </FileDiv>
                 </FormDiv>
+                
                 <Link to="/">
                     <Button>Cadastrar</Button>
                 </Link>

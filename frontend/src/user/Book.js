@@ -1,16 +1,24 @@
 import livro from "../assets/sapiens.jpg"
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBeer} from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom"
 import { Fit, Livro, Tags, Fit2, Texto, Titulo, Autor, Descricao, Preco, Box, Flexbox2,
-        Qlabel, Qinput, Qbutton, PrecoTaverna } from "../styles/userStyles/BookStyles"
+        Qlabel, Qbutton, PrecoTaverna } from "../styles/userStyles/BookStyles"
 
 export default function Book() {
     return (
         <Fit>
             <Livro>
                 <Tags>
-                    <p>Geografia</p>
-                    <p>História</p>
-                    <p>Educacional</p>
+                    <Link to="/search">
+                        <button>Geografia</button>
+                    </Link>
+                    <Link to="/search">
+                        <button>História</button>
+                    </Link>
+                    <Link to="/search">
+                        <button>Educacional</button>
+                    </Link>
                 </Tags>
                 <Fit2>
                     <img src={livro} alt="Capa Sapiens"></img>
@@ -30,14 +38,14 @@ export default function Book() {
             <Preco>
                 <Box>
                     <PrecoTaverna>
-                        <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                        <FontAwesomeIcon icon={faBeer} className="beer"/>
                         <span>R$ 39,90</span>
                     </PrecoTaverna>
                     <Flexbox2>
                         <Qlabel for="quantidade">Quantidade:</Qlabel>
-                        <Qinput type="number" id="quantidade" name="quantidade" min="1"><br></br></Qinput>
+                        <input type="number" min="1"></input>
                     </Flexbox2>
-                    <Qbutton name="carrinho">Adicionar ao carrinho</Qbutton>
+                    <Qbutton name="carrinho">Adicionar <br></br>ao carrinho</Qbutton>
                 </Box>
             </Preco>
         </Fit> 

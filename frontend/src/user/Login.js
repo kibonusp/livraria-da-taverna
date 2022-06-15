@@ -17,7 +17,7 @@ export default function Login() {
                     <FormLabel>Senha</FormLabel>
                     <FormInput placeholder="********" ></FormInput>
                 </FormDiv>
-                <a href="/cadastro" >Não tem uma conta? Crie uma aqui</a>
+                <a className="cadastrar" href="/cadastro" >Não tem uma conta? Crie uma aqui</a>
                 <Link to="/">
                     <Button>Logar</Button>
                 </Link>

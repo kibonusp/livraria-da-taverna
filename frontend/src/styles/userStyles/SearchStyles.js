@@ -47,7 +47,7 @@ export const PrecoTaverna = styled.div`
     align-items: center;
     font-size: 1.2rem;
     margin-top: 1em;
-    i {
+    .beer {
         margin-right: 0.4em;
     }
 `

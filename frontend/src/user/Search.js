@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import livro1 from "../assets/sapiens.jpg"
 import livro2 from "../assets/investigador.webp"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBeer} from '@fortawesome/free-solid-svg-icons'
 import { Livro, Cover, Descricao, Titulo, Autor, PrecoTaverna, Row, Resultados, HR, Container, Filtros, Generos, PrecoInput, Disponibilidade } from "../styles/userStyles/SearchStyles"
 
 export default function Search() {
@@ -43,7 +45,7 @@ export default function Search() {
                                 <Titulo>Sapiens: Uma breve história da humanidade</Titulo>
                                 <Autor>Yuval Noah Harari</Autor>
                                 <PrecoTaverna>
-                                    <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                    <FontAwesomeIcon icon={faBeer} className="beer"/>
                                     <span>R$ 10,00</span>
                                 </PrecoTaverna>
                             </Descricao>
@@ -56,7 +58,7 @@ export default function Search() {
                                 <Titulo>O investigador inteligente</Titulo>
                                 <Autor>Benjamin Graham</Autor>
                                 <PrecoTaverna>
-                                    <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                    <FontAwesomeIcon icon={faBeer} className="beer"/>
                                     <span>R$ 10,00</span>
                                 </PrecoTaverna>
                             </Descricao>
@@ -74,7 +76,7 @@ export default function Search() {
                                 <Titulo>Sapiens: Uma breve história da humanidade</Titulo>
                                 <Autor>Yuval Noah Harari</Autor>
                                 <PrecoTaverna>
-                                    <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                    <FontAwesomeIcon icon={faBeer} className="beer"/>
                                     <span>R$ 10,00</span>
                                 </PrecoTaverna>
                             </Descricao>
@@ -87,7 +89,7 @@ export default function Search() {
                                 <Titulo>O investigador inteligente</Titulo>
                                 <Autor>Benjamin Graham</Autor>
                                 <PrecoTaverna>
-                                    <i class="fa fa-2x fa-beer" aria-hidden="true"></i>
+                                    <FontAwesomeIcon icon={faBeer} className="beer"/>
                                     <span>R$ 10,00</span>
                                 </PrecoTaverna>
                             </Descricao>
