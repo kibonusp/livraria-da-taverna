@@ -142,6 +142,7 @@ export const FormButton = styled.button`
     font-family: Gilroy;
     font-weight: 600;
     transition: ${props => props.delete === "true" ? "all 0.5s" : "all 0.25s"};
+    cursor: pointer;
     &:hover {
         background-color: ${props => props.delete === "true" ? "red" : "#502514"};
         color: ${props => props.delete === "true" ? "#ffffff" : "#B4441C"};

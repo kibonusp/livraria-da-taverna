@@ -1,8 +1,10 @@
-import { Cover, Container, Row, Items, Product, Name, Preco, Titulo, Valor, Delete, Quantidade} from "../styles/userStyles/CartStyles"
+import { Cover, Container, Row, Items, Name, Preco,  Head} from "../styles/userStyles/CartStyles"
 import {FormButton } from "../styles/adminStyles/formStyle";
-import { } from '@fortawesome/free-solid-svg-icons'
-
-import livro1 from "../assets/sapiens.jpg"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBeer } from '@fortawesome/free-solid-svg-icons'
+import Product from "./../components/Product";
+import { Link } from "react-router-dom";
+import PopUp from "../components/PopUp";
 
 
 export default function Cart() {
@@ -11,36 +13,35 @@ export default function Cart() {
             <Row>
                 <Container width="80%">
                     <h1>Carrinho de Compras</h1>
+                    <PopUp/>
                     <Items>
                         <Name>
-                            <p>Imagem</p>
-                            <p>Produto</p>
-                            <p>Preço</p>
-                            <p>Quantidade</p>
-
+                            <Head><div>Imagem</div></Head>
+                            <Head><div>Produto</div></Head>
+                            <Head><div>Preço</div></Head>
+                            <Head><div>Quantidade</div></Head>
                         </Name>
-                        <Product>
-                            <Cover src={livro1} alt="Capa do livro Sapiens" />
-                            <Titulo>Sapiens: Uma breve história da humanidade</Titulo>
-                            
-                            <Valor>R$ 10,00</Valor>
-                            
-                            <Quantidade>
-                                <input type="number" id="vol" name="vol" min="0" max="50"></input>
-                            </Quantidade>
-                            <Delete>X</Delete>
 
-                        </Product>
+                        <Product/>
+                        <Product/>
+                        <Product/>
+                        
                     </Items>
-
                 </Container>
-                <Container width="20%">
-                    <Preco>
 
+                <Container width="20%" img="on">
+                    <Preco>
+                        <p>Preço Total:</p>
+                        <span>
+                            <FontAwesomeIcon icon={faBeer} /> R$ 30,00
+                        </span>
+                        <p>Compre e leia no melhor ambiente, uma taverna!</p>
                     </Preco>
-                    <FormButton>
-                        Finalizar Compra
-                    </FormButton>
+                    <Link to="/cart/confirm">
+                        <FormButton>
+                            Finalizar Compra
+                        </FormButton>
+                    </Link>
 
                 </Container>
             </Row>
