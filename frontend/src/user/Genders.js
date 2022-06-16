@@ -13,7 +13,7 @@ export default function Genders() {
                 <Description>Gêneros</Description>
                 <Row>
                     <Seta>
-                        <img class="seta_svg" src={setaE} alt="seta"></img>
+                        <img className="seta_svg" src={setaE} alt="seta"></img>
                     </Seta>
                     <ActionDiv>
                         <Row>
@@ -58,7 +58,7 @@ export default function Genders() {
                         </Row>
                     </ActionDiv>
                     <Seta>
-                        <img class="seta_svg" src={setaD} alt="seta"></img>
+                        <img className="seta_svg" src={setaD} alt="seta"></img>
                     </Seta>
                 </Row>
             </Container>  

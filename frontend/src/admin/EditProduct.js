@@ -1,7 +1,7 @@
 import { Container, Description } from "../styles/adminStyles/HomeAdminStyle";
 import { ResultList, Result, Search } from '../styles/adminStyles/UsersStyles';
 import { Link } from "react-router-dom";
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect } from 'react';
 
 export default function EditProduct({data, setData}) {
     const [products, setProducts] = useState(data.products);
@@ -25,8 +25,8 @@ export default function EditProduct({data, setData}) {
             <Search onInput={e => setSearch(e.target.value)}/>
             <ResultList>
                 {
-                    products.map(product =>
-                        <Link to="/admin/products/edit/form">
+                    products.map((product, index) =>
+                        <Link key={index} to="/admin/products/edit/form" state={{ productName: product.name }}>
                             <Result>
                                 <p>{product.name}</p>
                                 <p>{product.author[0].split(' ')[product.author[0].split(' ').length-1].toUpperCase() + ", " + product.author[0].split(' ')[0].toUpperCase()}</p>
