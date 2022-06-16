@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { Description, Container } from '../styles/adminStyles/HomeAdminStyle'
 import { ResultList, Result, Profile, Search } from '../styles/adminStyles/UsersStyles'
-import images from '../images';
+import { userImages } from '../images';
 
 export default function AddAdmin({data, setData}) {
     const [users, setUsers] = useState(data.users);
@@ -45,7 +45,7 @@ export default function AddAdmin({data, setData}) {
                         !user.admin ? 
                         <Result key={index} onClick={() => turnAdmin(user.name)}>
                             <Profile>
-                                <img src={images[user.photo]} alt={user.name} />
+                                <img src={userImages[user.photo]} alt={user.name} />
                                 <p>{user.name}</p>
                             </Profile>
                         </Result> :

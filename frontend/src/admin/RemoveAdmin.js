@@ -1,4 +1,4 @@
-import images from '../images';
+import { userImages } from '../images';
 import close from '../assets/close.svg'
 import { useEffect, useState } from 'react'
 
@@ -45,7 +45,7 @@ export default function RemoveAdmin({data, setData}) {
                 users.map((user, index) => 
                     <Result key={index}>
                         <Profile>
-                            <img src={images[user.photo]} alt={user.name} />
+                            <img src={userImages[user.photo]} alt={user.name} />
                             <p>{user.name}</p>
                         </Profile>
                         <button onClick={() => deleteAdmin(user.name)}><img src={close} alt="Retirar privilégios de administrador" /></button>

@@ -44,15 +44,15 @@ export const Fit2 = styled.div`
     padding-right: 50px;
     justify-content: space-between;
     align-items: center;
+`
 
-    img[alt="Capa Sapiens"] {
-        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-        border-radius: 10px 25px 25px 10px;
-        display: block;
-        max-width:30%;
-        width: auto;
-        height: auto;
-    }
+export const Capa = styled.img`
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 10px 25px 25px 10px;
+    display: block;
+    max-width:30%;
+    width: 30rem;
+    height: auto;
 `
 
 export const Texto = styled.div`

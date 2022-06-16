@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { FormDiv, FormInput, FormLabel, FormFile, FileDiv, Container, Description, Button, Box } from "../styles/userStyles/LoginStyles"
+import { FormDiv, FormInput, FormLabel, FormFile, FileDiv, Container, Description, Box, FormButton } from "../styles/userStyles/LoginStyles"
 import { useState } from "react"
 
 
@@ -47,13 +47,13 @@ export default function Cadastro() {
                         <p>{fileName}</p>
                         <FormFile>
                             Escolher arquivo
-                            <input type="file" onInput={e => changeFile(e)}/>
+                            <input type="file" onInput={e => changeFile(e)} accept=".jpg,.png,.jpeg"/>
                         </FormFile>
                     </FileDiv>
                 </FormDiv>
                 
                 <Link to="/">
-                    <Button>Cadastrar</Button>
+                    <FormButton>Cadastrar</FormButton>
                 </Link>
             </Box>
         </Container>

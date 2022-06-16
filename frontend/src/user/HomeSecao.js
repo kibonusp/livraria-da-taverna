@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer} from '@fortawesome/free-solid-svg-icons'
+import { productImages } from '../images'
 
 export default function HomeSecao({nome, livros}) {
     const [livrosSection, setLivrosSection] = useState(livros);
@@ -21,7 +22,6 @@ export default function HomeSecao({nome, livros}) {
         const newLivros = livrosSection;
         const firstBook = newLivros.shift();
         newLivros.push(firstBook);
-        console.log(livros);
         setLivrosSection(prevLivros => [...newLivros]);
     }
 
@@ -36,9 +36,9 @@ export default function HomeSecao({nome, livros}) {
                     livrosSection.map((livro, index) =>
                         index <= 4 ?
                         <Livro key={index}>
-                            <Link to="/book">
-                                <ImgLivro src={livro.cover} alt={livro.title} />
-                                <TituloLivro>{livro.title}</TituloLivro>
+                            <Link to="/book" state={{ nome: livro.name }}>
+                                <ImgLivro src={productImages[livro.cover]} alt={livro.name} />
+                                <TituloLivro>{livro.name}</TituloLivro>
                                 <Autor>{livro.author}</Autor>
                                 <PrecoTaverna>
                                     <FontAwesomeIcon icon={faBeer} className="beer"/>

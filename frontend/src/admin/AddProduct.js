@@ -43,7 +43,6 @@ export default function AddProduct({data, setData}) {
 
             dataCopy.products.push(newProduct);
             setData(dataCopy);
-            console.log(newProduct)
         }
     }
 

@@ -39,20 +39,22 @@ export const FormInput = styled.input`
     font-weight: 600;
 `
 
-
-export const Button = styled.div`
-    padding: 1.5%;
+export const FormButton = styled.button`
+    border-radius: 15px;
     margin-left: 45%;
     width: max-content;
-    background-color: #B4441C;
-    transition: all 0.5s;
-    color: #F5F5F5;
-    font-size: 1.3rem;
-    border-radius: 15px;
-    text-decoration: none;
+    border: ${props => props.delete === "true" ? "2px solid red": "none"};
+    padding: 1em 0.5em;
+    font-size: 1.35rem;
+    background-color: ${props => props.delete === "true" ? "transparent": "#B4441C"};
+    color: ${props => props.delete === "true" ? "red": "#f5f5f5"};
+    font-family: Gilroy;
+    font-weight: 600;
+    transition: ${props => props.delete === "true" ? "all 0.5s" : "all 0.25s"};
+    cursor: pointer;
     &:hover {
-        background-color: #502514;
-        color: #B4441C;
+        background-color: ${props => props.delete === "true" ? "red" : "#502514"};
+        color: ${props => props.delete === "true" ? "#ffffff" : "#B4441C"};
     }
 `
 
