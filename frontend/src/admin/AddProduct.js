@@ -49,7 +49,6 @@ export default function AddProduct({data, setData}) {
     const changeFile = e => {
         let filepath = e.target.value;
         let paths = filepath.split("\\");
-        console.log(e.target.files);
         if (paths[paths.length-1])
             setFileName(paths[paths.length - 1]);
         else

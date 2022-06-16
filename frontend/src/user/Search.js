@@ -31,7 +31,7 @@ export default function Search() {
                 <h3>Disponibilidade</h3>
                     <Row>
                         <input type="checkbox" name="disponivel" id="disponivel"></input>
-                        <label for="disponivel">Apenas livros disponíveis</label>
+                        <label htmlFor="disponivel">Apenas livros disponíveis</label>
                     </Row>
                 </Disponibilidade>
             </Filtros>
