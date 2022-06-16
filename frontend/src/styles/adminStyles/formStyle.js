@@ -154,4 +154,3 @@ export const FormButton = styled.button`
         color: ${props => props.delete === "true" ? "#ffffff" : "#B4441C"};
     }
 `
-

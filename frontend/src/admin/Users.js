@@ -1,5 +1,5 @@
 import close from '../assets/close.svg'
-import { useImages, userImages } from '../images';
+import { userImages } from '../images';
 
 import { Description, Container } from '../styles/adminStyles/HomeAdminStyle'
 import { ResultList, Result, Profile, Search } from '../styles/adminStyles/UsersStyles'

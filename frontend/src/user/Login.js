@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { FormDiv, FormInput, FormLabel, Container, Description, Button, Box } from "../styles/userStyles/LoginStyles"
+import { FormDiv, FormInput, FormLabel, Container, Description, FormButton, Box } from "../styles/userStyles/LoginStyles"
 
 
 export default function Login() {
@@ -19,7 +19,7 @@ export default function Login() {
                 </FormDiv>
                 <a className="cadastrar" href="/cadastro" >Não tem uma conta? Crie uma aqui</a>
                 <Link to="/">
-                    <Button>Logar</Button>
+                    <FormButton>Logar</FormButton>
                 </Link>
             </Box>
         </Container>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Titulo, Container, FormDiv, FormInput, FormLabel, Button, ActionDiv, Row } from "../styles/userStyles/FinalizarStyles"
+import { Titulo, Container, FormDiv, FormInput, FormLabel, FormButton, ActionDiv, Row } from "../styles/userStyles/FinalizarStyles"
 
 export default function Finalizar() {
     return (
@@ -29,7 +29,7 @@ export default function Finalizar() {
                 </Row>
             </ActionDiv>
             <Link to="/">
-                <Button>Comprar</Button>
+                <FormButton>Comprar</FormButton>
             </Link>
             
         </Container>

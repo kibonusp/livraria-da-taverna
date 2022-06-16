@@ -1,24 +1,6 @@
 import styled from "styled-components";
 import taverna from "../../assets/taverna.png"
 
-export const Button = styled.div`
-    font-size: 1.5rem;
-    width: 10rem;
-    height: 3rem;
-    background-color: #B4441C;
-    color: #F5F5F5;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    transition: all 0.5s;
-    border-radius: 15px;
-    align-self: center;
-    padding-top: 15px;
-    &:hover {
-        background-color: #502514;
-        color: #B4441C;
-    }
-`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -136,5 +118,23 @@ export const FormFile = styled.label`
     }
     &:hover {
         color: #B4441C;
+    }
+`
+
+export const FormButton = styled.button`
+    border-radius: 15px;
+    width: 10em;
+    border: ${props => props.delete === "true" ? "2px solid red": "none"};
+    padding: 1em 0.5em;
+    font-size: 1.35rem;
+    background-color: ${props => props.delete === "true" ? "transparent": "#B4441C"};
+    color: ${props => props.delete === "true" ? "red": "#f5f5f5"};
+    font-family: Gilroy;
+    font-weight: 600;
+    transition: ${props => props.delete === "true" ? "all 0.5s" : "all 0.25s"};
+    cursor: pointer;
+    &:hover {
+        background-color: ${props => props.delete === "true" ? "red" : "#502514"};
+        color: ${props => props.delete === "true" ? "#ffffff" : "#B4441C"};
     }
 `
