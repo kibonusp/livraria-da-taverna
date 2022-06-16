@@ -1,5 +1,5 @@
 import close from '../assets/close.svg'
-import images from '../images';
+import { useImages, userImages } from '../images';
 
 import { Description, Container } from '../styles/adminStyles/HomeAdminStyle'
 import { ResultList, Result, Profile, Search } from '../styles/adminStyles/UsersStyles'
@@ -45,7 +45,7 @@ export default function Users({data, setData}) {
                     users.map((user, index) => 
                         <Result key={index}>
                             <Profile>
-                                <img src={images[user.photo]} alt={user.name} />
+                                <img src={userImages[user.photo]} alt={user.name} />
                                 <p>{user.name}</p>
                             </Profile>
                             <button onClick={() => deleteUser(user.name)}><img src={close} alt="Apagar usuario" /></button>

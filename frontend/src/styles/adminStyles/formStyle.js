@@ -48,6 +48,7 @@ export const FormInput = styled.input`
     padding: 0.4em 1em;
     color: #502514;
     font-weight: 600;
+    font-family: Gilroy;
 `
 
 export const FormText = styled.textarea`
@@ -63,6 +64,7 @@ export const FormText = styled.textarea`
     }
     color: #502514;
     font-weight: 600;
+    font-family: Gilroy;
 `
 
 export const FileDiv = styled.div`
@@ -110,9 +112,10 @@ export const FormStock = styled.input`
     font-size: 1.15rem;
     color: ${props => props.dark === "true" ? "white" : "#B4441C"};
     font-weight: 700;
-    width: 50%;
+    width: 8em;
     text-align: center;
     background-color: ${props => props.dark === "true" ? "#502514" : ""};
+    font-family: Gilroy;
     
     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
         -webkit-appearance: none;
@@ -121,6 +124,17 @@ export const FormStock = styled.input`
     &:focus {
         outline: none;
     }
+`
+
+export const FormStockRead = styled.p`
+    border: 2px solid #B4441C;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 1.15rem;
+    color: #B4441C;
+    font-weight: 700;
+    width: 8em;
+    text-align: center;
 `
 
 export const FormButton = styled.button`
