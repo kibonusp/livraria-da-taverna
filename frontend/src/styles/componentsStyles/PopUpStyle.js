@@ -1,61 +1,70 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    @-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-    }
-
-    @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
-    }
-    .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s
-    }
-`
-export const PopUpText = styled.span`
-    visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.1);
     z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -80px;
-    ::after{
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+export const Content = styled.div`
+    background-color: #B4441C;
+    color: white;
+    font-size: 3rem;
+    border-radius: 5vh;
+    box-shadow: 0 0 1rem black;
+
+    position: relative;
+    padding: 5%;
+    width: 100%;
+    max-width: 50%;
+`
+export const CloseButton = styled.button`
+    background-color: rgba(0,0,0,0);
+    border: none;
+    color: white;
+    font-size: 1em;
+
+    cursor: pointer;
+    
+    position: absolute;
+    top: 5%;
+    right: 5%;
+
+    transition: all 0.5s;
+    &:hover {
+        font-size: 1.2em;
     }
 
 `
+export const PopUpButton = styled.div`
+    width: ${props => props.width};
+    height: ${props => props.height};
+    padding: 1%;
 
-export const Content = styled.div`
-    background-color: #fff;
-    box-shadow: 10px 10px 60px #555;
-    display: inline-block;
-    height: auto;
-    max-width: 551px;
-    min-height: 100px;
-    vertical-align: middle;
-    width: 60%;
-    position: relative;
-    border-radius: 8px;
-    padding: 15px 5%;
-    
+    background-color: ${props => props.theme === "light" ? "white" : "#B4441C"};
+    color: ${props => props.theme === "light" ? "#B4441C": "white"};
+    border-radius: 4vh;
+    border-width: 1%;
+    border-style: solid;
+    border-color: ${props => props.theme === "light" ? "#B4441C": "white"};
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-self: center;
+
+    cursor: pointer;
+    transition: all 0.5s;
+    &:hover {
+        color: white;
+        border-color: white;
+        background-color: #502514;
+    }
 `

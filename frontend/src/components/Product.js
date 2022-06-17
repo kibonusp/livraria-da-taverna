@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom"
 import { Cover, Description, Titulo, Valor, Delete, Quantidade, Cell, InputButton} from "../styles/componentsStyles/ProductStyle"
 import { Row } from "../styles/userStyles/CartStyles"
+import PopUp from "../components/PopUp";
+import { PopUpButton } from "../styles/componentsStyles/PopUpStyle"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 import { productImages } from "../images"
+
 
 export default function Product({data, setData, productCart}) {
     const product = data.products[productCart.indexProduct];
@@ -35,6 +40,8 @@ export default function Product({data, setData, productCart}) {
         }
     }
 
+    const [buttonPopUp, setButtonPopUp] = useState(false);
+
     return (
         <Description>
             <Cell>
@@ -48,15 +55,28 @@ export default function Product({data, setData, productCart}) {
             </Cell>
             <Cell>
                 <Row space="center">
-                    <InputButton onClick={() => minusOne()}>-</InputButton>
+                    <InputButton onClick={() => minusOne()}>
+                        <FontAwesomeIcon icon={faMinus}/>
+                    </InputButton>
                     <Quantidade>
                         <input type="number" min={1} max={50} value={inputButton} onChange={e => setInputButton(e.target.value)}/>
                     </Quantidade>
-                    <InputButton onClick={() => addOne()}>+</InputButton>
+                    <InputButton onClick={() => addOne()}>
+                        <FontAwesomeIcon icon={faPlus}/>
+                    </InputButton>
                 </Row>
             </Cell>
             <Cell margin="ignore">
-                <Delete>X</Delete>
+                <Delete onClick={() => setButtonPopUp(true)}>
+                    <FontAwesomeIcon icon={faTrash}/>
+                </Delete>
+                <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
+                    <p>Tem certeza que deseja deletar este item?</p>
+                    <Row>
+                        <PopUpButton theme="light">Confirmar</PopUpButton>
+                        <PopUpButton onClick={() => setButtonPopUp(false)}>Cancelar</PopUpButton>
+                    </Row>
+                </PopUp>
             </Cell>
         </Description>
     )
