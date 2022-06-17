@@ -12,18 +12,19 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 `
 export const Content = styled.div`
     background-color: #B4441C;
     color: white;
-    font-size: 3rem;
+    font-size: 1.5rem;
     border-radius: 5vh;
     box-shadow: 0 0 1rem black;
 
     position: relative;
-    padding: 5%;
+    padding: 3%;
     width: 100%;
-    max-width: 50%;
+    max-width: 30%;
 `
 export const CloseButton = styled.button`
     background-color: rgba(0,0,0,0);

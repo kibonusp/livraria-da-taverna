@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { Description, Container } from '../styles/adminStyles/HomeAdminStyle'
-import { ResultList, Result, Profile, Search } from '../styles/adminStyles/UsersStyles'
-import { userImages } from '../images';
+import { ResultList,Search } from '../styles/adminStyles/UsersStyles'
+import PromoteName from '../components/PromoteName';
 
 export default function AddAdmin({data, setData}) {
     const [users, setUsers] = useState(data.users);
@@ -20,20 +20,6 @@ export default function AddAdmin({data, setData}) {
         setUsers(newUsers);
     }, [search, update, data.users])
 
-    const turnAdmin = name => {
-        let datacopy = data;
-        let i = 0;
-        let found = false;
-        while (i < data.users.length && !found) {
-            if (datacopy.users[i].name === name) {
-                datacopy.users[i].admin = true;
-                setData(datacopy);
-                setUpdate(!update);
-                found = true;
-            }
-            i++;
-        }
-    }
 
     return (
         <Container>
@@ -43,12 +29,7 @@ export default function AddAdmin({data, setData}) {
                 {
                     users.map((user, index) => 
                         !user.admin ? 
-                        <Result key={index} onClick={() => turnAdmin(user.name)}>
-                            <Profile>
-                                <img src={userImages[user.photo]} alt={user.name} />
-                                <p>{user.name}</p>
-                            </Profile>
-                        </Result> :
+                        <PromoteName key={index} data={data} setData={setData} update={update} setUpdate={setUpdate} user={user}/> :
                         ""
                     )
                 }

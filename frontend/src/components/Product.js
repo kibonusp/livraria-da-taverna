@@ -13,6 +13,7 @@ export default function Product({data, setData, productCart}) {
     const product = data.products[productCart.indexProduct];
     const [inputButton, setInputButton] = useState(productCart.quantity);
     const [cartIndex, setCartIndex] = useState(0);
+    const [buttonPopUp, setButtonPopUp] = useState(false);
 
     useEffect(() => {
         let i = 0;
@@ -40,7 +41,6 @@ export default function Product({data, setData, productCart}) {
         }
     }
 
-    const [buttonPopUp, setButtonPopUp] = useState(false);
 
     return (
         <Description>

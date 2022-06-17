@@ -1,6 +1,9 @@
 import { Description } from "../styles/adminStyles/HomeAdminStyle";
 import { FormLabel, FormDiv, FormInput, FormText, FormFile, FileDiv, FormStock, FormButton, FormForm } from "../styles/adminStyles/formStyle";
+
 import { useState } from "react";
+import PopUp from "../components/PopUp";
+
 
 export default function AddProduct({data, setData}) {
     const [fileName, setFileName] = useState("Arquivo não selecionado");
@@ -11,6 +14,7 @@ export default function AddProduct({data, setData}) {
     const [generos, setGeneros] = useState([]);
     const [preco, setPreco] = useState("");
     const [quantidade, setQuantidade] = useState(0);
+    const [buttonPopUp, setButtonPopUp] = useState(false);
 
     const createProduct = e => {
         e.preventDefault();
@@ -43,6 +47,7 @@ export default function AddProduct({data, setData}) {
 
             dataCopy.products.push(newProduct);
             setData(dataCopy);
+            setButtonPopUp(true);
         }
     }
 
@@ -56,6 +61,7 @@ export default function AddProduct({data, setData}) {
     }
 
     return (
+        <>
         <FormForm>
             <Description>Criação de Produto</Description>
             <FormDiv>
@@ -94,5 +100,9 @@ export default function AddProduct({data, setData}) {
             </FormDiv>
             <FormButton style={{marginTop: "2em"}} onClick={e => createProduct(e)}>Salvar</FormButton>
         </FormForm>
+        <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
+            <p> O produto {nome} foi criado. </p>
+        </PopUp>
+        </>
     )
 }
