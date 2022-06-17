@@ -27,7 +27,7 @@ function App() {
 
     return (
         <>
-            <Navbar />
+            <Navbar data={data} setData={setData} />
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route index element={<Home data={data} setData={setData} />} />
