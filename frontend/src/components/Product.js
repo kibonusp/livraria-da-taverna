@@ -1,39 +1,57 @@
 import { Link } from "react-router-dom"
-import livro1 from "../assets/sapiens.jpg"
 import { Cover, Description, Titulo, Valor, Delete, Quantidade, Cell, InputButton} from "../styles/componentsStyles/ProductStyle"
 import { Row } from "../styles/userStyles/CartStyles"
-import { useState } from "react"
 import PopUp from "../components/PopUp";
 import { PopUpButton } from "../styles/componentsStyles/PopUpStyle"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { useEffect, useState } from "react"
+import { productImages } from "../images"
 
 
-export default function Product() {
-    const [inputButton, setInputButton] = useState(1);
+export default function Product({data, setData, productCart}) {
+    const product = data.products[productCart.indexProduct];
+    const [inputButton, setInputButton] = useState(productCart.quantity);
+    const [cartIndex, setCartIndex] = useState(0);
+
+    useEffect(() => {
+        let i = 0;
+        let found = false;
+        while (i < data.cart.length && !found) {
+            if (data.cart[i].indexProduct === productCart.indexProduct)
+                setCartIndex(i);
+            i++;
+        }
+    }, [data, productCart])
 
     const addOne = () => {
+        let datacopy = data;
+        datacopy.cart[cartIndex].quantity += 1;
         setInputButton(inputButton + 1);
+        setData(datacopy);
     }
 
     const minusOne = () => {
-        if (inputButton > 1)
+        if (inputButton > 1) {
+            let datacopy = data;
+            datacopy.cart[cartIndex].quantity -= 1;
             setInputButton(inputButton - 1);
+            setData(datacopy);
+        }
     }
 
     const [buttonPopUp, setButtonPopUp] = useState(false);
 
     return (
-
         <Description>
             <Cell>
-                <Cover src={livro1} alt="Capa do livro Sapiens" />
+                <Cover src={productImages[product.cover]} alt="Capa do livro Sapiens" />
             </Cell>
             <Cell>
-                <Titulo><Link to="/book">Sapiens: Uma breve história da humanidade</Link></Titulo>
+                <Titulo><Link to="/book">{product.name}</Link></Titulo>
             </Cell>
             <Cell>
-                <Valor>R$ 10,00</Valor>
+                <Valor>{product.price}</Valor>
             </Cell>
             <Cell>
                 <Row space="center">
@@ -61,6 +79,5 @@ export default function Product() {
                 </PopUp>
             </Cell>
         </Description>
-
     )
 }

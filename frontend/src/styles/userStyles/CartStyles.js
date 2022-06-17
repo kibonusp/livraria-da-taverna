@@ -29,7 +29,7 @@ export const Items = styled.table`
     
 `
 
-export const Name = styled.tr`
+export const Name = styled.thead`
     margin: 0%;
     
     `

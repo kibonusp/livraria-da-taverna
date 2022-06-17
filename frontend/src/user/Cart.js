@@ -6,7 +6,7 @@ import Product from "./../components/Product";
 import { Link } from "react-router-dom";
 
 
-export default function Cart() {
+export default function Cart({data, setData}) {
     return (
         <>
             <Row>
@@ -15,15 +15,19 @@ export default function Cart() {
                     
                     <Items>
                         <Name>
-                            <Head><div>Imagem</div></Head>
-                            <Head><div>Produto</div></Head>
-                            <Head><div>Preço</div></Head>
-                            <Head><div>Quantidade</div></Head>
+                            <tr>
+                                <Head><div>Imagem</div></Head>
+                                <Head><div>Produto</div></Head>
+                                <Head><div>Preço</div></Head>
+                                <Head><div>Quantidade</div></Head>
+                            </tr>
                         </Name>
 
-                        <Product/>
-                        <Product/>
-                        <Product/>
+                        {
+                            data.cart.map((productCart, index) =>
+                                <Product key={index} data={data} setData={setData} productCart={productCart} />
+                            )
+                        }
                         
                     </Items>
                 </Container>
