@@ -90,5 +90,9 @@
             "sold": 35
         }
     ],
-    "cart": []
+    "cart": [],
+    "logged": {
+        "situation": false,
+        "user": -1
+    }
 }
