@@ -45,10 +45,10 @@ export default function Product({data, setData, productCart}) {
     return (
         <Description>
             <Cell>
-                <Cover src={productImages[product.cover]} alt="Capa do livro Sapiens" />
+                <Link to="/book" state={{ nome: product.name }}><Cover src={productImages[product.cover]} alt="Capa do livro Sapiens" /></Link>
             </Cell>
             <Cell>
-                <Titulo><Link to="/book">{product.name}</Link></Titulo>
+                <Titulo><Link to="/book" state={{ nome: product.name }}>{product.name}</Link></Titulo>
             </Cell>
             <Cell>
                 <Valor>{product.price}</Valor>

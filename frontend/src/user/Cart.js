@@ -22,12 +22,13 @@ export default function Cart({data, setData}) {
                                 <Head><div>Quantidade</div></Head>
                             </tr>
                         </Name>
-
-                        {
-                            data.cart.map((productCart, index) =>
-                                <Product key={index} data={data} setData={setData} productCart={productCart} />
-                            )
-                        }
+                        <tbody>
+                            {
+                                data.cart.map((productCart, index) =>
+                                    <Product key={index} data={data} setData={setData} productCart={productCart} />
+                                )
+                            }
+                        </tbody>
                         
                     </Items>
                 </Container>
