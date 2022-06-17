@@ -1,16 +1,19 @@
-import {Container, PopUpText } from "../styles/componentsStyles/PopUpStyle"
+// import {ArrowClickPopUp, ArrowPopUpContent } from "../styles/componentsStyles/PopUpStyle"
 
-export default function PopUp() {
-    function myFunction() {
-        var popup = document.getElementById("myPopup");
-        popup.classList.toggle("show");
-    }
-    return (
-        <>
-            <Container onClick={() => myFunction()}>Click me!
-            <PopUpText id="myPopup">Popup text...</PopUpText>
-            </Container>
-        </>
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CloseButton, Container, Content } from "../styles/componentsStyles/PopUpStyle";
+import {faClose } from '@fortawesome/free-solid-svg-icons'
 
-    )
+export default function PopUp(props){
+
+    return (props.trigger)?(
+        <Container>
+            <Content>
+                <CloseButton onClick={() => props.setTrigger(false)}>
+                    <FontAwesomeIcon icon={faClose} />
+                </CloseButton>
+                { props.children}
+            </Content>
+        </Container>
+    ): "";
 }

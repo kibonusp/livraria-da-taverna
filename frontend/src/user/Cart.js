@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer } from '@fortawesome/free-solid-svg-icons'
 import Product from "./../components/Product";
 import { Link } from "react-router-dom";
-import PopUp from "../components/PopUp";
 
 
 export default function Cart() {
@@ -13,7 +12,7 @@ export default function Cart() {
             <Row>
                 <Container width="80%">
                     <h1>Carrinho de Compras</h1>
-                    <PopUp/>
+                    
                     <Items>
                         <Name>
                             <Head><div>Imagem</div></Head>
@@ -33,7 +32,7 @@ export default function Cart() {
                     <Preco>
                         <p>Preço Total:</p>
                         <span>
-                            <FontAwesomeIcon icon={faBeer} /> R$ 30,00
+                            <FontAwesomeIcon icon={faBeer} color="#925407"/> R$ 30,00
                         </span>
                         <p>Compre e leia no melhor ambiente, uma taverna!</p>
                     </Preco>

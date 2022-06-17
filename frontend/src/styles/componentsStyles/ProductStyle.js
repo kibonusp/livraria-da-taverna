@@ -70,10 +70,12 @@ export const Quantidade = styled.form`
 export const Delete = styled.button`
     background-color: red;
     color: white;
-    border: none;
-    width: 3em;
-    height: 3em;
-    border-radius: 100%;
+    border: 1px solid red;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.2rem;
+    border-radius: 10vh;
+
     transition: all 0.5s;
     cursor: pointer;
     &:hover{
@@ -86,11 +88,12 @@ export const InputButton = styled.button`
     background-color: #B4441C;
     color: white;
     border: none;
-    width: 2em;
-    height: 2em;
-    font-size: large;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.2em;
     margin: 5%;
     border-radius: 100%;
+
     transition: all 0.5s;
     cursor: pointer;
     &:hover{
