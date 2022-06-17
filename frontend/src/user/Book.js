@@ -1,4 +1,3 @@
-//import livro from "../assets/sapiens.jpg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
