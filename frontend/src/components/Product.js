@@ -26,18 +26,17 @@ export default function Product({data, setData, productCart}) {
     }, [data, productCart])
 
     const addOne = () => {
-        let datacopy = data;
-        datacopy.cart[cartIndex].quantity += 1;
+        let datacopy = data.cart;
+        datacopy[cartIndex].quantity += 1;
         setInputButton(inputButton + 1);
-        setData(datacopy);
+        setData({...data, "cart": datacopy});
     }
-
     const minusOne = () => {
         if (inputButton > 1) {
-            let datacopy = data;
-            datacopy.cart[cartIndex].quantity -= 1;
+            let datacopy = data.cart;
+            datacopy[cartIndex].quantity -= 1;
             setInputButton(inputButton - 1);
-            setData(datacopy);
+            setData({...data, "cart": datacopy});
         }
     }
 

@@ -60,6 +60,15 @@ export const Logo = styled.img`
 export const Utils = styled.div`
     display: flex;
     align-items: center;
+    .search-hover {
+        font-family: Gilroy;
+        width: 40%;
+        height: 2rem;
+        margin-left: 1em;
+        padding: 0em 1em;
+        border: none;
+        border-radius: 1rem;
+    }
 `
 
 export const Links = styled.div`
@@ -87,7 +96,4 @@ export const Links = styled.div`
 
         }
     }
-    
-
-    margin-right: 2em; 
 `

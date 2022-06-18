@@ -65,5 +65,6 @@ export const Preco = styled.div`
     }
     span{
         margin: 10%;
+        width: 100%;
     }
 `
