@@ -51,23 +51,16 @@ export const Seta = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.5s ease-in-out;
     border: none;
-    margin: 2em;
-    width: 5em;
-    height: 4.5em;
+    margin: 1em;
+    padding: 3vh;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
 
-    
-    & .seta_svg {
-        transition: all 0.2s ease-in-out;
-    }
     &:hover {
-        width: 6em;
-        height: 5em;
-    }
-
-    .seta_svg {
-        width:  50%;
-        height: 50%;
+        font-size: 3rem;
+        padding: ;
     }
 `

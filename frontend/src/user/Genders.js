@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom"
-import setaE from "../assets/arrow-left-solid.svg"
-import setaD from "../assets/arrow-right-solid.svg"
+
 import { Container, Description, ActionDiv, Row, Gender, Seta } from "../styles/userStyles/GenderStyles"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMasksTheater, faHandSpock, faGhost, faLandmark, faHeart, faSkullCrossbones} from '@fortawesome/free-solid-svg-icons'
+import { faMasksTheater, faHandSpock, faGhost, faLandmark, faHeart, faSkullCrossbones, faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Genders() {
@@ -13,7 +12,7 @@ export default function Genders() {
                 <Description>Gêneros</Description>
                 <Row>
                     <Seta>
-                        <img className="seta_svg" src={setaE} alt="seta"></img>
+                        <FontAwesomeIcon icon={faArrowLeft} />
                     </Seta>
                     <ActionDiv>
                         <Row>
@@ -58,7 +57,7 @@ export default function Genders() {
                         </Row>
                     </ActionDiv>
                     <Seta>
-                        <img className="seta_svg" src={setaD} alt="seta"></img>
+                        <FontAwesomeIcon icon={faArrowRight} />
                     </Seta>
                 </Row>
             </Container>  

@@ -1,9 +1,8 @@
-import close from '../assets/close.svg'
-import { userImages } from '../images';
-
 import { Description, Container } from '../styles/adminStyles/HomeAdminStyle'
-import { ResultList, Result, Profile, Search } from '../styles/adminStyles/UsersStyles'
+import { ResultList, Search } from '../styles/adminStyles/UsersStyles'
 import { useState, useEffect } from 'react'
+
+import UserName from '../components/UserName';
 
 export default function Users({data, setData}) {
     const [users, setUsers] = useState(data.users);
@@ -45,13 +44,7 @@ export default function Users({data, setData}) {
             <ResultList>
                 {
                     users.map((user, index) => 
-                        <Result key={index}>
-                            <Profile>
-                                <img src={userImages[user.photo]} alt={user.name} />
-                                <p>{user.name}</p>
-                            </Profile>
-                            <button onClick={() => deleteUser(user.name)}><img src={close} alt="Apagar usuario" /></button>
-                        </Result>
+                        <UserName key={index} data={data} setData={setData} update={update} setUpdate={setUpdate} user={user}/>
                     )
                 }
             </ResultList>

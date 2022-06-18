@@ -60,7 +60,7 @@ export const Box = styled.form`
     margin: 50px;
     width: auto;
     padding: 20px;
-    border-radius: 10%;
+    border-radius: 5rem;
     font-weight: 700;
     font-size: 30px;
     display: flex;
@@ -101,12 +101,14 @@ export const FileDiv = styled.div`
 `
 
 export const FormFile = styled.label`
-    border: 1px solid #502514;
+    //border: 1px solid #502514;
+    border: 1px solid #B4441C;
     font-size: 0.5em;
     display: flex;
     padding: 0.4em 1em;
     width: 7.8em;
-    color: #502514;
+    //color: #502514;
+    color: #B4441C;
     cursor: pointer;
     border-radius: 15px;
     align-items: center;
@@ -117,7 +119,8 @@ export const FormFile = styled.label`
         display: none;
     }
     &:hover {
-        color: #B4441C;
+        background-color: #B4441C;
+        color: #FFFFFF;
     }
 `
 

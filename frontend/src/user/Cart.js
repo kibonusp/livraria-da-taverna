@@ -4,9 +4,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer } from '@fortawesome/free-solid-svg-icons'
 import Product from "./../components/Product";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react"
 
 
 export default function Cart({data, setData}) {
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        console.log("oi")
+        let valor = 0
+        let i = 0;
+        while (i < data.cart.length) {
+            valor += parseFloat(data.products[data.cart[i].indexProduct].price.substring(3)) * data.cart[i].quantity;
+            setTotal(valor)
+            i++;
+        }
+    }, [data])
+
+    console.log(total)
+  
     return (
         <>
             <Row>
@@ -37,7 +53,7 @@ export default function Cart({data, setData}) {
                     <Preco>
                         <p>Preço Total:</p>
                         <span>
-                            <FontAwesomeIcon icon={faBeer} color="#925407"/> R$ 30,00
+                            <FontAwesomeIcon icon={faBeer} color="#925407"/> R$ {total}
                         </span>
                         <p>Compre e leia no melhor ambiente, uma taverna!</p>
                     </Preco>
@@ -52,3 +68,5 @@ export default function Cart({data, setData}) {
         </>
     )
 }
+
+

@@ -21,6 +21,7 @@ export const Result = styled.div`
     font-size: 1.15rem;
     margin-bottom: 1em;
     transition: all 0.25s;
+    cursor: ${props => props.cursor === "click" ? "pointer" : ""};
     
     img {
         width: 2.5em;
@@ -31,19 +32,16 @@ export const Result = styled.div`
     button {
         border: none;
         background-color: transparent;
-        width: 3em;
-        height: 3em;
         cursor: pointer;
         img {
             width: 2em;
             height: 2em;
         }
+        transition: all 0.5s;
+        font-size: 1.8em;
     }
     button:hover{
-        img {
-            width: 2.5em;
-            height: 2.5em;
-        }
+        font-size: 2.5em;
     }
 
     &:hover {

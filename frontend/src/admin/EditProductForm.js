@@ -1,7 +1,10 @@
 import { Description } from "../styles/adminStyles/HomeAdminStyle";
 import { FormLabel, FormDiv, FormInput, FormText, FormFile, FileDiv, FormStock, FormButton, FormStockRead, FormForm } from "../styles/adminStyles/formStyle";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import {useNavigate, useLocation } from "react-router-dom";
+import PopUp from "../components/PopUp";
+import { Row } from "../styles/userStyles/CartStyles";
+import { PopUpButton } from "../styles/componentsStyles/PopUpStyle";
 
 export default function EditProductForm({data, setData}) {
     const location = useLocation();
@@ -11,6 +14,9 @@ export default function EditProductForm({data, setData}) {
     const [editProduct, setEditProduct] = useState(data.products[0]);
     const [fileName, setFileName] = useState(data.products[0].cover);
     const [addStock, setAddStock] = useState(0);
+    const [buttonPopUp, setButtonPopUp] = useState(false);
+    const [buttonPopUpDelete, setButtonPopUpDelete] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         let i = 0;
@@ -42,6 +48,7 @@ export default function EditProductForm({data, setData}) {
         let datacopy = data;
         datacopy.products[productIndex] = updateProduct;
         setData(datacopy);
+        setButtonPopUp(true);
     }
 
     const changeFile = e => {
@@ -50,7 +57,24 @@ export default function EditProductForm({data, setData}) {
         setFileName(paths[paths.length - 1]);
     }
 
+    const deleteProduct = (e, name) => {
+        e.preventDefault();
+        let datacopy = data;
+        let i = 0;
+        let found = false;
+        while (i < data.products.length && !found) {
+            if (datacopy.products[i].name === name) {
+                datacopy.products.splice(i, 1);
+                setData(datacopy);
+                found = true
+            }
+            i++;
+        }
+        navigate(-1);
+    }
+
     return (
+        <>
         <FormForm>
             <Description>Edição de Produto</Description>
             <FormDiv>
@@ -95,7 +119,20 @@ export default function EditProductForm({data, setData}) {
                 <FormLabel>Quantidade vendida</FormLabel>
                 <FormStockRead>{product.sold}</FormStockRead>
             </FormDiv>
+            <br></br>
+            <FormButton delete="true" onClick={e => {e.preventDefault(); setButtonPopUpDelete(true); console.log("aaaaa")}}>Deletar Produto</FormButton>
             <FormButton style={{marginTop: "2em"}} onClick={e => editProductButton(e)}>Salvar</FormButton>
-        </FormForm>
+            </FormForm>
+        <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
+            <p> O produto {product.name} foi atualizado. </p>
+        </PopUp>
+        <PopUp trigger={buttonPopUpDelete} setTrigger={setButtonPopUpDelete}>
+            <p> O produto {product.name} será removido. </p>
+            <Row>
+                <PopUpButton onClick={e => deleteProduct(e, product.name)}theme="light">Confirmar</PopUpButton>
+                <PopUpButton onClick={() => setButtonPopUpDelete(false)}>Cancelar</PopUpButton>
+            </Row>
+        </PopUp>
+        </>
     )
 }
