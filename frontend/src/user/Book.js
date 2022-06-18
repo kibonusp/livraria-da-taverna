@@ -1,4 +1,3 @@
-//import livro from "../assets/sapiens.jpg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
@@ -33,26 +32,32 @@ export default function Book({data, setData}) {
             if (data.cart[j].indexProduct === i-1) {
                 setQuantidade(data.cart[j].quantity)
                 setInCart(true);
+                found = true;
             }
             j++;
         }
-
     }, [location, index, data]);
 
     const adicionarCarrinho = () => {
         let datacopy = data;
+        console.log("inCart: " + inCart);
         if (inCart) {
             let i = 0;
             let found = false;
             while (i < datacopy.cart.length && !found) {
-                if (datacopy.cart[i].indexProduct === index)
+                if (datacopy.cart[i].indexProduct === index) {
                     found = true;
+                }
                 i++;
             }
+            console.log("found: " + found)
+            console.log(datacopy.cart[i-1])
             datacopy.cart[i-1].quantity = quantidade;
         }
-        else
+        else {
             datacopy.cart.push({indexProduct: index, quantity: quantidade});
+            setInCart(true);
+        }
         setData(datacopy);
     }
 

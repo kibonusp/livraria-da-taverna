@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Container, Description, Action, ActionDiv } from "../styles/adminStyles/HomeAdminStyle"
 
-export default function Admins() {
+export default function Admins({data, setData}) {
     return (
         <Container>
             <Description>Escolha uma ação para realizar</Description>

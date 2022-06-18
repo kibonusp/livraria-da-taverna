@@ -30,9 +30,8 @@ export default function AddProduct({data, setData}) {
 
         if (foundIndex !== -1)
             alert("Produto com mesmo nome já existente.");
-        else if (fileName === "Arquivo não selecionado") {
+        else if (fileName === "Arquivo não selecionado")
             alert("Selecione uma imagem");
-        }
         else {
             const newProduct = {
                 "name": nome,
@@ -41,7 +40,7 @@ export default function AddProduct({data, setData}) {
                 "genders": generos,
                 "cover": fileName,
                 "price": preco,
-                "available": quantidade,
+                "available": parseInt(quantidade),
                 "sold": 0
             }
     
@@ -106,7 +105,7 @@ export default function AddProduct({data, setData}) {
             </FormDiv>
             <FormDiv centralize="true">
                 <FormLabel>Quantidade disponível</FormLabel>
-                <FormStock onInput={e => parseFloat(setQuantidade(e.target.value))} min="1" type="number" required/>
+                <FormStock onInput={e => setQuantidade(e.target.value)} min="1" type="number" required/>
             </FormDiv>
             <FormButton style={{marginTop: "2em"}} onClick={e => createProduct(e)}>Salvar</FormButton>
         </FormForm>

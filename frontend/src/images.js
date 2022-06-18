@@ -7,11 +7,13 @@ import duna from "./assets/duna.jpeg"
 import vermelho from "./assets/vermelho.jpeg"
 import davinci from "./assets/davinci.jpg"
 import robot from "./assets/robot.jpeg"
+import anonymous from "./assets/anonymous.webp"
 
 export const userImages = {
     "user": user,
     "arabe": arabe,
-    "admin": admin
+    "admin": admin,
+    "anonymous": anonymous
 };
 
 export const productImages = {
