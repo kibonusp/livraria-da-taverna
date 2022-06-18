@@ -54,7 +54,7 @@ export const FormInput = styled.input`
 `
 
 
-export const Box = styled.div`
+export const Box = styled.form`
     background-color: #FFFF;
     opacity: 1.0;
     margin: 50px;

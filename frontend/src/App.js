@@ -27,7 +27,7 @@ function App() {
 
     return (
         <>
-            <Navbar data={data} setData={setData} />
+            <Navbar key={data.logged} data={data} setData={setData} />
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route index element={<Home data={data} setData={setData} />} />
@@ -37,9 +37,9 @@ function App() {
                 <Route path="admin/admins/remove" element={<RemoveAdmin data={data} setData={setData} />} />
                 <Route path="admin/users" element={<Users data={data} setData={setData} />} />
                 <Route path="admin/products" element={<Products data={data} setData={setData} />} />
-                <Route path="admin/products/add" element={<AddProduct data={data} setData={setData} />}/>
+                <Route path="admin/products/add" element={<AddProduct data={data} setData={setData} />} />
                 <Route path="admin/products/edit" element={<EditProduct data={data} setData={setData} />}/>
-                <Route path="admin/products/edit/form" element={<EditProductForm data={data} setData={setData} />}/>
+                <Route path="admin/products/edit/form" element={<EditProductForm data={data} setData={setData} />} />
                 <Route path="genders" element={<Genders data={data} setData={setData} />} />
                 <Route path="cart" element={<Cart data={data} setData={setData} />} />
                 <Route path="book" element={<Book data={data} setData={setData} />} />

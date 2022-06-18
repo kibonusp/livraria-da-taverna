@@ -13,7 +13,7 @@ export default function Home({data, setData}) {
     useEffect(() => {
         const timer = setTimeout(() => {
             setPainel((painel+1)%paineis.length);
-        }, 4000);
+        }, 6000);
         return () => clearTimeout(timer);
     }, [painel, paineis.length]);
 
