@@ -4,7 +4,7 @@ import { Row } from "../styles/userStyles/CartStyles"
 import PopUp from "../components/PopUp";
 import { PopUpButton } from "../styles/componentsStyles/PopUpStyle"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
+import {faMinus, faPlus, faTrash} from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 import { productImages } from "../images"
 

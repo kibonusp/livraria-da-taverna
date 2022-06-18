@@ -1,5 +1,6 @@
 import { Description } from "../styles/adminStyles/HomeAdminStyle";
 import { FormLabel, FormDiv, FormInput, FormText, FormFile, FileDiv, FormStock, FormButton, FormForm } from "../styles/adminStyles/formStyle";
+import { Row } from "../styles/userStyles/CartStyles";
 
 import { useState } from "react";
 import PopUp from "../components/PopUp";
@@ -15,6 +16,7 @@ export default function AddProduct({data, setData}) {
     const [preco, setPreco] = useState("");
     const [quantidade, setQuantidade] = useState(0);
     const [buttonPopUp, setButtonPopUp] = useState(false);
+    const [genders, setGenders] = useState(data.genders);
 
     const createProduct = e => {
         e.preventDefault();
@@ -78,7 +80,15 @@ export default function AddProduct({data, setData}) {
             </FormDiv>
             <FormDiv>
                 <FormLabel>Gêneros</FormLabel>
-                <FormInput required onInput={e => setGeneros(e.target.value.split(','))}/>
+                <Row>
+                {/* {
+                    genders.map((gender, index) =>
+                        <select  key={index}>
+                            <option>{gender.name}</option>
+                        </select>
+                    )
+                } */}
+                </Row>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Preço</FormLabel>
