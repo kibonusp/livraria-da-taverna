@@ -22,13 +22,15 @@ export default function Users({data, setData}) {
     }, [search, update, data.users])
 
     const deleteUser = name => {
-        let datacopy = data;
+        let datacopy = data.users;
         let i = 0;
         let found = false;
         while (i < data.users.length && !found) {
-            if (datacopy.users[i].name === name) {
-                datacopy.users.splice(i, 1);
-                setData(datacopy);
+            if (datacopy[i].name === name) {
+                datacopy.splice(i, 1);
+                setData({...data, users: datacopy});
+                if (i === data.logged.user)
+                    setData({...data, logged: {situation: false, user: undefined}});
                 setUpdate(!update);
                 found = true
             }
