@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Painel = styled.div`
     width: 100%;
-    height: 15.5rem;
+    height: 18rem;
     background-color: ${props => props.color};
     text-align:center; 
     padding-bottom: 10px;

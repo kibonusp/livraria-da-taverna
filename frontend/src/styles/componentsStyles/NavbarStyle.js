@@ -63,7 +63,7 @@ export const Utils = styled.div`
     flex-flow: nowrap;
     .search-hover {
         font-family: Gilroy;
-        width: 40%;
+        width: 35%;
         height: 2rem;
         margin-left: 1em;
         padding: 0em 1em;

@@ -60,7 +60,7 @@ export default function Product({data, setData, productCart}) {
             (data.products[productCart.indexProduct] !== undefined) ? 
             <Description>
                 <Cell>
-                    <Cover src={productImages[data.products[productCart.indexProduct].cover]} alt="Capa do livro Sapiens" />
+                    <Cover src={productImages[data.products[productCart.indexProduct].cover]} alt={data.products[productCart.indexProduct].name} />
                 </Cell>
                 <Cell>
                     <Titulo><Link to="/book">{data.products[productCart.indexProduct].name}</Link></Titulo>

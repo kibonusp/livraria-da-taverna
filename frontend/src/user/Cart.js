@@ -1,4 +1,4 @@
-import { Container, Row, Items, Name, Preco,  Head} from "../styles/userStyles/CartStyles"
+import { Container, Container2, Row, Items, Name, Preco,  Head} from "../styles/userStyles/CartStyles"
 import {FormButton } from "../styles/adminStyles/formStyle";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer } from '@fortawesome/free-solid-svg-icons'
@@ -49,7 +49,7 @@ export default function Cart({data, setData}) {
                     </Items>
                 </Container>
 
-                <Container width="20%" img="on">
+                <Container2 tamanho={data.cart.length}>
                     <Preco>
                         <p>Preço Total:</p>
                         <span>
@@ -63,7 +63,7 @@ export default function Cart({data, setData}) {
                         </FormButton>
                     </Link>
 
-                </Container>
+                </Container2>
             </Row>
         </>
     )

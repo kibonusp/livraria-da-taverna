@@ -42,6 +42,7 @@ export const FormDiv = styled.div`
 `
 
 export const FormInput = styled.input`
+    font-family: Gilroy;
     border: 2px solid #502514;
     border-radius: 1em;
     width: 25vw;
@@ -60,7 +61,7 @@ export const Box = styled.form`
     margin: 50px;
     width: auto;
     padding: 20px;
-    border-radius: 5rem;
+    border-radius: 3rem;
     font-weight: 700;
     font-size: 30px;
     display: flex;
