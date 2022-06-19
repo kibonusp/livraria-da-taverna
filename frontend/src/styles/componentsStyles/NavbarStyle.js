@@ -60,6 +60,7 @@ export const Logo = styled.img`
 export const Utils = styled.div`
     display: flex;
     align-items: center;
+    flex-flow: nowrap;
     .search-hover {
         font-family: Gilroy;
         width: 40%;
