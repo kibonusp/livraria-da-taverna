@@ -9,14 +9,29 @@ export default function Search({data, setData}) {
     const location = useLocation();
     const [gender, setGender] = useState(location.state !== null ? location.state.gender : undefined);
     const [books, setBooks] = useState(data.products);
+    const [priceBooks, setPriceBooks] = useState(books);
     const [genders, setGenders] = useState({});
+    const [price, setPrice] = useState({
+        "lowPrice": "",
+        "highPrice": ""
+    })
     
     useEffect(() => {
         let newGenders = {}
         let newBooks = []
         for (let i = 0; i < books.length; i++) {
             if (books[i].genders.includes(gender) || gender === undefined) {
-                newBooks.push(books[i]);
+                if (price.lowPrice === "" && price.highPrice === "")
+                    newBooks.push(books[i])
+
+                else if (price.lowPrice === "" && parseFloat(books[i].price.substring(3)) <= price.highPrice)
+                    newBooks.push(books[i])
+
+                else if (parseFloat(books[i].price.substring(3)) >= price.lowPrice && price.highPrice === "")
+                    newBooks.push(books[i])
+
+                else if (parseFloat(books[i].price.substring(3)) >= price.lowPrice && parseFloat(books[i].price.substring(3)) <= price.highPrice)
+                    newBooks.push(books[i])
                 for (let bookGender of books[i].genders) {
                     if (bookGender !== "Selecione") {
                         if (bookGender in newGenders)
@@ -27,9 +42,31 @@ export default function Search({data, setData}) {
                 }
             }
         }
+        
         setBooks(newBooks);
         setGenders(newGenders);
-    }, [data.products, gender, books])
+        setPriceBooks(newBooks)
+        // eslint-disable-next-line
+    }, [gender])
+
+    useEffect(() => {
+        let newBooks = [];
+        for (let i = 0; i < books.length; i++) {
+            if (price.lowPrice === "" && price.highPrice === "")
+                newBooks.push(books[i])
+
+            else if (price.lowPrice === "" && parseFloat(books[i].price.substring(3)) <= price.highPrice)
+                newBooks.push(books[i])
+
+            else if (parseFloat(books[i].price.substring(3)) >= price.lowPrice && price.highPrice === "")
+                newBooks.push(books[i])
+
+            else if (parseFloat(books[i].price.substring(3)) >= price.lowPrice && parseFloat(books[i].price.substring(3)) <= price.highPrice)
+                newBooks.push(books[i])
+        }
+        setPriceBooks(newBooks);
+        // eslint-disable-next-line
+    }, [price.lowPrice, price.highPrice])
 
     return (
         <Container>
@@ -46,9 +83,9 @@ export default function Search({data, setData}) {
                     <h3>Preço</h3>
                     <PrecoInput>
                         <span>De R$ </span>
-                        <input type="number" min="0" step="any" />
+                        <input type="number" min="0" step="any" onInput={e => setPrice({...price, lowPrice: e.target.value})} />
                         <span> à R$ </span>
-                        <input type="number" min="0" step="any" />
+                        <input type="number" min="0" step="any" onInput={e => setPrice({...price, highPrice: e.target.value})}/>
                     </PrecoInput>
                 </div>
 
@@ -64,11 +101,11 @@ export default function Search({data, setData}) {
             <Resultados>
                 <h2>Resultados da Busca</h2>
                 {
-                    [...Array(Math.ceil(books.length / 3)).keys()].map(index =>
+                    [...Array(Math.ceil(priceBooks.length / 3)).keys()].map(index =>
                         <div key={index}>
                             <Row>
                                 {
-                                    books.slice(index*3, index*3 + 3).map((book, bookIndex) =>
+                                    priceBooks.slice(index*3, index*3 + 3).map((book, bookIndex) =>
                                         <Livro key={bookIndex}>
                                             <Link to="/book" state={{ nome: book.name }}>
                                                 <Cover src={productImages[book.cover]} alt={book.name} />

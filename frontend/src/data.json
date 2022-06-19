@@ -125,7 +125,7 @@
             "description": "Robert Langdon, conceituado simbologista, está em Paris para fazer uma palestra quando recebe uma notícia: o velho curador do Louvre foi encontrado morto no museu, e um código indecifrável encontrado junto do cadáver. Na tentativa de decifrar o estranho código, Langdon e uma dotada criptologista francesa, Sophie Neveu, descobrem uma série de pistas inscritas nas obras de Leonardo da Vinci, que o pintor engenhosamente disfarçou.",
             "genders": ["Ficção", "Romance", "Suspense"],
             "cover": "davinci",
-            "price": "R$ 83,24",
+            "price": "R$ 83.24",
             "available": 60,
             "sold": 15
         },
