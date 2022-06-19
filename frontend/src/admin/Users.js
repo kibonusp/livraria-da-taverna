@@ -20,7 +20,6 @@ export default function Users({data, setData}) {
         setUsers(newUsers);
     }, [search, update, data.users])
 
-
     return (
         <Container>
             <Description>Escolha um usuário para remover</Description>

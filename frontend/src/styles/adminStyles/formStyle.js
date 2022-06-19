@@ -154,3 +154,26 @@ export const FormButton = styled.button`
         color: ${props => props.delete === "true" ? "#ffffff" : "#B4441C"};
     }
 `
+
+export const SelectDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-right: 2em;
+    label {
+        color: #B4441C;
+    }
+    select {
+        border: 2px solid #B4441C;
+        border-radius: 15px;
+        color: #502514;
+        padding: 0.25em;
+        outline: #B4441C;
+    }
+`
+
+export const MultiSelectDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 65vw;
+    padding: 0em 1em;
+`

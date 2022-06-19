@@ -22,7 +22,7 @@ export default function Cart({data, setData}) {
     }, [data])
 
     console.log(total)
-
+  
     return (
         <>
             <Row>

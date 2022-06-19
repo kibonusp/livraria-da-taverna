@@ -1,6 +1,5 @@
 import { Description } from "../styles/adminStyles/HomeAdminStyle";
-import { FormLabel, FormDiv, FormInput, FormText, FormFile, FileDiv, FormStock, FormButton, FormForm } from "../styles/adminStyles/formStyle";
-
+import { FormLabel, FormDiv, FormInput, FormText, FormFile, FileDiv, FormStock, FormButton, FormForm, SelectDiv, MultiSelectDiv } from "../styles/adminStyles/formStyle";
 import { useState } from "react";
 import PopUp from "../components/PopUp";
 
@@ -11,10 +10,14 @@ export default function AddProduct({data, setData}) {
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
     const [autores, setAutores] = useState([]);
-    const [generos, setGeneros] = useState([]);
     const [preco, setPreco] = useState("");
     const [quantidade, setQuantidade] = useState(0);
     const [buttonPopUp, setButtonPopUp] = useState(false);
+    const [genders, setGenders] = useState({
+        "genero1": "Selecione",
+        "genero2": "Selecione",
+        "genero3": "Selecione"
+    });
 
     const createProduct = e => {
         e.preventDefault();
@@ -26,16 +29,26 @@ export default function AddProduct({data, setData}) {
             i++;
         }
 
+        let hasGender = false;
+        let productGenders = []
+        for (let key in genders) {
+            if (genders[key] !== "Selecione")
+                hasGender = true;
+            productGenders.push(genders[key]);
+        }
+
         if (foundIndex !== -1)
             alert("Produto com mesmo nome já existente.");
         else if (fileName === "Arquivo não selecionado")
             alert("Selecione uma imagem");
+        else if (!hasGender)
+            alert("Selecione um gênero pelo menos");
         else {
             const newProduct = {
                 "name": nome,
                 "author": autores,
                 "description": descricao,
-                "genders": generos,
+                "genders": productGenders,
                 "cover": fileName,
                 "price": preco,
                 "available": parseInt(quantidade),
@@ -77,7 +90,41 @@ export default function AddProduct({data, setData}) {
             </FormDiv>
             <FormDiv>
                 <FormLabel>Gêneros</FormLabel>
-                <FormInput required onInput={e => setGeneros(e.target.value.split(','))}/>
+                <MultiSelectDiv>
+                    <SelectDiv>
+                        <label>Gênero 1</label>
+                        <select defaultValue={"Selecione"} onChange={e => setGenders({...genders, "genero1": e.target.value})}>
+                            <option disabled value="Selecione">Selecione</option>
+                            {
+                                data.genders.map((gender, index) =>
+                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                )
+                            }
+                        </select>
+                    </SelectDiv>
+                    <SelectDiv>
+                        <label>Gênero 2</label>
+                        <select defaultValue={"Selecione"} onChange={e => setGenders({...genders, "genero2": e.target.value})}>
+                            <option disabled value="Selecione">Selecione</option>
+                            {
+                                data.genders.map((gender, index) =>
+                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                )
+                            }
+                        </select>
+                    </SelectDiv>
+                    <SelectDiv>
+                        <label>Gênero 3</label>
+                        <select defaultValue={"Selecione"} onChange={e => setGenders({...genders, "genero3": e.target.value})}>
+                            <option disabled value="Selecione">Selecione</option>
+                            {
+                                data.genders.map((gender, index) =>
+                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                )
+                            }
+                        </select>
+                    </SelectDiv>
+                </MultiSelectDiv>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Preço</FormLabel>

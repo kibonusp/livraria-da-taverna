@@ -1,4 +1,54 @@
-{
+{   
+    "genders":[
+        {
+            "name": "Geografia",
+            "icon": "faGlobe"
+        },
+        {
+            "name": "Ficção",
+            "icon": "faHandSpock"
+        },
+        {
+            "name": "Romance",
+            "icon": "faHeart"
+        },
+        {
+            "name": "Conto",
+            "icon": "faDragon"
+        },
+        {
+            "name": "Suspense",
+            "icon": "faMask"
+        },
+        {
+            "name": "Policial",
+            "icon": "faHandcuffs"
+        },
+        {
+            "name": "Mistério",
+            "icon": "faQuestion"
+        },
+        {
+            "name": "Aventura",
+            "icon": "faSkullCrossbone"
+        },
+        {
+            "name": "Drama",
+            "icon": "faMaskTheater"
+        },
+        {
+            "name": "Política",
+            "icon": "faHandFist"
+        },
+        {
+            "name": "Educacional",
+            "icon": "faPersonChalkboard"
+        },
+        {
+            "name": "História",
+            "icon": "faLandmark"
+        }
+    ],
     "users": [
         {
             "name": "Gabriel Freitas Ximenes de Vasconcelos",
@@ -43,7 +93,7 @@
             "name": "1984",
             "author": ["George Orwell"],
             "description": "Após uma guerra global, semelhante à segunda grande guerra, porém com mais bombas atômicas, o mundo foi dividido em três continentes: Lestásia, Eurásia e Oceania, onde fica a cidade de Londres. Esse último é comandado pelo líder Big Brother, a figura máxima de poder e controle, “o olho que tudo vê”.",
-            "genders": ["Ficção científica", "Política", "Drama"],
+            "genders": ["Ficção", "Política", "Selecione"],
             "cover": "year",
             "price": "R$ 35.50",
             "available": 30,
@@ -53,7 +103,7 @@
             "name": "Duna",
             "author": ["Frank Herbert"],
             "description": "Duna se passa em um futuro distante no meio de um império intergaláctico feudal em expansão, onde feudos planetários são controlados por Casas nobres que devem aliança à casta imperial da Casa Corrino. O livro conta a história do jovem Paul Atreides, herdeiro do Duque Leto Atreides e da respectiva Casa Atreides, na ocasião da transferência de sua família para o planeta Arrakis, a única fonte no universo da especiaria melange.",
-            "genders": ["Ficção científica", "Romance", "Literatura fantástica"],
+            "genders": ["Ficção", "Romance", "Aventura"],
             "cover": "duna",
             "price": "R$ 79.50",
             "available": 100,
@@ -63,7 +113,7 @@
             "name": "Um estudo em vermelho",
             "author": ["Arthur Conan Doyle"],
             "description": "Um Estudo em Vermelho propõe um enigma terrível para a polícia, que pede auxílio a Holmes: um homem é encontrado morto, sem ferimentos e cercado de manchas de sangue. Em seu rosto, uma expressão de pavor. É apresentado o caso, algumas deduções do detetive-consultor e a captura inesperado do assassino no final.",
-            "genders": ["Mistério", "Romance", "Ficção policial"],
+            "genders": ["Mistério", "Romance", "Policial"],
             "cover": "vermelho",
             "price": "R$ 12.90",
             "available": 30,
@@ -73,7 +123,7 @@
             "name": "O Código Da Vinci",
             "author": ["Dan Brown"],
             "description": "Robert Langdon, conceituado simbologista, está em Paris para fazer uma palestra quando recebe uma notícia: o velho curador do Louvre foi encontrado morto no museu, e um código indecifrável encontrado junto do cadáver. Na tentativa de decifrar o estranho código, Langdon e uma dotada criptologista francesa, Sophie Neveu, descobrem uma série de pistas inscritas nas obras de Leonardo da Vinci, que o pintor engenhosamente disfarçou.",
-            "genders": ["Ficção policial", "Romance", "Suspense"],
+            "genders": ["Policial", "Romance", "Suspense"],
             "cover": "davinci",
             "price": "R$ 83,24",
             "available": 60,
@@ -83,7 +133,7 @@
             "name": "I, Robot",
             "author": ["Isaac Asimov"],
             "description": "O livro é composto de 10 contos [2] que, de forma sucessiva, discorrem sobre a evolução dos robôs através do tempo. A obra se inicia com o conto intitulado 'Robbie', um robô-babá incapaz de falar que é discriminado e repudiado pelas pessoas da Terra, culminando com a proibição do uso de robôs no planeta.",
-            "genders": ["Ficção científica", "Romance", "Conto"],
+            "genders": ["Ficção", "Romance", "Conto"],
             "cover": "robot",
             "price": "R$ 27.90",
             "available": 40,

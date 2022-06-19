@@ -9,16 +9,15 @@ import { useEffect } from "react"
 
 
 export default function Navbar({data, setData}) {
-
     useEffect(() => {
-        if (data.logged)
+        if (data.logged.situation)
             console.log("Usuário logou")
         else
             console.log("Usuário não logou")
     }, [data.logged])
 
     const signOut = () => {
-        setData({...data, logged: false})
+        setData({...data, logged: {"situation": false, "user": undefined}})
     }
 
     return (
@@ -29,16 +28,16 @@ export default function Navbar({data, setData}) {
                         <>
                             <UserPhoto src={userImages[data.users[data.logged.user].photo]} alt="Foto do usuário" />
                             <Link to="/myProfile">Olá, {data.users[data.logged.user].name.split(' ')[0]}</Link>
+                            <Link to="/login" onClick={() => signOut()}>
+                                <Sair>Sair</Sair>
+                            </Link>
                         </>
                     :   
                         <>
                             <UserPhoto src={userImages["anonymous"]} alt="Foto do usuário" />
-                            <Link to="/login">Olá, anônimo</Link>
+                            <Link to="/login">Faça login ou se cadastre</Link>
                         </>
                 }
-                <Link to="/login" onClick={() => signOut()}>
-                    <Sair>Sair</Sair>
-                </Link>
             </Profile>
             <Link to="/"><Logo src={logo} alt="Logo da livraria" /></Link>
             <Utils>
@@ -55,8 +54,8 @@ export default function Navbar({data, setData}) {
                     }
                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping} /></Link>
                     <Link to="/search"><FontAwesomeIcon icon={faSearch} /></Link>
+                    <input type="text" className="search-hover" name="" placeholder="pesquise aqui..." />
                 </Links>
-                <input type="text" className="search-hover" name="" placeholder="pesquise aqui..." />
             </Utils>
         </NavHeader>
     )
