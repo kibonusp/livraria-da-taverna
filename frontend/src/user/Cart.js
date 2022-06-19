@@ -19,7 +19,9 @@ export default function Cart({data, setData}) {
             setTotal(valor)
             i++;
         }
-    }, [data])
+        if (data.cart.length === 0)
+            setTotal(0);
+    }, [data.cart])
 
     console.log(total)
   

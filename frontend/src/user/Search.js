@@ -8,7 +8,7 @@ import { productImages } from "../images"
 export default function Search({data, setData}) {
     const location = useLocation();
     const [gender, setGender] = useState(location.state !== null ? location.state.gender : undefined);
-    const [books, setBooks ] = useState(data.products);
+    const [books, setBooks] = useState(data.products);
     const [genders, setGenders] = useState({});
     
     useEffect(() => {
@@ -29,7 +29,6 @@ export default function Search({data, setData}) {
         }
         setBooks(newBooks);
         setGenders(newGenders);
-
     }, [data.products, gender, books])
 
     return (

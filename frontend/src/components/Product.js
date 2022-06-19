@@ -40,17 +40,9 @@ export default function Product({data, setData, productCart}) {
     }
 
     const deleteProduct = name => {
-        let datacopy = data;
-        let i = 0;
-        let found = false;
-        while (i < data.cart.length && !found) {
-            if (data.cart[i].name === name) {
-                datacopy.cart.splice(i, 1);
-                setData(datacopy);
-                found = true
-            }
-            i++;
-        }
+        setData({...data, cart: data.cart.filter(function(product, index) {
+            return index !== cartIndex
+        })})
         setButtonPopUp(false);
     }
 
