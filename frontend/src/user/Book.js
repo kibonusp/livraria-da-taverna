@@ -45,9 +45,8 @@ export default function Book({data, setData}) {
             let i = 0;
             let found = false;
             while (i < datacopy.cart.length && !found) {
-                if (datacopy.cart[i].indexProduct === index) {
+                if (datacopy.cart[i].indexProduct === index)
                     found = true;
-                }
                 i++;
             }
             console.log("found: " + found)

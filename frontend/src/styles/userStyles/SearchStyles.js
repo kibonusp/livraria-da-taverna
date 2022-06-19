@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Livro = styled.div`
-    margin-right: 5em;
+    margin-right: 0.5em;
     a {
         display: flex;
         justify-content: flex-start;
@@ -26,10 +26,11 @@ export const Cover = styled.img`
 export const Descricao = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 2.7em;
+    margin-left: 1.2em;
 `
 
 export const Titulo = styled.h3`
+    width: 10em;
     margin: 0;
     font-size: 1.4rem;
 `

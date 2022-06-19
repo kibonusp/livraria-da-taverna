@@ -7,16 +7,15 @@ import { productImages } from "../images"
 
 export default function Search({data, setData}) {
     const location = useLocation();
-    const [gender, setGender] = useState(location.state.gender);
+    const [gender, setGender] = useState(location.state !== null ? location.state.gender : undefined);
     const [books, setBooks ] = useState(data.products);
     const [genders, setGenders] = useState({});
     
     useEffect(() => {
-        console.log("oeee")
         let newGenders = {}
         let newBooks = []
         for (let i = 0; i < books.length; i++) {
-            if (books[i].genders.includes(gender)) {
+            if (books[i].genders.includes(gender) || gender === undefined) {
                 newBooks.push(books[i]);
                 for (let bookGender of books[i].genders) {
                     if (bookGender !== "Selecione") {
