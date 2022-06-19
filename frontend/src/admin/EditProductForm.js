@@ -1,5 +1,5 @@
 import { Description } from "../styles/adminStyles/HomeAdminStyle";
-import { FormLabel, FormDiv, FormInput, FormText, FormFile, FileDiv, FormStock, FormButton, FormStockRead, FormForm } from "../styles/adminStyles/formStyle";
+import { FormLabel, FormDiv, FormInput, FormText, FormFile, FileDiv, FormStock, FormButton, FormStockRead, FormForm, MultiSelectDiv, SelectDiv } from "../styles/adminStyles/formStyle";
 import { useEffect, useState } from "react";
 import {useNavigate, useLocation } from "react-router-dom";
 import PopUp from "../components/PopUp";
@@ -16,7 +16,15 @@ export default function EditProductForm({data, setData}) {
     const [addStock, setAddStock] = useState(0);
     const [buttonPopUp, setButtonPopUp] = useState(false);
     const [buttonPopUpDelete, setButtonPopUpDelete] = useState(false);
+    const [update, setUpdate] = useState(false);
     const navigate = useNavigate();
+    const [genders, setGenders] = useState(data.products[0].genders)
+
+    const setGender = (i, value) => {
+        let genderscopy = genders;
+        genderscopy[i] = value;
+        setGenders(genderscopy);
+    }
 
     useEffect(() => {
         let i = 0;
@@ -31,7 +39,10 @@ export default function EditProductForm({data, setData}) {
     useEffect(() => {
         setProduct(data.products[productIndex]);
         setEditProduct(data.products[productIndex]);
-        setFileName(data.products[productIndex].cover)
+        setFileName(data.products[productIndex].cover);
+        setGenders(data.products[productIndex].genders);
+        setUpdate(!update);
+        // eslint-disable-next-line
     }, [productIndex, data.products])
 
     const editProductButton = e => {
@@ -42,6 +53,8 @@ export default function EditProductForm({data, setData}) {
             if (editProduct[key])
                 updateProduct[key] = editProduct[key];
         }
+
+        updateProduct.genders = genders;
 
         updateProduct["available"] += parseInt(addStock);
 
@@ -91,7 +104,41 @@ export default function EditProductForm({data, setData}) {
             </FormDiv>
             <FormDiv>
                 <FormLabel>Gêneros</FormLabel>
-                <FormInput placeholder={product.genders.join(",")} value={editProduct.genders.join(',')} onInput={e => setEditProduct({...editProduct, genders: e.target.value.split(',')})} />
+                <MultiSelectDiv>
+                    <SelectDiv>
+                        <label>Gênero 1</label>
+                        <select key={update ? 'notLoadedYet' : 'loaded'} defaultValue={product.genders[0]} onChange={e => setGender(0, e.target.value)}>
+                            <option disabled value="Selecione">Selecione</option>
+                            {
+                                data.genders.map((gender, index) =>
+                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                )
+                            }
+                        </select>
+                    </SelectDiv>
+                    <SelectDiv>
+                        <label>Gênero 2</label>
+                        <select key={update ? 'notLoadedYet' : 'loaded'} defaultValue={product.genders[1]} onChange={e => setGender(1, e.target.value)}>
+                            <option disabled value="Selecione">Selecione</option>
+                            {
+                                data.genders.map((gender, index) =>
+                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                )
+                            }
+                        </select>
+                    </SelectDiv>
+                    <SelectDiv>
+                        <label>Gênero 3</label>
+                        <select key={update ? 'notLoadedYet' : 'loaded'} defaultValue={product.genders[2]} onChange={e => setGender(2, e.target.value)}>
+                            <option disabled value="Selecione">Selecione</option>
+                            {
+                                data.genders.map((gender, index) =>
+                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                )
+                            }
+                        </select>
+                    </SelectDiv>
+                </MultiSelectDiv>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Preço</FormLabel>
@@ -120,7 +167,7 @@ export default function EditProductForm({data, setData}) {
                 <FormStockRead>{product.sold}</FormStockRead>
             </FormDiv>
             <br></br>
-            <FormButton delete="true" onClick={e => {e.preventDefault(); setButtonPopUpDelete(true); console.log("aaaaa")}}>Deletar Produto</FormButton>
+            <FormButton delete="true" onClick={e => {e.preventDefault(); setButtonPopUpDelete(true)}}>Deletar Produto</FormButton>
             <FormButton style={{marginTop: "2em"}} onClick={e => editProductButton(e)}>Salvar</FormButton>
             </FormForm>
         <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>

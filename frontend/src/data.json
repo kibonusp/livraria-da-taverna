@@ -1,5 +1,5 @@
 {   
-    "generos":[
+    "genders":[
         {
             "name": "Geografia",
             "icon": "faGlobe"
@@ -93,7 +93,7 @@
             "name": "1984",
             "author": ["George Orwell"],
             "description": "Após uma guerra global, semelhante à segunda grande guerra, porém com mais bombas atômicas, o mundo foi dividido em três continentes: Lestásia, Eurásia e Oceania, onde fica a cidade de Londres. Esse último é comandado pelo líder Big Brother, a figura máxima de poder e controle, “o olho que tudo vê”.",
-            "genders": ["Ficção", "Política", "Drama"],
+            "genders": ["Ficção", "Política", "Selecione"],
             "cover": "year",
             "price": "R$ 35.50",
             "available": 30,

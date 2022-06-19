@@ -65,15 +65,16 @@ export default function Book({data, setData}) {
         <Fit>
             <Livro>
                 <Tags>
-                    <Link to="/search">
-                        <button>{data.products[index].genders[0]}</button>
-                    </Link>
-                    <Link to="/search">
-                        <button>{data.products[index].genders[1]}</button>
-                    </Link>
-                    <Link to="/search">
-                        <button>{data.products[index].genders[2]}</button>
-                    </Link>
+                    {
+                        data.products[index].genders.map((gender, index) =>
+                            gender !== "Selecione" ?
+                            <Link key={index} to="/search">
+                                <button>{gender}</button>
+                            </Link>
+                            :
+                            ""
+                        )
+                    }
                 </Tags>
                 <Fit2>
                     <Capa src={productImages[data.products[index].cover]} alt="Capa Livro"></Capa>
