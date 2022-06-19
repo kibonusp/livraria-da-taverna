@@ -1,14 +1,16 @@
-import { Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import logo from "../assets/logo.png"
-import { NavHeader, UserPhoto, Profile, Logo, Utils, Links, Sair } from "../styles/componentsStyles/NavbarStyle"
+import { NavHeader, UserPhoto, Profile, Logo, Utils, Links, Sair, Search } from "../styles/componentsStyles/NavbarStyle"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCartShopping} from '@fortawesome/free-solid-svg-icons'
 import { userImages } from "../images"
-import { useEffect } from "react"
-
+import { useEffect, useState } from "react"
 
 
 export default function Navbar({data, setData}) {
+    const [search, setSearch] = useState("");
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (data.logged.situation)
             console.log("Usuário logou")
@@ -19,6 +21,45 @@ export default function Navbar({data, setData}) {
     const signOut = () => {
         setData({...data, logged: {"situation": false, "user": undefined}})
     }
+
+    const sendSearch = e => {
+
+        let newProducts = [];
+        if(e.key === 'Enter'){
+
+            console.log(e)
+            console.log(search === "")
+            console.log("search da navbar: " + search)
+
+            let formatedSearch = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+            for (let product of data.products) {
+                let formatedProduct = product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                if (formatedProduct.includes(formatedSearch))
+                    newProducts.push(product);
+            }
+
+            console.log("vish");
+            navigate("/search", {state: {"products": newProducts}})
+        }
+        //navigate("DSKASLDASD", STATE={{}})
+        //setSearch(newProducts);
+    }
+
+        /*
+    useEffect(() => {
+        console.log(search === "")
+        console.log("search da navbar: " + search + "aaaaaaaaaaa")
+        let newProducts = [];
+        for (let product of data.products) {
+            let formatedProduct = product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+            let formatedSearch = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+            if (formatedProduct.includes(formatedSearch))
+                newProducts.push(product);
+        }
+        //navigate("DSKASLDASD", STATE={{}})
+        //setSearch(newProducts);
+    }, [search, data.products])
+    */
 
     return (
         <NavHeader>
@@ -54,9 +95,15 @@ export default function Navbar({data, setData}) {
                     }
                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping} /></Link>
                     <Link to="/search"><FontAwesomeIcon icon={faSearch} /></Link>
-                    <input type="text" className="search-hover" name="" placeholder="pesquise aqui..." />
+                    <Search placeholder="pesquise aqui..." onInput={e => setSearch(e.target.value)} onKeyDown={sendSearch}/>
                 </Links>
             </Utils>
         </NavHeader>
     )
 }
+
+
+
+/*
+<input type="text" className="search-hover" name="" placeholder="pesquise aqui..." onInput={e => setSearch(e.target.value)}/>
+*/

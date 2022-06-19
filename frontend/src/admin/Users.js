@@ -10,6 +10,7 @@ export default function Users({data, setData}) {
     const [update, setUpdate] = useState(false);
 
     useEffect(() => {
+        console.log("search: " + search + "bbbbbbbb")
         let newUsers = []
         for (let user of data.users) {
             let formatedUser = user.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()

@@ -8,7 +8,7 @@ import { productImages } from "../images"
 export default function Search({data, setData}) {
     const location = useLocation();
     const [gender, setGender] = useState(location.state !== null ? location.state.gender : undefined);
-    const [books, setBooks] = useState(data.products);
+    const [books, setBooks] = useState(location.state !== null ? location.state.products : undefined);
     const [priceBooks, setPriceBooks] = useState(books);
     const [genders, setGenders] = useState({});
     const [price, setPrice] = useState({

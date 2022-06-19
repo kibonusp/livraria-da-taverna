@@ -98,3 +98,14 @@ export const Links = styled.div`
         }
     }
 `
+
+
+export const Search = styled.input`
+    font-family: Gilroy;
+    width: 35%;
+    height: 2rem;
+    margin-left: 1em;
+    padding: 0em 1em;
+    border: none;
+    border-radius: 1rem;
+`
