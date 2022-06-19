@@ -2,61 +2,88 @@ import { Link } from "react-router-dom"
 
 import { Container, Description, ActionDiv, Row, Gender, Seta } from "../styles/userStyles/GenderStyles"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMasksTheater, faHandSpock, faGhost, faLandmark, faHeart, faSkullCrossbones, faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faArrowRight, faGlobe, faHandSpock, faHeart, faDragon, faMask,
+    faHandcuffs, faQuestion, faSkullCrossbones, faMasksTheater, faHandFist, faPersonChalkboard,
+    faLandmark } from '@fortawesome/free-solid-svg-icons'
+import { useState } from "react"
 
 
-export default function Genders() {
+export default function Genders({data, setData}) {
+    const gendersPerRow = [...Array(3).keys()];
+    const icons = {
+        "faGlobe": faGlobe,
+        "faHandSpock": faHandSpock,
+        "faHeart": faHeart,
+        "faDragon": faDragon,
+        "faMask": faMask,
+        "faHandcuffs": faHandcuffs,
+        "faQuestion": faQuestion,
+        "faSkullCrossbone": faSkullCrossbones,
+        "faMaskTheater": faMasksTheater,
+        "faHandFist": faHandFist,
+        "faPersonChalkboard": faPersonChalkboard,
+        "faLandmark": faLandmark
+    }
+    const [curCarrossel, setCurCarrossel] = useState(0);
+
     return (
         <>
             <Container>
                 <Description>Gêneros</Description>
                 <Row>
-                    <Seta>
+                    <Seta onClick={() => setCurCarrossel(prev => Math.abs(1-prev))}>
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </Seta>
                     <ActionDiv>
-                        <Row>
-                            <Link to="/search">
-                                <Gender theme = "light">
-                                    <h1> Ficção </h1>
-                                    <FontAwesomeIcon icon={faHandSpock} size="6x"/>
-                                </Gender>
-                            </Link>
-                            <Link to="/search">
-                                <Gender>
-                                    <h1> Drama </h1>
-                                    <FontAwesomeIcon icon={faMasksTheater} size="6x"/>
-                                </Gender>
-                            </Link>
-                            <Link to="/search">
-                                <Gender theme = "light">
-                                    <h1> Terror </h1>
-                                    <FontAwesomeIcon icon={faGhost} bounce size="6x"/>
-                                </Gender>
-                            </Link>
-                        </Row>
-                        <Row>
-                            <Link to="/search">
-                                <Gender>
-                                    <h1> Romance </h1>
-                                    <FontAwesomeIcon icon={faHeart} beat size="6x"/>
-                                </Gender>
-                            </Link>
-                            <Link to="/search">
-                                <Gender theme = "light">
-                                    <h1> História </h1>
-                                    <FontAwesomeIcon icon={faLandmark} size="6x" />
-                                </Gender>
-                            </Link>
-                            <Link to="/search">
-                                <Gender>
-                                    <h1> Aventura </h1>
-                                    <FontAwesomeIcon icon={faSkullCrossbones} size="6x" />
-                                </Gender>
-                            </Link>
-                        </Row>
+                        {
+                            <div>
+                                <Row>
+                                    {
+                                        curCarrossel === 0 ?
+                                        gendersPerRow.map(gender =>
+                                            <Link key={gender} to="/search" state={{gender: data.genders[gender].name}}>
+                                                <Gender theme={gender % 2 === 0 ? "light" : "dark"}>
+                                                    <h1> {data.genders[gender].name} </h1>
+                                                    <FontAwesomeIcon icon={icons[data.genders[gender].icon]} size="6x" />
+                                                </Gender>
+                                            </Link>    
+                                        ) :
+                                        gendersPerRow.map(gender =>
+                                            <Link key={gender + 6} to="/search" state={{gender: data.genders[gender + 6].name}}>
+                                                <Gender theme={(gender + 6) % 2 === 0 ? "light" : "dark"}>
+                                                    <h1> {data.genders[gender + 6].name} </h1>
+                                                    <FontAwesomeIcon icon={icons[data.genders[gender + 6].icon]} size="6x" />
+                                                </Gender>
+                                            </Link> 
+                                        )
+                                    }
+                                </Row>
+                                <Row>
+                                    {
+                                        curCarrossel === 0 ?
+                                        gendersPerRow.map(gender =>
+                                            <Link key={gender + 3} to="/search" state={{gender: data.genders[gender + 3].name}}>
+                                                <Gender theme={(gender + 3) % 2 === 0 ? "light" : "dark"}>
+                                                    <h1> {data.genders[gender + 3].name} </h1>
+                                                    <FontAwesomeIcon icon={icons[data.genders[gender + 3].icon]} size="6x" />
+                                                </Gender>
+                                            </Link>    
+                                        )
+                                        :
+                                        gendersPerRow.map(gender =>
+                                            <Link key={gender + 9} to="/search" state={{gender: data.genders[gender + 9].name}}>
+                                                <Gender theme={(gender + 9) % 2 === 0 ? "light" : "dark"}>
+                                                    <h1> {data.genders[gender + 9].name} </h1>
+                                                    <FontAwesomeIcon icon={icons[data.genders[gender + 9].icon]} size="6x" />
+                                                </Gender>
+                                            </Link> 
+                                        )
+                                    }
+                                </Row>
+                            </div>
+                        }
                     </ActionDiv>
-                    <Seta>
+                    <Seta onClick={() => setCurCarrossel(prev => Math.abs(1-prev))}>
                         <FontAwesomeIcon icon={faArrowRight} />
                     </Seta>
                 </Row>
