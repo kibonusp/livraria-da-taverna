@@ -94,7 +94,7 @@ export default function AddProduct({data, setData}) {
                     <SelectDiv>
                         <label>Gênero 1</label>
                         <select defaultValue={"Selecione"} onChange={e => setGenders({...genders, "genero1": e.target.value})}>
-                            <option disabled value="Selecione">Selecione</option>
+                            <option value="Selecione">Selecione</option>
                             {
                                 data.genders.map((gender, index) =>
                                     <option key={index} value={gender.name}>{gender.name}</option>  
@@ -105,7 +105,7 @@ export default function AddProduct({data, setData}) {
                     <SelectDiv>
                         <label>Gênero 2</label>
                         <select defaultValue={"Selecione"} onChange={e => setGenders({...genders, "genero2": e.target.value})}>
-                            <option disabled value="Selecione">Selecione</option>
+                            <option value="Selecione">Selecione</option>
                             {
                                 data.genders.map((gender, index) =>
                                     <option key={index} value={gender.name}>{gender.name}</option>  
@@ -116,7 +116,7 @@ export default function AddProduct({data, setData}) {
                     <SelectDiv>
                         <label>Gênero 3</label>
                         <select defaultValue={"Selecione"} onChange={e => setGenders({...genders, "genero3": e.target.value})}>
-                            <option disabled value="Selecione">Selecione</option>
+                            <option value="Selecione">Selecione</option>
                             {
                                 data.genders.map((gender, index) =>
                                     <option key={index} value={gender.name}>{gender.name}</option>  

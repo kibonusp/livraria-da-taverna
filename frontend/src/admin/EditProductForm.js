@@ -108,7 +108,7 @@ export default function EditProductForm({data, setData}) {
                     <SelectDiv>
                         <label>Gênero 1</label>
                         <select key={update ? 'notLoadedYet' : 'loaded'} defaultValue={product.genders[0]} onChange={e => setGender(0, e.target.value)}>
-                            <option disabled value="Selecione">Selecione</option>
+                            <option value="Selecione">Selecione</option>
                             {
                                 data.genders.map((gender, index) =>
                                     <option key={index} value={gender.name}>{gender.name}</option>  
@@ -119,7 +119,7 @@ export default function EditProductForm({data, setData}) {
                     <SelectDiv>
                         <label>Gênero 2</label>
                         <select key={update ? 'notLoadedYet' : 'loaded'} defaultValue={product.genders[1]} onChange={e => setGender(1, e.target.value)}>
-                            <option disabled value="Selecione">Selecione</option>
+                            <option value="Selecione">Selecione</option>
                             {
                                 data.genders.map((gender, index) =>
                                     <option key={index} value={gender.name}>{gender.name}</option>  
@@ -130,7 +130,7 @@ export default function EditProductForm({data, setData}) {
                     <SelectDiv>
                         <label>Gênero 3</label>
                         <select key={update ? 'notLoadedYet' : 'loaded'} defaultValue={product.genders[2]} onChange={e => setGender(2, e.target.value)}>
-                            <option disabled value="Selecione">Selecione</option>
+                            <option value="Selecione">Selecione</option>
                             {
                                 data.genders.map((gender, index) =>
                                     <option key={index} value={gender.name}>{gender.name}</option>  

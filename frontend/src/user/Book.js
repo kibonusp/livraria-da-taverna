@@ -68,7 +68,7 @@ export default function Book({data, setData}) {
                     {
                         data.products[index].genders.map((gender, index) =>
                             gender !== "Selecione" ?
-                            <Link key={index} to="/search">
+                            <Link key={index} to="/search" state={{"gender": gender}}>
                                 <button>{gender}</button>
                             </Link>
                             :
@@ -96,7 +96,7 @@ export default function Book({data, setData}) {
                     <Flexbox2>
                         <Qlabel>Quantidade:</Qlabel>
                         {
-                            <input type="number" min="1" value={quantidade} onChange={e => setQuantidade(parseFloat(e.target.value))}></input>
+                            <input type="number" min="1" max={data.products[index].available} value={quantidade} onChange={e => setQuantidade(parseFloat(e.target.value))}></input>
                         }
                     </Flexbox2>
                     <Qbutton onClick={() => adicionarCarrinho()}>Adicionar<br/>ao carrinho</Qbutton>
