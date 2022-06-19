@@ -60,7 +60,7 @@ export const Box = styled.div`
     margin: 50px;
     width: auto;
     padding: 20px;
-    border-radius: 5rem;
+    border-radius: 3rem;
     font-weight: 700;
     font-size: 30px;
     display: flex;

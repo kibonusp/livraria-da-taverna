@@ -55,8 +55,8 @@ export default function Navbar({data, setData}) {
                     }
                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping} /></Link>
                     <Link to="/search"><FontAwesomeIcon icon={faSearch} /></Link>
-                    <input type="text" className="search-hover" name="" placeholder="pesquise aqui..." />
                 </Links>
+                <input type="text" className="search-hover" name="" placeholder="pesquise aqui..." />
             </Utils>
         </NavHeader>
     )
