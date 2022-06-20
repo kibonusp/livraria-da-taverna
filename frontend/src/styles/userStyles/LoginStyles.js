@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import taverna from "../../assets/taverna.png"
+import px2vw from "../px2vw";
+
 
 export const Container = styled.div`
     display: flex;
@@ -37,7 +39,7 @@ export const FormDiv = styled.div`
         margin-left: -3em;
     }
     .foto {
-        margin-inline-start: 5%;
+        margin-inline-start: 9%;
     }
 `
 
@@ -45,12 +47,13 @@ export const FormInput = styled.input`
     font-family: Gilroy;
     border: 2px solid #502514;
     border-radius: 1em;
-    width: 25vw;
+    width: ${px2vw(500)};
     &:focus {
         outline: none;
     }
     padding: 0.4em 1em;
     font-weight: 600;
+    font-size: ${px2vw(12)};
     
 `
 
@@ -59,11 +62,11 @@ export const Box = styled.form`
     background-color: #FFFF;
     opacity: 1.0;
     margin: 50px;
-    width: auto;
+    width: ${px2vw(700)};
     padding: 20px;
     border-radius: 3rem;
     font-weight: 700;
-    font-size: 30px;
+    font-size: ${px2vw(50)};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,15 +87,16 @@ export const Box = styled.form`
 `
 export const FileDiv = styled.div`
     display: flex;
-    width: 25vw;
+    width: 90%;
     align-items: center;
     justify-content: flex-start;
     padding: 0em 1em;
     p {
+        font-size: ${px2vw(15)};
         display: inline-block;
         background-color: #E6E6E6;
         padding: 0.4em 1em;
-        width: 8em;
+        width: ${px2vw(220)};
         color: #502514;
         border-radius: 15px;
         margin: 0;
@@ -104,10 +108,10 @@ export const FileDiv = styled.div`
 export const FormFile = styled.label`
     //border: 1px solid #502514;
     border: 1px solid #B4441C;
-    font-size: 0.5em;
+    font-size: ${px2vw(15)};
     display: flex;
     padding: 0.4em 1em;
-    width: 7.8em;
+    width: ${px2vw(220)};
     //color: #502514;
     color: #B4441C;
     cursor: pointer;

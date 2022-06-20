@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import taverna from "../../assets/taverna.png"
+import px2vw from "../px2vw";
 
 
 export const Fit = styled.div`
@@ -11,23 +12,24 @@ export const Fit = styled.div`
 export const Livro = styled.div`
     width: 70%;
     padding-left: 5%;
+    font-size: ${px2vw(10)};
 `
 
 export const Tags = styled.div`
     display: flex;
     justify-content: flex-start;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: ${px2vw(20)};
+    margin-bottom: ${px2vw(40)};
     button{
         background-color: #502514;
         opacity: 70%;
         color: #F5F5F5;
-        margin-right: 30px;
-        padding: 8px 40px;
+        margin-right: ${px2vw(20)};
+        padding: ${px2vw(5)} ${px2vw(30)};
         border-radius: 5em;
         border: none;
         text-align: center;
-        font-size: 17px;
+        font-size: ${px2vw(15)};
         cursor: pointer;
         transition: all 0.5s;
         font-family: Gilroy;
@@ -48,10 +50,10 @@ export const Fit2 = styled.div`
 
 export const Capa = styled.img`
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    border-radius: 10px 25px 25px 10px;
+    border-radius: ${px2vw(10)} ${px2vw(30)} ${px2vw(30)} ${px2vw(10)};
     display: block;
-    max-width:30%;
-    width: 30rem;
+    max-width:${px2vw(270)};
+    width: 100%;
     height: auto;
 `
 
@@ -61,9 +63,9 @@ export const Texto = styled.div`
 `
 
 export const Titulo = styled.p`
-    font-size: 35px;
+    font-size: ${px2vw(40)};
     font-weight: 600;
-    line-height: 59px;
+    line-height: ${px2vw(40)};
     letter-spacing: 0em;
     text-align: justify;
     color: #502514;
@@ -72,9 +74,9 @@ export const Titulo = styled.p`
 
 export const Autor = styled.p`
     color: #999999;
-    font-size: 20px;
+    font-size: ${px2vw(20)};
     font-weight: 600;
-    line-height: 37px;
+    line-height: ${px2vw(40)};
     letter-spacing: 0em;
     text-align: justified;
     margin: 0px;
@@ -82,20 +84,20 @@ export const Autor = styled.p`
 
 export const Descricao = styled.p`
     color: #502514;
-    font-size: 20px;
+    font-size: ${px2vw(15)};
     font-weight: 400;
-    line-height: 36px;
+    line-height: ${px2vw(25)};
     letter-spacing: 0em;
     text-align: justified;
     margin: 0px;
-    margin-top: 30px;
+    margin-top: ${px2vw(20)};
 `
 
 export const Preco = styled.div`
     width:30%;
     background-image: url(${taverna});
     box-shadow: inset 0 0 0 1000px rgba(180,68,28,.4);
-    min-height: 80vh;
+    min-height: ${px2vw(600)};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,22 +107,22 @@ export const PrecoTaverna = styled.div`
     align-items: center;
     color: #502514;
     .beer {
-        margin-right: 0.4em;
+        margin-right: ${px2vw(15)};
     }
-    margin-bottom: 20px;
+    margin-bottom: ${px2vw(30)};
 `
 
 export const Box = styled.div`
     color: #502514;
     background-color: #f5f5f5cb;
     opacity: 1.0;
-    width: 50%;
-    padding: 40px 40px;
+    width: ${px2vw(200)};
+    padding: ${px2vw(30)};
     border-radius: 10%;
     text-align: center;
     font-weight: 700;
     border: 2px solid #502514;
-    font-size: 30px;
+    font-size: ${px2vw(25)};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -133,20 +135,21 @@ export const Flexbox2 = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-bottom: 1.5em;
+    padding-bottom: ${px2vw(40)};
+    font-size: ${px2vw(20)};
     input {
-        width: 40px;
+        width: ${px2vw(30)};
         border: 2px solid #502514;
         background-color: None;
         color: #502514;
-        height: 25px;
+        height: ${px2vw(20)};
         border-radius: 1em;
     }
 `
 
 
 export const Qlabel = styled.div`
-    font-size: 20px;
+    font-size: ${px2vw(20)};
     padding-right: 0.5em;
 `
 
@@ -156,7 +159,7 @@ export const Qbutton = styled.div`
     transition: all 0.5s;
     background-color: #502514;
     color: #F5F5F5;
-    font-size: 1.3rem;
+    font-size: ${px2vw(20)};
     border-radius: 15px;
     cursor: pointer;
     text-decoration: none;

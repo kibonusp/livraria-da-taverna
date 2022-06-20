@@ -1,11 +1,9 @@
-import setaE from "../assets/arrow-left-solid.svg"
-import setaD from "../assets/arrow-right-solid.svg"
 import { Secao, SecaoUl, Titulo, Seta, 
     Livro, ImgLivro, TituloLivro, Autor, PrecoTaverna } from "../styles/userStyles/HomeStyles"
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBeer} from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faArrowRight, faBeer} from '@fortawesome/free-solid-svg-icons'
 import { productImages } from '../images'
 
 export default function HomeSecao({nome, livros}) {
@@ -30,7 +28,8 @@ export default function HomeSecao({nome, livros}) {
             <Titulo>{nome}</Titulo>
             <SecaoUl>
                 <Seta onClick={() => moveLeft()}>
-                    <img className="seta_svg" src={setaE} alt="seta"></img>
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                    
                 </Seta>
                 {
                     livrosSection.map((livro, index) =>
@@ -50,7 +49,7 @@ export default function HomeSecao({nome, livros}) {
                     )
                 }
                 <Seta onClick={() => moveRight()}>
-                    <img className="seta_svg" src={setaD} alt="seta"></img>
+                <FontAwesomeIcon icon={faArrowRight} />
                 </Seta>
             </SecaoUl>
         </Secao>

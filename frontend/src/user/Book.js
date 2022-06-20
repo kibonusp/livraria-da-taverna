@@ -3,6 +3,8 @@ import { faBeer } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
 import { Fit, Livro, Tags, Fit2, Texto, Titulo, Autor, Descricao, Preco, Box, Flexbox2,
         Qlabel, Qbutton, PrecoTaverna, Capa } from "../styles/userStyles/BookStyles"
+import { Bounce } from "../styles/userStyles/GenderStyles"
+
 import { productImages } from '../images'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from "react"
@@ -14,6 +16,7 @@ export default function Book({data, setData}) {
     const [quantidade, setQuantidade] = useState(0);
     const [inCart, setInCart] = useState(false);
     const [buttonPopUp, setButtonPopUp] = useState(false);
+    const [buttonPopUpNot, setButtonPopUpNot] = useState(false);
     const location = useLocation()
 
     useEffect(() => {
@@ -54,16 +57,17 @@ export default function Book({data, setData}) {
             console.log("found: " + found)
             console.log(datacopy.cart[i-1])
             datacopy.cart[i-1].quantity = quantidade;
+            setButtonPopUp(true);
         }
 
-        // ARABE, FAZ ISSO AQUI, PLS.
-        // ANTES ERA PERMITIDO ADICIONAR UM PRODUTO COM QUANTIDADE 0
-        // CRIE UM POPUP QUE QUANDO A QUANTIDADE FOR 0, AVISE QUE N FOI PRO CARRINHO
         else if (quantidade > 0) {
             datacopy.cart.push({indexProduct: index, quantity: quantidade});
             setInCart(true);
+            setButtonPopUp(true);
         }
-        setButtonPopUp(true);
+        else {
+            setButtonPopUpNot(true);
+        }
         setData(datacopy);
     }
 
@@ -96,7 +100,9 @@ export default function Book({data, setData}) {
             <Preco>
                 <Box>
                     <PrecoTaverna>
-                        <FontAwesomeIcon icon={faBeer} className="beer"/>
+                        <Bounce>
+                            <FontAwesomeIcon color={"#cc720c"}icon={faBeer} className="beer"/>
+                        </Bounce>
                         <span>{data.products[index].price}</span>
                     </PrecoTaverna>
                     <Flexbox2>
@@ -113,6 +119,9 @@ export default function Book({data, setData}) {
             </Preco>
             <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
                 <p>Item adicionado ao carrinho com sucesso</p>
+            </PopUp>
+            <PopUp trigger={buttonPopUpNot} setTrigger={setButtonPopUpNot}>
+                <p>Escolha uma quantidade maior que 0 para inserir o item no carrinho</p>
             </PopUp>
         </Fit>
     )
