@@ -29,21 +29,19 @@ export default function Finalizar({data, setData}) {
 
         console.log(pay);
         if (notCompleted) {
-            console.log("Os campos " + fields.join(", ") + " não foram preenchidos");
             setMassageString(fields.join(", "));
             setButtonPopUpWrong(true);
         }
 
         else{
-            
-                // botar um alert ou popup aqui
-                console.log("Usuário criado");
-                // let valor = 0
-                // let i = 0;
-                // while (i < data.cart.length) {
-                //     i++;
-                // }
-                console.log(pay);
+                setData({...data, products: data.products.map((product, index) => {
+                    let cartProduct = data.cart.find(item => item.indexProduct === index);
+                    console.log(cartProduct);
+                    if (cartProduct !== undefined)
+                        return {...product, available: product.available - cartProduct.quantity, sold: product.sold + cartProduct.quantity}
+                    return product;
+                }), cart: []})
+
                 setButtonPopUpSuccess(true);
                 setTimeout(() => {
                     navigate("/");

@@ -7,35 +7,34 @@ import { productImages } from "../images"
 
 export default function Search({data, setData}) {
     const location = useLocation();
-    const [books, setBooks] = useState([])
-    const [genders, setGenders] = useState(data.genders.reduce((o, gender) => ({ ...o, [gender.name]: 1}), {}))
+    const [books, setBooks] = useState([]);
 
     const [filter, setFilter] = useState({
         gender: location.state !== null ? location.state.gender : undefined,
         search: location.state !== null ? location.state.products : data.products,
+        genders: data.genders.reduce((o, gender) => ({ ...o, [gender.name]: 1}), {}),
         lowPrice: "",
         highPrice: "",
         available: false
     })
 
-    
     useEffect(() => {
-        let newGenders = {};
-        console.log(books);
-        for (let i = 0; i < books.length; i++) {
-            for (let j = 0; j < books[i].genders.length; j++) {
-                if (books[i].genders[j] in newGenders)
-                    newGenders[books[i].genders[j]] += 1;
-                else
-                    newGenders[books[i].genders[j]] = 1;
+        let newGenders = {}
+        for (let i = 0; i < data.products.length; i++) {
+            for (let j = 0; j < data.products[i].genders.length; j++) {
+                if (data.products[i].genders[j] in newGenders)
+                    newGenders[data.products[i].genders[j]] += 1
+                else if (data.products[i].genders[j] !== "Selecione")
+                    newGenders[data.products[i].genders[j]] = 1;
             }
         }
-        setGenders(newGenders);
-    }, [books])
+        setFilter({...filter, genders: newGenders});
+        
+        // eslint-disable-next-line
+    }, [data.products])
     
     
     useEffect(() => {
-        console.log(filter)
         let products = data.products;
         if (filter.search !== undefined)
             products = filter.search
@@ -68,8 +67,8 @@ export default function Search({data, setData}) {
                 <Generos>
                     <h3>Gêneros</h3>
                     {
-                        Object.entries(genders).map((value, index) =>
-                            <GeneroFiltro onClick={() => setFilter({...filter, gender: value[0]})} key={index} >{value[0] + " (" + value[1] + ")"}</GeneroFiltro>
+                        Object.entries(filter.genders).map((value, index) =>
+                            <GeneroFiltro selected={value[0] === filter.gender} onClick={() => setFilter({...filter, gender: value[0]})} key={index} >{value[0] + " (" + value[1] + ")"}</GeneroFiltro>
                         )
                     }
                 </Generos>

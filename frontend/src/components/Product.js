@@ -25,17 +25,23 @@ export default function Product({data, setData, productCart}) {
     }, [data, productCart])
 
     const addOne = () => {
-        let datacopy = data.cart;
-        datacopy[cartIndex].quantity += 1;
-        setInputButton(inputButton + 1);
-        setData({...data, "cart": datacopy});
+        if (inputButton < data.products[productCart.indexProduct].available) {
+            setData({...data, cart: data.cart.map((product, index) => {
+                if (index === cartIndex)
+                    return {...product, quantity: product.quantity+1}
+                return product
+            })})
+            setInputButton(inputButton + 1);
+        }
     }
     const minusOne = () => {
         if (inputButton > 1) {
-            let datacopy = data.cart;
-            datacopy[cartIndex].quantity -= 1;
+            setData({...data, cart: data.cart.map((product, index) => {
+                if (index === cartIndex)
+                    return {...product, quantity: product.quantity-1}
+                return product
+            })})
             setInputButton(inputButton - 1);
-            setData({...data, "cart": datacopy});
         }
     }
 

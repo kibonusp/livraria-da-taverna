@@ -120,7 +120,7 @@ export const Disponibilidade = styled.div`
 
 export const GeneroFiltro = styled.p`
     cursor: pointer;
-    color: #502514;
+    color: ${props => props.selected === true ? "#B4441C" : "#502514"};
     margin: 0em;
     margin-left: 2ch;
     margin-top: 0.75em;

@@ -4,19 +4,12 @@ import { NavHeader, UserPhoto, Profile, Logo, Utils, Links, Sair, Search } from 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCartShopping} from '@fortawesome/free-solid-svg-icons'
 import { userImages } from "../images"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 
 export default function Navbar({data, setData}) {
     const [search, setSearch] = useState("");
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (data.logged.situation)
-            console.log("Usuário logou")
-        else
-            console.log("Usuário não logou")
-    }, [data.logged])
 
     const signOut = () => {
         setData({...data, logged: {"situation": false, "user": undefined}})
@@ -25,7 +18,6 @@ export default function Navbar({data, setData}) {
     const sendSearch = e => {
         let newProducts = [];
         if(e.key === 'Enter'){
-            console.log("oiee")
             let formatedSearch = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
             for (let product of data.products) {
                 let formatedProduct = product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()

@@ -16,12 +16,12 @@ export default function Cart({data, setData}) {
 
 
     useEffect(() => {
-        console.log("oi")
+        console.log("Oi")
         let valor = 0
         let i = 0;
         while (i < data.cart.length) {
             valor += parseFloat(data.products[data.cart[i].indexProduct].price.substring(3)) * data.cart[i].quantity;
-            setTotal(valor)
+            setTotal(valor.toFixed(2))
             i++;
         }
         if (data.cart.length === 0)

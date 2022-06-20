@@ -11,7 +11,7 @@ import PopUp from '../components/PopUp'
 
 export default function Book({data, setData}) {
     const [index, setIndex] = useState(0);
-    const [quantidade, setQuantidade] = useState(1);
+    const [quantidade, setQuantidade] = useState(0);
     const [inCart, setInCart] = useState(false);
     const [buttonPopUp, setButtonPopUp] = useState(false);
     const location = useLocation()
@@ -55,7 +55,11 @@ export default function Book({data, setData}) {
             console.log(datacopy.cart[i-1])
             datacopy.cart[i-1].quantity = quantidade;
         }
-        else {
+
+        // ARABE, FAZ ISSO AQUI, PLS.
+        // ANTES ERA PERMITIDO ADICIONAR UM PRODUTO COM QUANTIDADE 0
+        // CRIE UM POPUP QUE QUANDO A QUANTIDADE FOR 0, AVISE QUE N FOI PRO CARRINHO
+        else if (quantidade > 0) {
             datacopy.cart.push({indexProduct: index, quantity: quantidade});
             setInCart(true);
         }
@@ -98,7 +102,10 @@ export default function Book({data, setData}) {
                     <Flexbox2>
                         <Qlabel>Quantidade:</Qlabel>
                         {
-                            <input type="number" min="1" max={data.products[index].available} value={quantidade} onChange={e => setQuantidade(parseFloat(e.target.value))}></input>
+                            data.products[index].available > 0 ? 
+                            <input type="number" min="0" max={data.products[index].available} value={quantidade} onChange={e => setQuantidade(parseFloat(e.target.value))} />
+                            :
+                            <p style={{fontSize: "1.3rem", color: "grey"}}>Produto indisponível</p>
                         }
                     </Flexbox2>
                     <Qbutton onClick={() => adicionarCarrinho()}>Adicionar<br/>ao carrinho</Qbutton>
