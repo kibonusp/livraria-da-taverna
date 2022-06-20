@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-import { Container, Description, ActionDiv, Row, Gender, Seta } from "../styles/userStyles/GenderStyles"
+import { Container, Description, ActionDiv, Row, Gender, Seta, Bounce } from "../styles/userStyles/GenderStyles"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faGlobe, faHandSpock, faHeart, faDragon, faMask,
     faHandcuffs, faQuestion, faSkullCrossbones, faMasksTheater, faHandFist, faPersonChalkboard,
@@ -25,28 +25,6 @@ export default function Genders({data, setData}) {
         "faLandmark": faLandmark
     }
     const [curCarrossel, setCurCarrossel] = useState(0);
-    const [isHovering, setIsHovering] = useState(false);
-
-    const handleMouseOver = (name) => {
-        setIsHovering(true);
-    };
-    const hover = {
-        "faGlobe": false,
-        "faHandSpock": false,
-        "faHeart": false,
-        "faDragon": false,
-        "faMask": false,
-        "faHandcuffs": false,
-        "faQuestion": false,
-        "faSkullCrossbone": false,
-        "faMaskTheater": false,
-        "faHandFist": false,
-        "faPersonChalkboard": false,
-        "faLandmark": false
-    }
-    const handleMouseOut = () => {
-        setIsHovering(false);
-    };
 
     return (
         <>
@@ -66,7 +44,9 @@ export default function Genders({data, setData}) {
                                             <Link key={gender} to="/search" state={{gender: data.genders[gender].name}}>
                                                 <Gender theme={gender % 2 === 0 ? "light" : "dark"}>
                                                     <h1> {data.genders[gender].name} </h1>
-                                                    <FontAwesomeIcon id={data.genders[gender].name} icon={icons[data.genders[gender].icon]} size="6x" className={isHovering ? 'bounce' : ''} onmouseover={handleMouseOver} onMouseOut={handleMouseOut}/>
+                                                    <Bounce>
+                                                        <FontAwesomeIcon  icon={icons[data.genders[gender].icon]} size="6x" />
+                                                    </Bounce>
                                                 </Gender>
                                             </Link>    
                                         ) :
@@ -74,7 +54,9 @@ export default function Genders({data, setData}) {
                                             <Link key={gender + 6} to="/search" state={{gender: data.genders[gender + 6].name}}>
                                                 <Gender theme={(gender + 6) % 2 === 0 ? "light" : "dark"}>
                                                     <h1> {data.genders[gender + 6].name} </h1>
-                                                    <FontAwesomeIcon icon={icons[data.genders[gender + 6].icon]} size="6x" />
+                                                    <Bounce>
+                                                        <FontAwesomeIcon icon={icons[data.genders[gender + 6].icon]} size="6x" />
+                                                    </Bounce>
                                                 </Gender>
                                             </Link> 
                                         )
@@ -87,7 +69,9 @@ export default function Genders({data, setData}) {
                                             <Link key={gender + 3} to="/search" state={{gender: data.genders[gender + 3].name}}>
                                                 <Gender theme={(gender + 3) % 2 === 0 ? "light" : "dark"}>
                                                     <h1> {data.genders[gender + 3].name} </h1>
-                                                    <FontAwesomeIcon icon={icons[data.genders[gender + 3].icon]} size="6x" />
+                                                    <Bounce>
+                                                        <FontAwesomeIcon icon={icons[data.genders[gender + 3].icon]} size="6x" />
+                                                    </Bounce>
                                                 </Gender>
                                             </Link>    
                                         )
@@ -96,7 +80,9 @@ export default function Genders({data, setData}) {
                                             <Link key={gender + 9} to="/search" state={{gender: data.genders[gender + 9].name}}>
                                                 <Gender theme={(gender + 9) % 2 === 0 ? "light" : "dark"}>
                                                     <h1> {data.genders[gender + 9].name} </h1>
-                                                    <FontAwesomeIcon icon={icons[data.genders[gender + 9].icon]} size="6x" />
+                                                    <Bounce>
+                                                        <FontAwesomeIcon icon={icons[data.genders[gender + 9].icon]} size="6x" />
+                                                    </Bounce>
                                                 </Gender>
                                             </Link> 
                                         )
