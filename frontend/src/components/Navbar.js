@@ -23,14 +23,9 @@ export default function Navbar({data, setData}) {
     }
 
     const sendSearch = e => {
-
         let newProducts = [];
         if(e.key === 'Enter'){
-
-            console.log(e)
-            console.log(search === "")
-            console.log("search da navbar: " + search)
-
+            console.log("oiee")
             let formatedSearch = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
             for (let product of data.products) {
                 let formatedProduct = product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
@@ -38,28 +33,9 @@ export default function Navbar({data, setData}) {
                     newProducts.push(product);
             }
 
-            console.log("vish");
             navigate("/search", {state: {"products": newProducts}})
         }
-        //navigate("DSKASLDASD", STATE={{}})
-        //setSearch(newProducts);
     }
-
-        /*
-    useEffect(() => {
-        console.log(search === "")
-        console.log("search da navbar: " + search + "aaaaaaaaaaa")
-        let newProducts = [];
-        for (let product of data.products) {
-            let formatedProduct = product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
-            let formatedSearch = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
-            if (formatedProduct.includes(formatedSearch))
-                newProducts.push(product);
-        }
-        //navigate("DSKASLDASD", STATE={{}})
-        //setSearch(newProducts);
-    }, [search, data.products])
-    */
 
     return (
         <NavHeader>
@@ -101,9 +77,3 @@ export default function Navbar({data, setData}) {
         </NavHeader>
     )
 }
-
-
-
-/*
-<input type="text" className="search-hover" name="" placeholder="pesquise aqui..." onInput={e => setSearch(e.target.value)}/>
-*/

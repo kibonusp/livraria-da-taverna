@@ -96,7 +96,7 @@
             "genders": ["Ficção", "Política", "Selecione"],
             "cover": "year",
             "price": "R$ 35.50",
-            "available": 30,
+            "available": 0,
             "sold": 80
         },
         {

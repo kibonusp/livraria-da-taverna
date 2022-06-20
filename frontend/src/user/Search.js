@@ -7,66 +7,60 @@ import { productImages } from "../images"
 
 export default function Search({data, setData}) {
     const location = useLocation();
-    const [gender, setGender] = useState(location.state !== null ? location.state.gender : undefined);
-    const [books, setBooks] = useState(location.state !== null ? location.state.products : undefined);
-    const [priceBooks, setPriceBooks] = useState(books);
-    const [genders, setGenders] = useState({});
-    const [price, setPrice] = useState({
-        "lowPrice": "",
-        "highPrice": ""
+    const [books, setBooks] = useState([])
+    const [genders, setGenders] = useState(data.genders.reduce((o, gender) => ({ ...o, [gender.name]: 1}), {}))
+
+    const [filter, setFilter] = useState({
+        gender: location.state !== null ? location.state.gender : undefined,
+        search: location.state !== null ? location.state.products : data.products,
+        lowPrice: "",
+        highPrice: "",
+        available: false
     })
+
     
     useEffect(() => {
-        let newGenders = {}
-        let newBooks = []
+        let newGenders = {};
+        console.log(books);
         for (let i = 0; i < books.length; i++) {
-            if (books[i].genders.includes(gender) || gender === undefined) {
-                if (price.lowPrice === "" && price.highPrice === "")
-                    newBooks.push(books[i])
-
-                else if (price.lowPrice === "" && parseFloat(books[i].price.substring(3)) <= price.highPrice)
-                    newBooks.push(books[i])
-
-                else if (parseFloat(books[i].price.substring(3)) >= price.lowPrice && price.highPrice === "")
-                    newBooks.push(books[i])
-
-                else if (parseFloat(books[i].price.substring(3)) >= price.lowPrice && parseFloat(books[i].price.substring(3)) <= price.highPrice)
-                    newBooks.push(books[i])
-                for (let bookGender of books[i].genders) {
-                    if (bookGender !== "Selecione") {
-                        if (bookGender in newGenders)
-                            newGenders[bookGender] += 1
-                        else
-                            newGenders[bookGender] = 1
-                    }
-                }
+            for (let j = 0; j < books[i].genders.length; j++) {
+                if (books[i].genders[j] in newGenders)
+                    newGenders[books[i].genders[j]] += 1;
+                else
+                    newGenders[books[i].genders[j]] = 1;
             }
         }
-        
-        setBooks(newBooks);
         setGenders(newGenders);
-        setPriceBooks(newBooks)
-        // eslint-disable-next-line
-    }, [gender])
-
+    }, [books])
+    
+    
     useEffect(() => {
-        let newBooks = [];
-        for (let i = 0; i < books.length; i++) {
-            if (price.lowPrice === "" && price.highPrice === "")
-                newBooks.push(books[i])
-
-            else if (price.lowPrice === "" && parseFloat(books[i].price.substring(3)) <= price.highPrice)
-                newBooks.push(books[i])
-
-            else if (parseFloat(books[i].price.substring(3)) >= price.lowPrice && price.highPrice === "")
-                newBooks.push(books[i])
-
-            else if (parseFloat(books[i].price.substring(3)) >= price.lowPrice && parseFloat(books[i].price.substring(3)) <= price.highPrice)
-                newBooks.push(books[i])
+        console.log(filter)
+        let products = data.products;
+        if (filter.search !== undefined)
+            products = filter.search
+        if (filter.gender !== undefined) {
+            products = products.filter(function(product) {
+                return product.genders.includes(filter.gender)
+            })
         }
-        setPriceBooks(newBooks);
-        // eslint-disable-next-line
-    }, [price.lowPrice, price.highPrice])
+        if (filter.lowPrice !== "") {
+            products = products.filter(function(product) {
+                return parseFloat(product.price.substring(3)) >= filter.lowPrice
+            })
+        }
+        if (filter.highPrice !== "") {
+            products = products.filter(function(product) {
+                return parseFloat(product.price.substring(3)) <= filter.highPrice
+            })
+        }
+        if (filter.available === true) {
+            products = products.filter(function(product) {
+                return product.available > 0;
+            })
+        }
+        setBooks(products)
+    }, [filter, data.products])
 
     return (
         <Container>
@@ -75,7 +69,7 @@ export default function Search({data, setData}) {
                     <h3>Gêneros</h3>
                     {
                         Object.entries(genders).map((value, index) =>
-                            <GeneroFiltro onClick={() => setGender(value[0])} key={index} >{value[0] + " (" + value[1] + ")"}</GeneroFiltro>
+                            <GeneroFiltro onClick={() => setFilter({...filter, gender: value[0]})} key={index} >{value[0] + " (" + value[1] + ")"}</GeneroFiltro>
                         )
                     }
                 </Generos>
@@ -83,9 +77,9 @@ export default function Search({data, setData}) {
                     <h3>Preço</h3>
                     <PrecoInput>
                         <span>De R$ </span>
-                        <input type="number" min="0" step="any" onInput={e => setPrice({...price, lowPrice: e.target.value})} />
+                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, lowPrice: e.target.value})} />
                         <span> à R$ </span>
-                        <input type="number" min="0" step="any" onInput={e => setPrice({...price, highPrice: e.target.value})}/>
+                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, highPrice: e.target.value})}/>
                     </PrecoInput>
                 </div>
 
@@ -93,7 +87,7 @@ export default function Search({data, setData}) {
                 <Disponibilidade>
                     <h3>Disponibilidade</h3>
                     <Row>
-                        <input type="checkbox" name="disponivel" id="disponivel"></input>
+                        <input type="checkbox" name="disponivel" id="disponivel" onInput={() => setFilter({...filter, available: !filter.available})}></input>
                         <label htmlFor="disponivel">Apenas livros disponíveis</label>
                     </Row>
                 </Disponibilidade>
@@ -101,11 +95,11 @@ export default function Search({data, setData}) {
             <Resultados>
                 <h2>Resultados da Busca</h2>
                 {
-                    [...Array(Math.ceil(priceBooks.length / 3)).keys()].map(index =>
+                    [...Array(Math.ceil(books.length / 3)).keys()].map(index =>
                         <div key={index}>
                             <Row>
                                 {
-                                    priceBooks.slice(index*3, index*3 + 3).map((book, bookIndex) =>
+                                    books.slice(index*3, index*3 + 3).map((book, bookIndex) =>
                                         <Livro key={bookIndex}>
                                             <Link to="/book" state={{ nome: book.name }}>
                                                 <Cover src={productImages[book.cover]} alt={book.name} />
@@ -132,3 +126,11 @@ export default function Search({data, setData}) {
             
     )
 }
+
+/*
+{
+                        Object.entries(genders).map((value, index) =>
+                            <GeneroFiltro onClick={() => setGender(value[0])} key={index} >{value[0] + " (" + value[1] + ")"}</GeneroFiltro>
+                        )
+                    }
+*/
