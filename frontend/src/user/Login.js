@@ -2,11 +2,15 @@ import { useState } from "react";
 import { FormDiv, FormInput, FormLabel, Container, Description, FormButton, Box } from "../styles/userStyles/LoginStyles"
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import PopUp from "../components/PopUp";
+
 
 
 export default function Login({data, setData}) {
     const [user, setUser] = useState({email: undefined, password: undefined});
     const navigate = useNavigate();
+    const [buttonPopUp, setButtonPopUp] = useState(false);
+
 
     const enterLogin = e => {
         e.preventDefault()
@@ -24,11 +28,13 @@ export default function Login({data, setData}) {
                 }
                 else
                     console.log("Wrong password");
+                    setButtonPopUp(true);
             }
             i++;
         }
         if (!found)
             console.log("User not found")
+            setButtonPopUp(true);
     }
 
     return (
@@ -48,6 +54,9 @@ export default function Login({data, setData}) {
                 <Link to="/cadastro" className="cadastrar" >Não tem uma conta? Crie uma aqui</Link>
                 <FormButton onClick={e => enterLogin(e)} value="Logar">Logar</FormButton>
             </Box>
+            <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
+                <p>Usuário e/ou senha incorretos</p>
+            </PopUp>
         </Container>
     )
 }

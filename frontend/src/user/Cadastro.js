@@ -1,6 +1,8 @@
 import { FormDiv, FormInput, FormLabel, Container, FormFile, FileDiv, Description, Box, FormButton } from "../styles/userStyles/LoginStyles"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import PopUp from "../components/PopUp";
+
 
 
 export default function Cadastro({data, setData}) {
@@ -16,13 +18,20 @@ export default function Cadastro({data, setData}) {
     });
     const [passwordConfirm, setPasswordConfirm] = useState();
     const navigate = useNavigate();
+    const [buttonPopUpMissing, setButtonPopUpMissing] = useState(false);
+    const [buttonPopUpExist, setButtonPopUpExist] = useState(false);
+    const [buttonPopUpSuccess, setButtonPopUpSuccess] = useState(false);
+    const [buttonPopUpWrong, setButtonPopUpWrong] = useState(false);
+    const [massageString, setMassageString] = useState("");
+
+    
+    
 
     const changeFile = e => {
         let filepath = e.target.value;
         let paths = filepath.split("\\");
         setFileName(paths[paths.length - 1]);
     }
-
     
     const createUser = e => {
         e.preventDefault()
@@ -33,18 +42,19 @@ export default function Cadastro({data, setData}) {
         for (let key in user) {
             if (user[key] === undefined) {
                 notCompleted = true;
-                fields.push(key)
+                fields.push(key);
             }
             else if (key === "photo" && user[key] === "Não selecionado") {
                 notCompleted = true;
-                fields.push(key)
+                fields.push(key);
             }
         }
 
         console.log(user);
         if (notCompleted) {
-            // botar um alert ou popup aqui
-            console.log("Os campos " + fields.join(", ") + " não foram preenchidos")
+            console.log("Os campos " + fields.join(", ") + " não foram preenchidos");
+            setMassageString(fields.join(", "));
+            setButtonPopUpMissing(true);
         }
 
         else if (passwordConfirm === user.password) {
@@ -54,6 +64,7 @@ export default function Cadastro({data, setData}) {
                 if (data.users[i].email === user.email) {
                     // botar um alert ou popup aqui
                     console.log("Usuário já existe com esse email");
+                    setButtonPopUpExist(true);
                     exists = true;
                 }
                 i++;
@@ -62,13 +73,17 @@ export default function Cadastro({data, setData}) {
                 // botar um alert ou popup aqui
                 console.log("Usuário criado")
                 console.log(user);
+                setButtonPopUpSuccess(true);
                 setData({...data, users: [...data.users, user]});
-                navigate("/login");
+                setTimeout(() => {
+                    navigate("/login");
+                }, 3000);
             }
         }
         else {
             // botar um alert ou popup aqui
             console.log("Senhas não coincidem")
+            setButtonPopUpWrong(true);
         }
     }
     
@@ -90,7 +105,7 @@ export default function Cadastro({data, setData}) {
                     <FormInput placeholder="(55) 55555-5555" onInput={e => setUser({...user,telephone: e.target.value})} />
                 </FormDiv>
                 <FormDiv>
-                    <FormLabel>Nome</FormLabel>
+                    <FormLabel>Endereço</FormLabel>
                     <FormInput placeholder="Rua da Independência, 6942" onInput={e => setUser({...user, address: e.target.value})} />
                 </FormDiv>
                 <FormDiv>
@@ -114,6 +129,18 @@ export default function Cadastro({data, setData}) {
                 
                 <FormButton onClick={e => createUser(e)}>Cadastrar</FormButton>
             </Box>
+            <PopUp trigger={buttonPopUpMissing} setTrigger={setButtonPopUpMissing}>
+                <p>Os campos {massageString} não foram preenchidos</p>
+            </PopUp>
+            <PopUp trigger={buttonPopUpExist} setTrigger={setButtonPopUpExist}>
+                <p>Usuário já existente com este email</p>
+            </PopUp>
+            <PopUp trigger={buttonPopUpWrong} setTrigger={setButtonPopUpWrong}>
+                <p>Senhas não coincidem</p>
+            </PopUp>
+            <PopUp trigger={buttonPopUpSuccess} setTrigger={setButtonPopUpSuccess}>
+                <p>Usuário criado com sucesso, redirecionando para tela de login</p>
+            </PopUp>
         </Container>
 
     )

@@ -6,12 +6,14 @@ import { Fit, Livro, Tags, Fit2, Texto, Titulo, Autor, Descricao, Preco, Box, Fl
 import { productImages } from '../images'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from "react"
+import PopUp from '../components/PopUp'
 
 
 export default function Book({data, setData}) {
     const [index, setIndex] = useState(0);
     const [quantidade, setQuantidade] = useState(1);
     const [inCart, setInCart] = useState(false);
+    const [buttonPopUp, setButtonPopUp] = useState(false);
     const location = useLocation()
 
     useEffect(() => {
@@ -57,6 +59,7 @@ export default function Book({data, setData}) {
             datacopy.cart.push({indexProduct: index, quantity: quantidade});
             setInCart(true);
         }
+        setButtonPopUp(true);
         setData(datacopy);
     }
 
@@ -101,6 +104,9 @@ export default function Book({data, setData}) {
                     <Qbutton onClick={() => adicionarCarrinho()}>Adicionar<br/>ao carrinho</Qbutton>
                 </Box>
             </Preco>
+            <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
+                <p>Item adicionado ao carrinho com sucesso</p>
+            </PopUp>
         </Fit>
     )
 }

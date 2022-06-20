@@ -1,14 +1,19 @@
-import { Container, Container2, Row, Items, Name, Preco,  Head} from "../styles/userStyles/CartStyles"
+import { Container, Container2, Row, Items, Name, Preco,  Head} from "../styles/userStyles/CartStyles";
 import {FormButton } from "../styles/adminStyles/formStyle";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBeer } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBeer } from '@fortawesome/free-solid-svg-icons';
 import Product from "./../components/Product";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react"
+import { useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
+import PopUp from "../components/PopUp";
+import { PopUpButton } from "../styles/componentsStyles/PopUpStyle";
 
 
 export default function Cart({data, setData}) {
     const [total, setTotal] = useState(0);
+    const [buttonPopUp, setButtonPopUp] = useState(false);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         console.log("oi")
@@ -59,14 +64,19 @@ export default function Cart({data, setData}) {
                         </span>
                         <p>Compre e leia no melhor ambiente, uma taverna!</p>
                     </Preco>
-                    <Link to="/cart/confirm">
-                        <FormButton>
-                            Finalizar Compra
-                        </FormButton>
-                    </Link>
-
+                    <FormButton onClick={() => setButtonPopUp(true)}>
+                        Finalizar Compra
+                    </FormButton>
                 </Container2>
             </Row>
+            <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
+                <p>Tem certeza que deseja finalizar compra?</p>
+                <Row>
+                    <PopUpButton onClick={() => navigate("/cart/confirm")} theme="light">Confirmar</PopUpButton>
+                    <PopUpButton onClick={() => setButtonPopUp(false)}>Cancelar</PopUpButton>
+                </Row>
+            </PopUp>
+            
         </>
     )
 }

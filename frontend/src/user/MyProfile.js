@@ -1,13 +1,21 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { FormDiv, FormInput, FormLabel, FileDiv, FormFile, FormButton, FormForm } from "../styles/adminStyles/formStyle"
 import { Description, ActionDiv } from "../styles/adminStyles/HomeAdminStyle"
 import { useState } from "react"
+import PopUp from "../components/PopUp";
+import { PopUpButton } from "../styles/componentsStyles/PopUpStyle";
+import { Row } from "../styles/userStyles/CartStyles";
 
 export default function MyProfile({data, setData}) {
     const [fileName, setFileName] = useState(data.users[data.logged.user].photo);
-    const [editProfile, setEditProfile] = useState(false)
+    const [editProfile, setEditProfile] = useState(false);
     const [profile, setNewProfile] = useState(data.users[data.logged.user]);
-    const [passwords, setPasswords] = useState({password: undefined, confirm: undefined})
+    const [passwords, setPasswords] = useState({password: undefined, confirm: undefined});
+    const [buttonPopUpDelete, setButtonPopUpDelete] = useState(false);
+    const [buttonPopUp, setButtonPopUp] = useState(false);
+    const [buttonPopUpWarning, setButtonPopUpWarning] = useState(false);
+
+
     const navigate = useNavigate();
 
     const changeFile = e => {
@@ -17,10 +25,19 @@ export default function MyProfile({data, setData}) {
     }
 
     const deleteUser = e => {
+        e.preventDefault();
+        setButtonPopUpWarning(false);
+        setButtonPopUpDelete(true);
+            setTimeout(() => {
+                setData({...data, users: data.users.splice(data.logged.user, 1)});
+                setData({...data, logged: {"situation": false, "user": undefined}});
+                navigate("/");
+            }, 3000);
+    }
+
+    const warningUser = e => {
         e.preventDefault()
-        setData({...data, users: data.users.splice(data.logged.user, 1)});
-        setData({...data, logged: {"situation": false, "user": undefined}});
-        navigate("/");
+        setButtonPopUpWarning(true);
     }
 
     const saveChanges = e => {
@@ -37,12 +54,17 @@ export default function MyProfile({data, setData}) {
             let datacopy = data.users;
             datacopy[data.logged.user] = profile;
             setData({...data, users: datacopy});
+            setButtonPopUp(true);
+            setTimeout(() => {
+                navigate("/");
+            }, 3000);
         }
         else
             console.log("Mudanças não foram realizadas. As senhas não coincidem.")
     }
     
     return (
+        <>
         <FormForm>
             <Description>Seu Perfil</Description>
             <FormDiv>
@@ -82,15 +104,29 @@ export default function MyProfile({data, setData}) {
             <ActionDiv width="70">
                 {
                     editProfile === false ? 
-                        <FormButton onClick={() => setEditProfile(true)}>Editar Página</FormButton>
+                    <FormButton onClick={() => setEditProfile(true)}>Editar Página</FormButton>
                     :
-                        <>
+                    <>
                             <FormButton onClick={e => saveChanges(e)}>Salvar</FormButton>
-                            <Link to="/"><FormButton>Cancelar</FormButton></Link>
+                            <FormButton onClick={() => setEditProfile(false)}>Cancelar</FormButton>
                         </>
                 }
-                <FormButton delete="true" onClick={e => deleteUser(e)}>Deletar Perfil</FormButton>
+                <FormButton delete="true" onClick={e => warningUser(e)}>Deletar Perfil</FormButton>
             </ActionDiv>
         </FormForm>
+        <PopUp trigger={buttonPopUpDelete} setTrigger={setButtonPopUpDelete}>
+                <p>Usuário deletado com sucesso, redirecionando para tela de início</p>
+        </PopUp>
+        <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
+                <p>Mudanças realizadas com sucesso, voltando para início</p>
+        </PopUp>
+        <PopUp trigger={buttonPopUpWarning} setTrigger={setButtonPopUpWarning}>
+            <p>Certeza que deja apagar o usuário?</p>
+            <Row>
+                <PopUpButton onClick={e => deleteUser(e)}theme="light">Confirmar</PopUpButton>
+                <PopUpButton onClick={() => setButtonPopUpWarning(false)}>Cancelar</PopUpButton>
+            </Row>
+        </PopUp>
+        </>
     )
 }

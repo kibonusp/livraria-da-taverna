@@ -25,6 +25,28 @@ export default function Genders({data, setData}) {
         "faLandmark": faLandmark
     }
     const [curCarrossel, setCurCarrossel] = useState(0);
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseOver = (name) => {
+        setIsHovering(true);
+    };
+    const hover = {
+        "faGlobe": false,
+        "faHandSpock": false,
+        "faHeart": false,
+        "faDragon": false,
+        "faMask": false,
+        "faHandcuffs": false,
+        "faQuestion": false,
+        "faSkullCrossbone": false,
+        "faMaskTheater": false,
+        "faHandFist": false,
+        "faPersonChalkboard": false,
+        "faLandmark": false
+    }
+    const handleMouseOut = () => {
+        setIsHovering(false);
+    };
 
     return (
         <>
@@ -44,7 +66,7 @@ export default function Genders({data, setData}) {
                                             <Link key={gender} to="/search" state={{gender: data.genders[gender].name}}>
                                                 <Gender theme={gender % 2 === 0 ? "light" : "dark"}>
                                                     <h1> {data.genders[gender].name} </h1>
-                                                    <FontAwesomeIcon icon={icons[data.genders[gender].icon]} size="6x" />
+                                                    <FontAwesomeIcon id={data.genders[gender].name} icon={icons[data.genders[gender].icon]} size="6x" className={isHovering ? 'bounce' : ''} onmouseover={handleMouseOver} onMouseOut={handleMouseOut}/>
                                                 </Gender>
                                             </Link>    
                                         ) :
