@@ -54,10 +54,24 @@ O link para o protótipo está [neste link](https://www.figma.com/file/gBnYF7NX9
 ## Comentários Sobre o Código
 
 ## Plano de Teste
+No decorrer do projeto, decidimos, de acordo com as simulações sugeridas por esta entrega (Milestone 2) testar algumas funcionalidades para garantir uma boa experiência para o usuário, sendo estas:
+
+- Cadastro de conta;
+- Login;
+- Operações no carrinho, como adição e remoção de itens;
+- Compra;
+- Logout;
+- Busca de livros;
+- Filtros por genêros, preço e disponibilidade;
+- Operações de Administrador, como criação, edição e deleção de produto, remoção de usuários e adição ou remoção de administradores;
+
+Para testar as funcionalidades basta seguir o modelo do figma de funcionalidades feito no projeto do Milestone 1.
 
 ## Resultados do Teste
+Os testes indicaram um bom funcionamento em todos os casos, o que indica que nossa loja está no caminho certo para ser integrada ao lado do servidor.
 
 ## Procedimentos de Build
+Para a Segunda Entrega, caso queira rodar o programa, basta iniciar o projeto React dentro da pasta ``front``. Após realizar o setup do framework, utilize os comandos ``npm install`` e ``npm start`` para executar a aplicação.
 
 ## Problemas
 
