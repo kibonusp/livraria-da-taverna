@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import px2vw from "../px2vw";
+
 
 export const Container = styled.div`
     display: flex;
@@ -12,13 +14,13 @@ export const Row = styled.div`
     justify-content: space-between;
     margin: 1%;
     a{
-        margin-right: 2em;
+        margin-right: 2rem;
         text-decoration: none;
     }
 `
 export const Description = styled.h1`
     color: #B4441C;
-    font-size: 1.9rem;
+    font-size: ${px2vw(30)};
 `
 
 export const Gender = styled.div`
@@ -41,8 +43,8 @@ export const Gender = styled.div`
         }
     }
 
-    width: 20rem;
-    height: 15rem;
+    width: ${px2vw(280)};
+    height: ${px2vw(210)};
     background-color: ${props => props.theme === "light" ? "#B4441C" : "#502514"};
     color: ${props => props.theme === "light" ? "#502514": "#B4441C"};
     display: flex;
@@ -51,6 +53,7 @@ export const Gender = styled.div`
     transition: all 0.5s;
     border-radius: 15px;
     align-self: center;
+    font-size: ${px2vw(15)};
 
     &:hover {
         color: white;
@@ -87,14 +90,14 @@ export const Seta = styled.button`
     align-items: center;
     transition: all 0.5s ease-in-out;
     border: none;
-    margin: 1em;
-    padding: 3vh;
+    padding: ${px2vw(10)};
+    margin: 0px ${px2vw(20)} 0px ${px2vw(20)};
     color: white;
-    font-size: 2rem;
+    font-size: ${px2vw(30)};
     cursor: pointer;
 
     &:hover {
-        font-size: 3rem;
-        padding: 2vh;
+        font-size: ${px2vw(20)};
+        padding: ${px2vw(20)};
     }
 `

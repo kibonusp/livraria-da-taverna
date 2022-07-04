@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import px2vw from "../px2vw";
 
 export const Button = styled.div`
     padding: 10%;
@@ -139,10 +140,10 @@ export const FormStockRead = styled.p`
 
 export const FormButton = styled.button`
     border-radius: 15px;
-    width: 10em;
+    width: ${px2vw(160)};
     border: ${props => props.delete === "true" ? "2px solid red": "none"};
     padding: 1em 0.5em;
-    font-size: 1.35rem;
+    font-size: ${px2vw(16)};
     background-color: ${props => props.delete === "true" ? "transparent": "#B4441C"};
     color: ${props => props.delete === "true" ? "red": "#f5f5f5"};
     font-family: Gilroy;

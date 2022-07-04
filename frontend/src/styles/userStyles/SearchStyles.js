@@ -1,24 +1,26 @@
 import styled from "styled-components";
+import px2vw from "../px2vw";
+
 
 export const Livro = styled.div`
-    margin-right: 0.5em;
+    margin-right: ${px2vw(30)};
     a {
         display: flex;
         justify-content: flex-start;
-        margin: 1.5em;
+        margin: ${px2vw(30)};
         margin-left: 0;
         color: #502514;
         text-decoration: none;
         transition: all 0.2s ease-in-out;
     }
     &:hover img {
-        width: 10em;
+        width: ${px2vw(120)};
     }
 `
 
 export const Cover = styled.img`
-    width: 9em;
-    border-radius: 10px 25px 25px 10px;
+    width: ${px2vw(100)};
+    border-radius: ${px2vw(5)} ${px2vw(20)} ${px2vw(20)} ${px2vw(5)};
     transition: all 0.2s ease-in-out;
 `
 
@@ -26,29 +28,29 @@ export const Cover = styled.img`
 export const Descricao = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 1.2em;
+    margin-left: ${px2vw(10)};
 `
 
 export const Titulo = styled.h3`
-    width: 10em;
+    max-width: ${px2vw(200)};
     margin: 0;
-    font-size: 1.4rem;
+    font-size: ${px2vw(20)};
 `
 
 export const Autor = styled.h4`
-    margin-top: 0.3em;
+    margin-top: ${px2vw(10)};
     color: #9F6A54;
-    font-size: 1.1rem;
+    font-size: ${px2vw(15)};
 `
 
 export const PrecoTaverna = styled.div`
     font-weight: 600;
     display: flex;
     align-items: center;
-    font-size: 1.2rem;
-    margin-top: 1em;
+    font-size: ${px2vw(15)};
+    margin-top: ${px2vw(10)};
     .beer {
-        margin-right: 0.4em;
+        margin-right: ${px2vw(10)};
     }
 `
 
@@ -59,10 +61,10 @@ export const Row = styled.div`
 `
 
 export const Resultados = styled.div`
-    margin: 0.75rem;
-    margin-left: 2.5em;
+    margin: ${px2vw(10)};
+    margin-left: ${px2vw(50)};
     h2 {    
-        font-size: 2rem;
+        font-size: ${px2vw(30)};
         margin-top: 0;
     }
 `
@@ -75,8 +77,8 @@ export const HR = styled.hr`
 export const Container = styled.div`
     color: #502514;
     display: flex;
-    margin-top: 2em;
-    margin-bottom: 7em;
+    margin-top: ${px2vw(10)};
+    margin-bottom: ${px2vw(40)};
 `
 
 export const Filtros = styled.div`
@@ -84,10 +86,10 @@ export const Filtros = styled.div`
     color: #502514;
     font-weight: 600;
     p {
-        font-size: 1.1rem;
+        font-size: ${px2vw(12)};
     }
     h3 {
-        font-size: 1.4rem;
+        font-size: ${px2vw(15)};
     }
 `
 
@@ -101,20 +103,21 @@ export const Generos = styled.div`
 
 export const PrecoInput = styled.div`
     margin-left: 2ch;
+    font-size: ${px2vw(10)};
     input {
-        width: 4.25em;
-        border: solid 3px #502514;
-        height: 25px;
-        width: 4.4em;
+        border: solid ${px2vw(2)} #502514;
+        height: ${px2vw(15)};
+        width: ${px2vw(40)};
         font-weight: 600;
     }
 `
 export const Disponibilidade = styled.div`
     margin-left: 2ch;
+    font-size: ${px2vw(10)};
     input {
-        height: 20px;
-        width: 20px;
-        margin-right: 10px;
+        height: ${px2vw(20)};
+        width: ${px2vw(20)};
+        margin-right: ${px2vw(10)};
     }
 `
 
@@ -123,7 +126,7 @@ export const GeneroFiltro = styled.p`
     color: ${props => props.selected === true ? "#B4441C" : "#502514"};
     margin: 0em;
     margin-left: 2ch;
-    margin-top: 0.75em;
+    margin-top: ${px2vw(8)};
     text-decoration: none;
     &:hover {
         color: #B4441C;

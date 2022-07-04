@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import px2vw from "../px2vw";
 
 export const Container = styled.div`
     position: fixed;
@@ -17,7 +18,7 @@ export const Container = styled.div`
 export const Content = styled.div`
     background-color: #B4441C;
     color: white;
-    font-size: 1.5rem;
+    font-size: ${px2vw(20)};
     border-radius: 5vh;
     box-shadow: 0 0 1rem black;
 
@@ -30,7 +31,7 @@ export const CloseButton = styled.button`
     background-color: rgba(0,0,0,0);
     border: none;
     color: white;
-    font-size: 1em;
+    font-size: ${px2vw(30)};
 
     cursor: pointer;
     
@@ -45,8 +46,6 @@ export const CloseButton = styled.button`
 
 `
 export const PopUpButton = styled.div`
-    width: ${props => props.width};
-    height: ${props => props.height};
     padding: 1%;
 
     background-color: ${props => props.theme === "light" ? "white" : "#B4441C"};

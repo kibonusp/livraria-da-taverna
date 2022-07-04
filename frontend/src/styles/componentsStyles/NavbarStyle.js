@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import px2vw from "../px2vw";
 
 export const NavHeader = styled.nav`
     display: flex;
@@ -6,12 +7,12 @@ export const NavHeader = styled.nav`
     align-items: center;
     justify-content: space-between;
     padding: 0em 2em;
-    height: 12vh;
+    height: ${px2vw(80)};
 `
 
 export const UserPhoto = styled.img`
-    width: 2.5em;
-    height: 2.5em;
+    width: ${px2vw(40)};
+    height: ${px2vw(40)};
     border-radius: 100%;
     margin-right: 1em;
 `
@@ -20,17 +21,17 @@ export const Profile = styled.div`
     display: flex;
     color: #F5F5F5;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: ${px2vw(10)};
     a {
         text-decoration: none;
         color: #F5F5F5;
-        font-size: 1.1rem;
+        font-size: ${px2vw(15)};
         transition: all 0.5s;
     }
 
     a:hover {
         color: #B4441C;
-        font-size: 1.3rem;
+        font-size:${px2vw(16)};
         transition-timing-function: ease-in-out;
 
     }
@@ -45,16 +46,23 @@ export const Sair = styled.button`
     padding: 0.4em 1em;
     font-family: Gilroy;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: ${px2vw(10)};
     border: none;
     cursor: pointer;
+    transition: all 0.5s;
+
     &:hover {
-        font-size: 1rem;
+        font-size: ${px2vw(11)};
+        background-color: #502514;
+        transition-timing-function: ease-in-out;
+        color: #f5f5f5;
+        border: 1px solid white;
     }
 `
 
 export const Logo = styled.img`
-    width: 13em;
+    width: ${px2vw(200)};
+    margin-left: ${px2vw(100)};
 `
 
 export const Utils = styled.div`
@@ -76,11 +84,11 @@ export const Links = styled.div`
     a {
         text-decoration: none;
         color: #F5F5F5;
-        font-size: 1.1rem;
+        font-size: ${px2vw(15)};
         margin-left: 1.5em;
         transition: all 0.5s;
         i{
-            font-size: 1.3rem;
+            font-size: ${px2vw(17)};
             transition: font-size 0.3s;
         }
 
@@ -88,11 +96,11 @@ export const Links = styled.div`
 
     a:hover {
         color: #B4441C;
-        font-size: 1.3rem;
+        font-size: ${px2vw(18)};
         transition-timing-function: ease-in-out;
         transition: all 0.5s;
         i:hover{
-            font-size: 2rem;
+            font-size: ${px2vw(20)};
             transition-timing-function: ease-in;
 
         }
@@ -102,7 +110,9 @@ export const Links = styled.div`
 
 export const Search = styled.input`
     font-family: Gilroy;
-    height: 2rem;
+    height: ${px2vw(20)};
+    width: ${px2vw(100)};
+    font-size: ${px2vw(10)};
     margin-left: 1em;
     padding: 0em 1em;
     border: none;

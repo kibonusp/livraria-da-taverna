@@ -24,6 +24,7 @@ export const FormDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 10%;
 `
 
 export const FormInput = styled.input`
@@ -42,6 +43,7 @@ export const FormInput = styled.input`
 export const FormButton = styled.button`
     border-radius: 15px;
     margin-left: 45%;
+    margin-bottom: 5%;
     width: max-content;
     border: ${props => props.delete === "true" ? "2px solid red": "none"};
     padding: 1em 0.5em;
@@ -62,6 +64,7 @@ export const ActionDiv = styled.div`
     display: flex;
     width: ${props => props.width+"%"};
     justify-content: space-around;
+    margin-bottom: 5%;
 `
 export const Row = styled.div`
     display: flex;

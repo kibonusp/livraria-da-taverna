@@ -1,24 +1,10 @@
 import styled from "styled-components";
+import px2vw from "../px2vw";
 
 export const Description = styled.tr`
     
 `
-export const Name = styled.tr`
-    margin: 0%;
-    
-    `
-export const Head = styled.th`
-    border-bottom: 1px solid gray;
-    div{  
-        color: #502514;
-        border: 2px solid #502514;
-        padding: 10px 50px;
-        border-radius: 5em;
-        font-size: 20px;
-        margin: 5%;
-        
-    }
-`
+
 export const Cell = styled.td`
     border-bottom: ${props => props.margin === "ignore" ? "none" : "1px solid gray"};
     text-align: center;
@@ -27,14 +13,14 @@ export const Cell = styled.td`
 `
 
 export const Cover = styled.img`
-    max-width: 6em;
+    max-width: ${px2vw(70)};
     margin: 5%;
-    border-radius: 10px 25px 25px 10px;
+    border-radius: ${px2vw(6)} ${px2vw(15)} ${px2vw(15)} ${px2vw(6)};
 `
 
 export const Titulo = styled.span`
     margin: 0;
-    font-size: 1.4rem;
+    font-size: ${px2vw(20)};
     align-self: center;
     a{
         text-decoration: none;
@@ -44,12 +30,12 @@ export const Titulo = styled.span`
 
 export const Valor = styled.span`
     align-self: center;
-    font-size: 1.2rem;
+    font-size: ${px2vw(20)};
 `
 
 export const Quantidade = styled.form`
     align-self: center;
-    font-size: 1.2rem;
+    font-size: ${px2vw(10)};
 
     input[type='number'] {
         -moz-appearance:textfield;
@@ -62,7 +48,7 @@ export const Quantidade = styled.form`
         border-radius: 10%;
         border: 1px solid #502514;
         text-align: center;
-        font-size: large;
+        font-size: ${px2vw(15)};
         color: #502514;
     }
 `
@@ -71,9 +57,9 @@ export const Delete = styled.button`
     background-color: red;
     color: white;
     border: 1px solid red;
-    width: 2.2rem;
-    height: 2.2rem;
-    font-size: 1.2rem;
+    width: ${px2vw(30)};
+    height: ${px2vw(30)};
+    font-size: ${px2vw(15)};
     border-radius: 10vh;
 
     transition: all 0.5s;
@@ -88,9 +74,9 @@ export const InputButton = styled.button`
     background-color: #B4441C;
     color: white;
     border: none;
-    width: 2.2rem;
-    height: 2.2rem;
-    font-size: 1.2em;
+    width: ${px2vw(25)};
+    height: ${px2vw(25)};
+    font-size: ${px2vw(15)};
     margin: 5%;
     border-radius: 100%;
 

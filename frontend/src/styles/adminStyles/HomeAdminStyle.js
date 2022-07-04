@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import px2vw from "../px2vw";
+
 
 export const Container = styled.div`
     display: flex;
@@ -11,19 +13,19 @@ export const Container = styled.div`
 
 export const Description = styled.h1`
     color: #B4441C;
-    font-size: 1.9rem;
+    font-size: ${px2vw(30)};
 `
 
 export const Action = styled.div`
-    width: 20rem;
-    height: 15rem;
+    width: ${px2vw(400)};
+    height: ${px2vw(300)};
     background-color: #B4441C;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.5s;
     color: #F5F5F5;
-    font-size: 1.8rem;
+    font-size: ${px2vw(30)};
     border-radius: 15px;
     &:hover {
         background-color: #502514;
