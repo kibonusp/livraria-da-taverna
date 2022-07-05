@@ -4,7 +4,7 @@ const Produto = mongoose.Schema({
     "name": {type: String, unique: true},
     "author": [{type: String}],
     "description": String,
-    "genders": [{type: mongoose.Schema.Types.ObjectId}],
+    "genders": [{type: mongoose.Schema.Types.ObjectId, ref: 'GeneroSchema'}],
     "cover": String,
     "price": String,
     "available": Number,

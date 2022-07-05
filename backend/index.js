@@ -1,15 +1,17 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const app = express()
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const fileupload = require("express-fileupload");
+const app = express();
 
-cors()
 require('dotenv').config();
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(fileupload());
 
-const PORT = 5432;
+const PORT = 11323;
 
 // Routes
 app.use(require('./routes/produto'));
