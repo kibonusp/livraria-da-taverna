@@ -6,11 +6,15 @@ const app = express()
 cors()
 require('dotenv').config();
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
 const PORT = 5432;
 
 // Routes
 app.use(require('./routes/produto'));
 app.use(require('./routes/genero'));
+app.use(require('./routes/user'));
 
 mongoose.connect(process.env.CONN_STR, {useNewUrlParser: true, useUnifiedTopology: true});
 

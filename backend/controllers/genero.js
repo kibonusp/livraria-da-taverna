@@ -1,7 +1,6 @@
 const genderModel = require('../models/genero')
 
 module.exports.createGender = async (req, res) => {
-    console.log('oi')
     const gender = new genderModel(req.body)
     try {
         const genderSaved = await gender.save()
