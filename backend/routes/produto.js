@@ -1,6 +1,6 @@
-const express = require('express')
-const router = express.Router()
-const productController = require('../controllers/produto')
+const express = require('express');
+const router = express.Router();
+const productController = require('../controllers/produto');
 
 router.post('/produto', productController.createProduct);
 router.get('/produto', productController.getProducts);
@@ -11,4 +11,4 @@ router.delete('/produto/:id', productController.deleteProduct);
 router.put('/produto/:id/image', productController.uploadImage);
 router.get('/produto/:id/image', productController.getImage);
 
-module.exports = router
+module.exports = router;

@@ -15,15 +15,15 @@ module.exports.createProduct = async (req, res) => {
         "price": req.body.price,
         "available": req.body.available,
         "sold": req.body.sold
-    })
+    });
 
     try {
-        const productSaved = await newProduct.save()
-        return res.status(200).send(productSaved)
+        const productSaved = await newProduct.save();
+        return res.status(200).send(productSaved);
     }
     catch(e) {
-        console.log(e)
-        return res.status(409).send("Product with this name already exists")
+        console.log(e);
+        return res.status(409).send("Product with this name already exists");
     }
 }
 
@@ -31,7 +31,7 @@ module.exports.createProduct = async (req, res) => {
 module.exports.uploadImage = async (req, res) => {
     const myFile = req.files.image;
 
-    const product = await productModel.findById(req.params.id)
+    const product = await productModel.findById(req.params.id);
     const previousImage = product.cover;
 
     productModel.findByIdAndUpdate(req.params.id, {cover: myFile.name}, (err, results) => {
@@ -39,16 +39,16 @@ module.exports.uploadImage = async (req, res) => {
         if (results !== undefined) {
             myFile.mv(`./assets/produtos/${myFile.name}`, function (err) {
                 if (err) {
-                    console.log(err)
+                    console.log(err);
                     return res.status(500).send({ msg: "Error occured" });
                 }
             });
             if (previousImage !== null && previousImage !== "")
-                fs.unlink(path.join(__dirname, '../assets/produtos', previousImage), err => {if (err) throw err})
+                fs.unlink(path.join(__dirname, '../assets/produtos', previousImage), err => {if (err) throw err});
             res.status(200).send("Image updated");
         }
         else
-            res.status(505).send("Error in setImage")
+            res.status(505).send("Error in setImage");
     });
 }
 
@@ -58,7 +58,7 @@ module.exports.getImage = async(req, res) => {
         const product = await productModel.findById(req.params.id);
         if (product) 
             res.status(200).sendFile(path.join(__dirname, '../assets/produtos', product.cover));
-        else res.status(404).json("Image not found")
+        else res.status(404).json("Image not found");
     }
     catch(e) {
         console.log(e);
@@ -67,55 +67,55 @@ module.exports.getImage = async(req, res) => {
 
 // * OK
 module.exports.getProducts = async (req, res) => {
-    const products = await productModel.find({})
-    return res.status(200).send(products)
+    const products = await productModel.find({});
+    return res.status(200).send(products);
 }
 
 // * OK
 module.exports.getProduct = async (req, res) => {
-    const product = await productModel.findById(req.params.id)
+    const product = await productModel.findById(req.params.id);
     if (product === null)
-        return res.status(404).send("Product not Found")
-    return res.status(200).send(product)
+        return res.status(404).send("Product not Found");
+    return res.status(200).send(product);
 }
 
 // * OK
 module.exports.getProductsFilter = async (req, res) => {
-    console.log(req.body)
+    console.log(req.body);
     let query = {}
     if (req.body.hasOwnProperty('available'))
         query.available = req.body.available === true ? {$gt: 0} : 0;
     
     if (req.body.hasOwnProperty('gender')) {
         try {
-            query.gender = new mongoose.Types.ObjectId(req.body.gender)
+            query.gender = new mongoose.Types.ObjectId(req.body.gender);
         }
         catch(e) {
-            return res.status(400).send("gender is not ObjectID")
+            return res.status(400).send("gender is not ObjectID");
         }
     }
     if (req.body.hasOwnProperty('price'))
-        query.price = req.body.price
+        query.price = req.body.price;
     
     try {
         productModel.find(query, (err, products) => {
             if (products)
                 return res.status(200).send(products);
-            return res.status(500).send("Unknown error ocurred")
+            return res.status(500).send("Unknown error ocurred");
         });
     }
     catch (e) {
-        console.log(e)
+        console.log(e);
     }
 }
 
 // * OK
 module.exports.updateProduct = async (req, res) => {
-    let genders = []
+    let genders = [];
     for (let gender of req.body.genders) {
         genderModel.findOne({"name": gender}, (err, gdr) => {
             if (gdr) 
-                genders.push(gdr._id)
+                genders.push(gdr._id);
         });
     }
 
@@ -130,9 +130,9 @@ module.exports.updateProduct = async (req, res) => {
         "sold": req.body.sold
     }, (err, product) => {
         if (product)
-            return res.status(200).send("Product was updated")
-        if(err.codeName === "DuplicateKey") return res.status(404).send("Product name already used")
-        return res.status(404).send("Product not found")
+            return res.status(200).send("Product was updated");
+        if(err.codeName === "DuplicateKey") return res.status(404).send("Product name already used");
+        return res.status(404).send("Product not found");
     })
 }
 
@@ -140,7 +140,7 @@ module.exports.updateProduct = async (req, res) => {
 module.exports.deleteProduct = async (req, res) => {
     productModel.findByIdAndRemove(req.params.id, (err, product) => {
         if (product)
-            return res.status(200).send("Product deleted")
-        return res.status(404).send("Product not Found")
+            return res.status(200).send("Product deleted");
+        return res.status(404).send("Product not Found");
     })
 }
