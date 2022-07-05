@@ -1,0 +1,75 @@
+const refreshModel = require('../models/refresh');
+const jwt = require('jsonwebtoken');
+const axios = require('axios');
+
+module.exports.createToken = async (req, res) => {
+    const refreshToken = req.body.token;
+
+    if (!refreshToken)
+        return res.sendStatus(401)
+
+    // Vejo se o token existe no banco de dados
+    if (await refreshModel.exists({token: refreshToken})) {
+        // Vejo se o token é válido
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, user) => {
+            if (err)
+                return res.status(403).send({error: 'Token is not valid'})
+            const accessToken = generateAccessToken({sub: user.sub});
+            const newRefreshToken = jwt.sign({sub: user.sub}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
+
+            await refreshModel.findByIdAndUpdate(user.sub, {
+                token: newRefreshToken
+            }, {new: true});
+
+            return res.status(200).json({accessToken: accessToken, refreshToken: newRefreshToken});
+        })
+    }
+    else
+        return res.status(403).send("Token not found");
+}
+
+module.exports.logoutUser = async (req, res) => {
+    const token = req.body.token;
+    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, tokenJWT) => {
+        if (err)
+            return res.status(403).send({error: 'Token is not valid'})
+        refreshModel.findByIdAndDelete(tokenJWT.sub, (err, doc) => {
+            if (err)
+                return res.status(404).send({error: 'Token not found'});
+            return res.status(200).send('User logged out');
+        })
+    }) 
+}
+
+module.exports.loginUser = async (req, res) => {
+    try {
+        const url = `http://localhost:11323/user/auth`;
+        const response = await axios.post(url, {
+            email: req.body.email,
+            password: req.body.password
+        });
+
+        if (response.data != false) {
+            const user = response.data;
+            const accessToken = generateAccessToken({sub: user._id});
+
+            const refreshToken = jwt.sign({sub: user._id}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
+
+            const dbRefreshToken = new refreshModel({
+                token: refreshToken,
+                _id: user._id
+            });
+            await dbRefreshToken.save();
+            return res.status(200).send({accessToken: accessToken, refreshToken: refreshToken});
+        }
+        res.status(401).send({error: 'Wrong Password'})
+    }
+    catch (error) {
+        console.log(JSON.stringify(error));
+        res.status(504).send({'error': 'timed out'});
+    }
+}
+
+const generateAccessToken = user => {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15s'})
+}

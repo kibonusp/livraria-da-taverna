@@ -1,4 +1,6 @@
-const userModel = require('../models/user')
+const userModel = require('../models/user');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 module.exports.createUser = async (req, res) => {
 
@@ -7,7 +9,7 @@ module.exports.createUser = async (req, res) => {
         "email": req.body.email,
         "telephone": req.body.telephone,
         "address": req.body.address,
-        "password": req.body.password,
+        "password": await bcrypt.hash(req.body.password, 10),
         "photo": req.body.photo,
         "admin": req.body.admin
     });
@@ -23,6 +25,12 @@ module.exports.createUser = async (req, res) => {
 
 // TODO: tem que testar
 module.exports.uploadImage = async (req, res) => {
+
+    const sub = req.sub;
+
+    if (req.params.id != sub)
+        return res.status(401).send({error: 'No access to this user'});
+
     const myFile = req.files.image;
 
     const user = await userModel.findById(req.params.id);
@@ -48,6 +56,13 @@ module.exports.uploadImage = async (req, res) => {
 
 // TODO: tem que testar
 module.exports.getImage = async(req, res) => {
+    const sub = req.sub;
+
+    const curUser = await userModel.findById(sub);
+
+    if (sub !== req.params.id && curUser.admin === false)
+        return res.status(401).send({error: 'No access to this user'});
+
     try {
         const user = await userModel.findById(req.params.id);
         if (user) 
@@ -60,20 +75,32 @@ module.exports.getImage = async(req, res) => {
 }
 
 module.exports.getUser = async (req, res) => {
+    const sub = req.sub;
+
+    if (req.params.id != sub)
+        return res.status(401).send({error: 'No access to this user'});
+
     const curUser = await userModel.findById(req.params.id);
-    if (curUser !== null) return res.status(200).send(curUser);
-    else return res.status(400).send("User with this id does not exist");
+
+    if (curUser !== null) 
+        return res.status(200).send({"email": curUser.email, "photo": curUser.photo, "admin": curUser.admin});
+    else 
+        return res.status(400).send("User with this id does not exist");
 }
 
-module.exports.updateUser = async (req, res) => {    
+module.exports.updateUser = async (req, res) => {
+    const sub = req.sub;
+
+    if (req.params.id != sub)
+        return res.status(401).send({error: 'No access to this user'});
+
     userModel.findByIdAndUpdate(req.params.id, {
         "name": req.body.name,
         "email": req.body.email,
         "telephone": req.body.telephone,
         "address": req.body.address,
         "password": req.body.password,
-        "photo": req.body.photo,
-        "admin": req.body.admin
+        "photo": req.body.photo
     }, (err, user) => {
         if (user)
             return res.status(200).send("User was updated");
@@ -82,15 +109,68 @@ module.exports.updateUser = async (req, res) => {
     });   
 }
 
+module.exports.changeAdmin = async (req, res) => {
+    const sub = req.sub;
+    const curUser = await userModel.findById(sub);
+    if (curUser.admin === false)
+        return res.status(401).send({error: 'No access to this user'});
+    
+    userModel.findByIdAndUpdate(req.params.userID, {
+        "admin": req.body.admin
+    }, (err, user) => {
+        if (user)
+            return res.status(200).send("User was updated");
+        return res.status(404).send("User not found");
+    })
+}
+
 module.exports.getUsers = async (req, res) => {
     const users = await userModel.find({});
     return res.status(200).send(users);
 }
 
 module.exports.deleteUser = async (req, res) => {
+    const sub = req.sub;
+
+    const curUser = await userModel.findById(sub);
+
+    if (sub !== req.params.id && curUser.admin === false)
+        return res.status(401).send({error: 'No access to this user'});
+
+
     userModel.findByIdAndRemove(req.params.id, (err, user) => {
         if (user)
             return res.status(200).send("User deleted");
         return res.status(404).send("User not Found");
     })
+}
+
+module.exports.validateToken = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token)
+        return res.sendStatus(401);
+    
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err)
+            return res.sendStatus(403);
+
+        req.sub = user.sub;
+        next();
+    });
+};
+
+module.exports.authenticateUser = async (req, res) => {
+    const {email, password} = req.body;
+
+    const user = await userModel.findOne({email: email});
+
+    if (!user)
+        return res.status(404).send({error: 'User not Found'});
+    
+    if (await bcrypt.compare(password, user.password))
+        return res.status(200).send(user)
+    else
+        res.status(401).send(false)
 }

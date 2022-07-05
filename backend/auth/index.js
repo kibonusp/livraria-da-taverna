@@ -1,24 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const fileupload = require("express-fileupload");
 const app = express();
 
-require('dotenv').config();
+require('dotenv').config({path:'../.env'});
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(fileupload());
 
-const PORT = 11323;
+const PORT = 12389;
 
 // Routes
-app.use(require('./routes/produto'));
-app.use(require('./routes/genero'));
-app.use(require('./routes/user'));
+app.use(require('./routes/refresh'));
 
-mongoose.connect(process.env.CONN_STR, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.AUTH_CONN_STR, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 

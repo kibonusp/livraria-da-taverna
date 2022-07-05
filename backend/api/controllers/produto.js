@@ -6,6 +6,11 @@ const fs = require('fs');
 
 // * OK
 module.exports.createProduct = async (req, res) => {
+    const sub = req.sub;
+    const curUser = await userModel.findById(sub);
+    if (curUser.admin === false)
+        return res.status(401).send({error: 'No access to this user'});
+
     const newProduct = new productModel({
         "name": req.body.name,
         "author": req.body.author,
@@ -29,6 +34,11 @@ module.exports.createProduct = async (req, res) => {
 
 // TODO: tem que testar
 module.exports.uploadImage = async (req, res) => {
+    const sub = req.sub;
+    const curUser = await userModel.findById(sub);
+    if (curUser.admin === false)
+        return res.status(401).send({error: 'No access to this user'});
+
     const myFile = req.files.image;
 
     const product = await productModel.findById(req.params.id);
@@ -111,7 +121,11 @@ module.exports.getProductsFilter = async (req, res) => {
 
 // * OK
 module.exports.updateProduct = async (req, res) => {
-    let genders = [];
+    let genders = [];const sub = req.sub;
+    const curUser = await userModel.findById(sub);
+    if (curUser.admin === false)
+        return res.status(401).send({error: 'No access to this user'});
+
     for (let gender of req.body.genders) {
         genderModel.findOne({"name": gender}, (err, gdr) => {
             if (gdr) 
@@ -138,6 +152,11 @@ module.exports.updateProduct = async (req, res) => {
 
 // * OK
 module.exports.deleteProduct = async (req, res) => {
+    const sub = req.sub;
+    const curUser = await userModel.findById(sub);
+    if (curUser.admin === false)
+        return res.status(401).send({error: 'No access to this user'});
+        
     productModel.findByIdAndRemove(req.params.id, (err, product) => {
         if (product)
             return res.status(200).send("Product deleted");
