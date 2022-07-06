@@ -10,38 +10,40 @@ import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from "react"
 import PopUp from '../components/PopUp'
 
+import axios from "axios";
+
+const baseURL = "http://localhost:11323/produto/"
 
 export default function Book({data, setData}) {
-    const [index, setIndex] = useState(0);
+    const [id, setId] = useState(null);
     const [quantidade, setQuantidade] = useState(0);
     const [inCart, setInCart] = useState(false);
     const [buttonPopUp, setButtonPopUp] = useState(false);
     const [buttonPopUpNot, setButtonPopUpNot] = useState(false);
     const location = useLocation()
 
-    useEffect(() => {
-        const { nome } = location.state;
-        let i = 0;
-        let found = false;
-        while (i < data.products.length && !found) {
-            if (data.products[i].name === nome) {
-                setIndex(i);
-                found = true;
-            }
-            i++;
-        }
+    const [livro, setLivro] = useState(null);
 
+    useEffect(() => {
+        const { product } = location.state;
+        setId(product.id)
+        console.log(product.id)
+        const newURL = baseURL + id;
+        axios.get(newURL).then((response) => {
+            setLivro(response.data);
+        });
+        console.log(livro)
         let j = 0;
-        found = false;
+        let found = false;
         while (j < data.cart.length && !found) {
-            if (data.cart[j].indexProduct === i-1) {
+            if (data.cart[j].id === id) {
                 setQuantidade(data.cart[j].quantity)
                 setInCart(true);
                 found = true;
             }
             j++;
         }
-    }, [location, index, data]);
+    }, [location]);
 
     const adicionarCarrinho = () => {
         let datacopy = data;
@@ -50,18 +52,16 @@ export default function Book({data, setData}) {
             let i = 0;
             let found = false;
             while (i < datacopy.cart.length && !found) {
-                if (datacopy.cart[i].indexProduct === index)
+                if (datacopy.cart[i].id === id)
                     found = true;
                 i++;
             }
-            console.log("found: " + found)
-            console.log(datacopy.cart[i-1])
             datacopy.cart[i-1].quantity = quantidade;
             setButtonPopUp(true);
         }
 
         else if (quantidade > 0) {
-            datacopy.cart.push({indexProduct: index, quantity: quantidade});
+            datacopy.cart.push({id: id, quantity: quantidade});
             setInCart(true);
             setButtonPopUp(true);
         }
@@ -76,7 +76,7 @@ export default function Book({data, setData}) {
             <Livro>
                 <Tags>
                     {
-                        data.products[index].genders.map((gender, index) =>
+                        livro.genders.map((gender, index) =>
                             gender !== "Selecione" ?
                             <Link key={index} to="/search" state={{"gender": gender}}>
                                 <button>{gender}</button>
@@ -87,12 +87,12 @@ export default function Book({data, setData}) {
                     }
                 </Tags>
                 <Fit2>
-                    <Capa src={productImages[data.products[index].cover]} alt="Capa Livro"></Capa>
+                    <Capa src={productImages[livro.cover]} alt="Capa Livro"></Capa>
                     <Texto>
-                        <Titulo>{data.products[index].name}</Titulo>
-                        <Autor> <i> {data.products[index].author}</i> </Autor>
+                        <Titulo>{livro.name}</Titulo>
+                        <Autor> <i> {livro.author}</i> </Autor>
                         <Descricao>            
-                            {data.products[index].description}
+                            {livro.description}
                         </Descricao>
                     </Texto>
                 </Fit2>
@@ -103,13 +103,13 @@ export default function Book({data, setData}) {
                         <Bounce>
                             <FontAwesomeIcon color={"#cc720c"}icon={faBeer} className="beer"/>
                         </Bounce>
-                        <span>{data.products[index].price}</span>
+                        <span>{livro.price}</span>
                     </PrecoTaverna>
                     <Flexbox2>
                         <Qlabel>Quantidade:</Qlabel>
                         {
-                            data.products[index].available > 0 ? 
-                            <input type="number" min="0" max={data.products[index].available} value={quantidade} onChange={e => setQuantidade(parseFloat(e.target.value))} />
+                            livro.available > 0 ? 
+                            <input type="number" min="0" max={livro.available} value={quantidade} onChange={e => setQuantidade(parseFloat(e.target.value))} />
                             :
                             <p style={{fontSize: "1.3rem", color: "grey"}}>Produto indisponível</p>
                         }

@@ -5,7 +5,7 @@ import HomeSecao from "./HomeSecao"
 
 import { useEffect, useState } from "react"
 
-export default function Home({data, setData}) {
+export default function Home() {
 
     const paineis = ["#773622", "#cb7f2b", "#B4441C"]
 
@@ -33,9 +33,9 @@ export default function Home({data, setData}) {
                 </Scroll>
             </Painel>
             <Container>
-                <HomeSecao nome="Mais Vendidos" livros={data.products}/>
+                <HomeSecao nome="Mais Vendidos" />
                 <hr></hr>
-                <HomeSecao nome="Lançamentos" livros={data.products}/>
+                <HomeSecao nome="Lançamentos" />
             </Container>
         </>
     )

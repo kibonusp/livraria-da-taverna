@@ -44,7 +44,7 @@ export default function Navbar({data, setData}) {
                     :   
                         <>
                             <UserPhoto src={userImages["anonymous"]} alt="Foto do usuário" />
-                            <Link to="/login">Faça login ou se cadastre</Link>
+                            <Link to="/login">Faça login ou cadastre-se</Link>
                         </>
                 }
             </Profile>
