@@ -1,3 +1,4 @@
+
 import { Link, useLocation } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer} from '@fortawesome/free-solid-svg-icons'
@@ -5,63 +6,81 @@ import { Livro, Cover, Descricao, Titulo, Autor, PrecoTaverna, Row, Resultados, 
 import { useEffect, useState } from "react"
 import { productImages } from "../images"
 
+import axios from "axios";
+
+const genderURL = "http://localhost:11323/genero"
+const bookURL = "http://localhost:11323/produtos"
+
+
 export default function Search({data, setData}) {
     const location = useLocation();
     const [books, setBooks] = useState([]);
+    const [genders, setGenders] = useState([]);
 
+    
     const [filter, setFilter] = useState({
         gender: location.state !== null ? location.state.gender : undefined,
-        search: location.state !== null ? location.state.products : data.products,
-        genders: data.genders.reduce((o, gender) => ({ ...o, [gender.name]: 1}), {}),
+        search: location.state !== null ? location.state.string : undefined,
+        genders: [],
         lowPrice: "",
         highPrice: "",
         available: false
     })
+    
+    useEffect(() => {
+        let curFilter = {};
+        if(filter.gender ==! undefined){
+            curFilter = filter.gender;
+        }
+        if(filter.search ==! undefined){
+            curFilter = filter.search;
+        }
+        if(filter.lowPrice ==! ""){
+            curFilter = filter.lowPrice;
+        }
+        if(filter.highPrice ==! ""){
+            curFilter = filter.highPrice;
+        }
+        if(filter.available ==! false){
+            curFilter = filter.available;
+        }
+
+        axios.get(bookURL, {params: curFilter}).then((response) => {
+            setBooks(response.data);
+            console.log(response.data)
+        });
+    }, [filter]);
+
+    useEffect(() => {
+        axios.get(genderURL).then((response) => {
+            setGenders(response.data);
+            console.log(response.data)
+            console.log(response.data.reduce((o, gender) => ({ ...o, [gender.name]: 1}), {}))
+        });
+    }, []);
 
     useEffect(() => {
         let newGenders = {}
-        for (let i = 0; i < data.products.length; i++) {
-            for (let j = 0; j < data.products[i].genders.length; j++) {
-                if (data.products[i].genders[j] in newGenders)
-                    newGenders[data.products[i].genders[j]] += 1
-                else if (data.products[i].genders[j] !== "Selecione")
-                    newGenders[data.products[i].genders[j]] = 1;
+        for (let i = 0; i < books.length; i++) {
+            for (let j = 0; j < books[i].genders.length; j++) {
+                if (genders.find(x=>x._id === books[i].genders[j]).name in newGenders)
+                    newGenders[genders.find(x=>x._id === books[i].genders[j]).name] += 1
+                else if (genders.find(x=>x._id === books[i].genders[j]).name !== "Selecione")
+                    newGenders[genders.find(x=>x._id === books[i].genders[j]).name] = 1;
             }
         }
+
         setFilter({...filter, genders: newGenders});
         
         // eslint-disable-next-line
-    }, [data.products])
-    
-    
-    useEffect(() => {
-        let products = data.products;
-        if (filter.search !== undefined)
-            products = filter.search
-        if (filter.gender !== undefined) {
-            products = products.filter(function(product) {
-                return product.genders.includes(filter.gender)
-            })
-        }
-        if (filter.lowPrice !== "") {
-            products = products.filter(function(product) {
-                return parseFloat(product.price.substring(3)) >= filter.lowPrice
-            })
-        }
-        if (filter.highPrice !== "") {
-            products = products.filter(function(product) {
-                return parseFloat(product.price.substring(3)) <= filter.highPrice
-            })
-        }
-        if (filter.available === true) {
-            products = products.filter(function(product) {
-                return product.available > 0;
-            })
-        }
-        setBooks(products)
-    }, [filter, data.products])
+    }, [books])
+
 
     return (
+        <>
+        {
+            books.length === 0 && genders.length === 0 ?
+            "":
         <Container>
             <Filtros>
                 <Generos>
@@ -120,8 +139,9 @@ export default function Search({data, setData}) {
                     )
                 }
             </Resultados> 
-
         </Container>
+        }
+        </>
             
     )
 }

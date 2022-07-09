@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBeer } from '@fortawesome/free-solid-svg-icons'
+import { faBeer, faGenderless } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
 import { Fit, Livro, Tags, Fit2, Texto, Titulo, Autor, Descricao, Preco, Box, Flexbox2,
         Qlabel, Qbutton, PrecoTaverna, Capa } from "../styles/userStyles/BookStyles"
@@ -13,30 +13,37 @@ import PopUp from '../components/PopUp'
 import axios from "axios";
 
 const baseURL = "http://localhost:11323/produto/"
+const gendersURL = "http://localhost:11323/genero/"
 
 export default function Book({data, setData}) {
-    const [id, setId] = useState(null);
+
+    const [generos, setGeneros] = useState([]);
     const [quantidade, setQuantidade] = useState(0);
     const [inCart, setInCart] = useState(false);
     const [buttonPopUp, setButtonPopUp] = useState(false);
     const [buttonPopUpNot, setButtonPopUpNot] = useState(false);
     const location = useLocation()
 
-    const [livro, setLivro] = useState(null);
+    const [livro, setLivro] = useState();
 
     useEffect(() => {
-        const { product } = location.state;
-        setId(product.id)
-        console.log(product.id)
-        const newURL = baseURL + id;
+        const product = location.state.id;
+        const newURL = baseURL + product;
         axios.get(newURL).then((response) => {
             setLivro(response.data);
+            let genderPromisses = []
+            for (let gender of response.data.genders) {
+                genderPromisses.push(axios.get(gendersURL + gender))
+            }
+            Promise.all(genderPromisses).then(values => {
+                setGeneros(values.map(value => value.data.name))
+            });
+            
         });
-        console.log(livro)
         let j = 0;
         let found = false;
         while (j < data.cart.length && !found) {
-            if (data.cart[j].id === id) {
+            if (data.cart[j].id === product) {
                 setQuantidade(data.cart[j].quantity)
                 setInCart(true);
                 found = true;
@@ -52,7 +59,7 @@ export default function Book({data, setData}) {
             let i = 0;
             let found = false;
             while (i < datacopy.cart.length && !found) {
-                if (datacopy.cart[i].id === id)
+                if (datacopy.cart[i].id === livro._id)
                     found = true;
                 i++;
             }
@@ -61,24 +68,29 @@ export default function Book({data, setData}) {
         }
 
         else if (quantidade > 0) {
-            datacopy.cart.push({id: id, quantity: quantidade});
+            datacopy.cart.push({id: livro._id, quantity: quantidade, price: livro.price});
             setInCart(true);
             setButtonPopUp(true);
         }
         else {
             setButtonPopUpNot(true);
         }
+        console.log(datacopy.cart)
         setData(datacopy);
     }
 
     return (
+        <>
+        {
+            livro === undefined ?
+            "" :
         <Fit>
             <Livro>
                 <Tags>
                     {
-                        livro.genders.map((gender, index) =>
-                            gender !== "Selecione" ?
-                            <Link key={index} to="/search" state={{"gender": gender}}>
+                        generos.map((gender, index) =>
+                        gender !== "Selecione" ?
+                        <Link key={index} to="/search" state={{"gender": gender}}>
                                 <button>{gender}</button>
                             </Link>
                             :
@@ -124,5 +136,7 @@ export default function Book({data, setData}) {
                 <p>Escolha uma quantidade maior que 0 para inserir o item no carrinho</p>
             </PopUp>
         </Fit>
+        }
+        </>
     )
 }

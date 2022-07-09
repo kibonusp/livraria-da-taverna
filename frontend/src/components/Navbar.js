@@ -4,39 +4,55 @@ import { NavHeader, UserPhoto, Profile, Logo, Utils, Links, Sair, Search } from 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCartShopping} from '@fortawesome/free-solid-svg-icons'
 import { userImages } from "../images"
-import { useState } from "react"
-
+import { useState, useEffect } from "react"
+import axios from "axios";
+import { getCookie, parseJwt } from "../auth"
 
 export default function Navbar({data, setData}) {
     const [search, setSearch] = useState("");
     const navigate = useNavigate();
+    const [user, setUser] = useState("");
+    
+    useEffect(() => {
+        const token = parseJwt(getCookie("token"));
+        console.log(token);
+        if (token !== "") {
+            axios.get(`http://localhost:11323/user/${token.id}`, {
+                headers: {
+                    'authorization': `Bearer ${getCookie("token")}`
+                }
+            }).then(response => {
+                setUser(response.data)
+            }).catch(error => {
+                console.log(error);
+            })
+        }
+    }, [data.logged])
 
     const signOut = () => {
-        setData({...data, logged: {"situation": false, "user": undefined}})
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        setData({logged: false})
     }
 
     const sendSearch = e => {
-        let newProducts = [];
         if(e.key === 'Enter'){
-            let formatedSearch = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
-            for (let product of data.products) {
-                let formatedProduct = product.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
-                if (formatedProduct.includes(formatedSearch))
-                    newProducts.push(product);
-            }
-
-            navigate("/search", {state: {"products": newProducts}})
+            navigate("/search", {state: {"string": search}})
         }
     }
+
+    useEffect(() => {
+        console.log(user)
+    }, [user])
 
     return (
         <NavHeader>
             <Profile>
                 {
-                    data.users[data.logged.user] ? 
+                    user
+                     ? 
                         <>
-                            <UserPhoto src={userImages[data.users[data.logged.user].photo]} alt="Foto do usuário" />
-                            <Link to="/myProfile">Olá, {data.users[data.logged.user].name.split(' ')[0]}</Link>
+                            <UserPhoto src={userImages[user.photo]} alt="Foto do usuário" />
+                            <Link to="/myProfile">Olá, {user.name.split(' ')[0]}</Link>
                             <Link to="/login" onClick={() => signOut()}>
                                 <Sair>Sair</Sair>
                             </Link>
@@ -53,8 +69,8 @@ export default function Navbar({data, setData}) {
                 <Links>
                     <Link to="/genders">Gêneros</Link>
                     {
-                        data.users[data.logged.user] ? 
-                            data.users[data.logged.user].admin === true ?
+                        user ? 
+                            user.admin === true ?
                             <Link to="/admin">Admin</Link> 
                             :
                             ""
@@ -63,7 +79,7 @@ export default function Navbar({data, setData}) {
                     }
                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping} /></Link>
                     <Link to="/search"><FontAwesomeIcon icon={faSearch} /></Link>
-                    <Search placeholder="pesquise aqui..." onInput={e => setSearch(e.target.value)} onKeyDown={sendSearch}/>
+                    <Search placeholder="pesquise aqui..." onInput={e => setSearch(e.target.value)} onKeyDownCapture={sendSearch}/>
                 </Links>
             </Utils>
         </NavHeader>

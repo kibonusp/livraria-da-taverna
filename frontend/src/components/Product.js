@@ -9,23 +9,40 @@ import { useEffect, useState } from "react"
 import { productImages } from "../images"
 
 
+import axios from "axios";
+
+const baseURL = "http://localhost:11323/produto/"
+
 export default function Product({data, setData, productCart}) {
     const [inputButton, setInputButton] = useState(productCart.quantity);
     const [cartIndex, setCartIndex] = useState(0);
     const [buttonPopUp, setButtonPopUp] = useState(false);
 
+    const [livro, setLivro] = useState();
+
     useEffect(() => {
+        console.log(productCart)
+        const newURL = baseURL + productCart.id;
+        console.log(newURL)
+        axios.get(newURL).then((response) => {
+            setLivro(response.data);
+            console.log(response.data)
+            
+        });
+
         let i = 0;
         let found = false;
         while (i < data.cart.length && !found) {
-            if (data.cart[i].indexProduct === productCart.indexProduct)
+            if (data.cart[i].id === productCart.id){
                 setCartIndex(i);
+                found = true;
+            }
             i++;
         }
     }, [data, productCart])
 
     const addOne = () => {
-        if (inputButton < data.products[productCart.indexProduct].available) {
+        if (inputButton < livro.available) {
             setData({...data, cart: data.cart.map((product, index) => {
                 if (index === cartIndex)
                     return {...product, quantity: product.quantity+1}
@@ -55,16 +72,17 @@ export default function Product({data, setData, productCart}) {
     return (
         <>
         {
-            (data.products[productCart.indexProduct] !== undefined) ? 
+            (livro === undefined) ? 
+            "" :
             <Description>
                 <Cell>
-                    <Cover src={productImages[data.products[productCart.indexProduct].cover]} alt={data.products[productCart.indexProduct].name} />
+                    <Cover src={productImages[livro.cover]} alt={livro.name} />
                 </Cell>
                 <Cell>
-                    <Titulo><Link to="/book">{data.products[productCart.indexProduct].name}</Link></Titulo>
+                    <Titulo><Link to="/book">{livro.name}</Link></Titulo>
                 </Cell>
                 <Cell>
-                    <Valor>{data.products[productCart.indexProduct].price}</Valor>
+                    <Valor>{livro.price}</Valor>
                 </Cell>
                 <Cell>
                     <Row space="center">
@@ -86,13 +104,12 @@ export default function Product({data, setData, productCart}) {
                     <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
                         <p>Tem certeza que deseja deletar este item?</p>
                         <Row>
-                            <PopUpButton onClick={() => deleteProduct(data.products[productCart.indexProduct].name)} theme="light">Confirmar</PopUpButton>
+                            <PopUpButton onClick={() => deleteProduct(livro.name)} theme="light">Confirmar</PopUpButton>
                             <PopUpButton onClick={() => setButtonPopUp(false)}>Cancelar</PopUpButton>
                         </Row>
                     </PopUp>
                 </Cell>
-            </Description> : 
-            ""
+            </Description>
         }
         </>
     )

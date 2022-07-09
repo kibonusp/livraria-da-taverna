@@ -16,7 +16,7 @@ export default function HomeSecao({nome}) {
     useEffect(() => {
         axios.get(baseURL).then((response) => {
             setLivrosSection(response.data);
-            console.log(response.data)
+            // console.log(response.data)
         });
     }, []);
 
@@ -35,7 +35,11 @@ export default function HomeSecao({nome}) {
     }
 
     return (
-        <Secao>
+        <>
+        {
+            livrosSection.length === 0 ?
+            "":
+            <Secao>
             <Titulo>{nome}</Titulo>
             <SecaoUl>
                 <Seta onClick={() => moveLeft()}>
@@ -64,5 +68,7 @@ export default function HomeSecao({nome}) {
                 </Seta>
             </SecaoUl>
         </Secao>
+        }
+        </>
     )
 }
