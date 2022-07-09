@@ -25,17 +25,31 @@ export default function Search({data, setData}) {
         highPrice: "",
         available: false
     })
-    const [jsonFilter, setJsonFilter] =useState({})
     
     useEffect(() => {
+        let curFilter = {"params": {}}
+        if(filter.gender !== undefined){
+            curFilter.params["genero"] = filter.gender;
+        }
+        if(filter.search !== undefined){
+            curFilter.params["search"] = filter.search;
+        }
+        if(filter.lowPrice !== ""){
+            curFilter.params["lowPrice"] = filter.lowPrice;
+        }
+        if(filter.highPrice !== ""){
+            curFilter.params["highPrice"] = filter.highPrice;
+        }
+        if(filter.available !== false){
+            curFilter.params["available"] = filter.available;
+        }
+        console.log(curFilter)
         
-        axios.get(bookURL, {params: jsonFilter}).then((response) => {
+        axios.get(bookURL, curFilter).then((response) => {
+            console.log(curFilter)
             setBooks(response.data);
             console.log(response.data)
         });
-    }, []);
-
-    useEffect(() => {
         axios.get(genderURL).then((response) => {
             let newGenders = response.data
             for (let i = 0; i < books.length; i++) {
@@ -49,28 +63,7 @@ export default function Search({data, setData}) {
             }
             setGenders(newGenders);
         });
-    }, [books]);
-
-    useEffect(()=>{
-        let curFilter = {};
-        if(genders.find(x=>x.name === filter.gender) ==! undefined){
-            curFilter["gender"] = filter.gender;
-        }
-        if(filter.search ==! undefined){
-            curFilter["search"] = filter.search;
-        }
-        if(filter.lowPrice ==! ""){
-            curFilter["lowPrice"] = filter.lowPrice;
-        }
-        if(filter.highPrice ==! ""){
-            curFilter["highPrice"] = filter.highPrice;
-        }
-        if(filter.available ==! false){
-            curFilter["available"] = filter.available;
-        }
-        setJsonFilter(curFilter)
-
-    }, [filter])
+    }, [filter, books])
 
 
     return (
