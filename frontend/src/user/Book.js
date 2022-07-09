@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBeer, faGenderless } from '@fortawesome/free-solid-svg-icons'
+import { faBeer} from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
 import { Fit, Livro, Tags, Fit2, Texto, Titulo, Autor, Descricao, Preco, Box, Flexbox2,
         Qlabel, Qbutton, PrecoTaverna, Capa } from "../styles/userStyles/BookStyles"

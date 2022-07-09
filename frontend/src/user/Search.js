@@ -21,59 +21,56 @@ export default function Search({data, setData}) {
     const [filter, setFilter] = useState({
         gender: location.state !== null ? location.state.gender : undefined,
         search: location.state !== null ? location.state.string : undefined,
-        genders: [],
         lowPrice: "",
         highPrice: "",
         available: false
     })
+    const [jsonFilter, setJsonFilter] =useState({})
     
     useEffect(() => {
-        let curFilter = {};
-        if(filter.gender ==! undefined){
-            curFilter = filter.gender;
-        }
-        if(filter.search ==! undefined){
-            curFilter = filter.search;
-        }
-        if(filter.lowPrice ==! ""){
-            curFilter = filter.lowPrice;
-        }
-        if(filter.highPrice ==! ""){
-            curFilter = filter.highPrice;
-        }
-        if(filter.available ==! false){
-            curFilter = filter.available;
-        }
-
-        axios.get(bookURL, {params: curFilter}).then((response) => {
+        
+        axios.get(bookURL, {params: jsonFilter}).then((response) => {
             setBooks(response.data);
             console.log(response.data)
-        });
-    }, [filter]);
-
-    useEffect(() => {
-        axios.get(genderURL).then((response) => {
-            setGenders(response.data);
-            console.log(response.data)
-            console.log(response.data.reduce((o, gender) => ({ ...o, [gender.name]: 1}), {}))
         });
     }, []);
 
     useEffect(() => {
-        let newGenders = {}
-        for (let i = 0; i < books.length; i++) {
-            for (let j = 0; j < books[i].genders.length; j++) {
-                if (genders.find(x=>x._id === books[i].genders[j]).name in newGenders)
-                    newGenders[genders.find(x=>x._id === books[i].genders[j]).name] += 1
-                else if (genders.find(x=>x._id === books[i].genders[j]).name !== "Selecione")
-                    newGenders[genders.find(x=>x._id === books[i].genders[j]).name] = 1;
+        axios.get(genderURL).then((response) => {
+            let newGenders = response.data
+            for (let i = 0; i < books.length; i++) {
+                for (let j = 0; j < books[i].genders.length; j++) {
+                    let index = newGenders.findIndex(x=>x._id === books[i].genders[j])
+                    if (newGenders[index].amount === undefined)
+                        newGenders[index].amount = 1
+                    else 
+                        newGenders[index].amount += 1
+                }
             }
-        }
+            setGenders(newGenders);
+        });
+    }, [books]);
 
-        setFilter({...filter, genders: newGenders});
-        
-        // eslint-disable-next-line
-    }, [books])
+    useEffect(()=>{
+        let curFilter = {};
+        if(genders.find(x=>x.name === filter.gender) ==! undefined){
+            curFilter["gender"] = filter.gender;
+        }
+        if(filter.search ==! undefined){
+            curFilter["search"] = filter.search;
+        }
+        if(filter.lowPrice ==! ""){
+            curFilter["lowPrice"] = filter.lowPrice;
+        }
+        if(filter.highPrice ==! ""){
+            curFilter["highPrice"] = filter.highPrice;
+        }
+        if(filter.available ==! false){
+            curFilter["available"] = filter.available;
+        }
+        setJsonFilter(curFilter)
+
+    }, [filter])
 
 
     return (
@@ -86,8 +83,14 @@ export default function Search({data, setData}) {
                 <Generos>
                     <h3>Gêneros</h3>
                     {
-                        Object.entries(filter.genders).map((value, index) =>
-                            <GeneroFiltro selected={value[0] === filter.gender} onClick={() => setFilter({...filter, gender: value[0]})} key={index} >{value[0] + " (" + value[1] + ")"}</GeneroFiltro>
+                        genders.map((value, index) =>
+                        <>
+                        {   
+                            value.amount === undefined ?
+                            "":
+                            <GeneroFiltro selected={value._id === filter.gender} onClick={() => setFilter({...filter, gender: value._id})} key={index} >{value.name + " (" + value.amount + ")"}</GeneroFiltro>
+                        }
+                        </>
                         )
                     }
                 </Generos>

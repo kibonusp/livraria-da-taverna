@@ -22,7 +22,10 @@ import Cadastro from "./user/Cadastro";
 import { useState } from "react";
 
 function App() {
-    const [data, setData] = useState({"logged": false});
+    const [data, setData] = useState({
+        "logged": false,
+        "cart": []
+    });
 
     return (
         <>
