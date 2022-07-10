@@ -27,7 +27,7 @@ module.exports.getGenderByName = async (req, res) => {
             return res.status(404).send("Gender not Found");
         
         return res.status(200).send(gender);
-    });
+    }).clone();
 }
 
 // * OK

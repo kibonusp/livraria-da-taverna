@@ -28,7 +28,7 @@ module.exports.createProduct = async (req, res) => {
         return res.status(200).send(productSaved);
     }
     catch(e) {
-        console.log(e);
+        console.log("entrei aqui")
         return res.status(409).send("Product with this name already exists");
     }
 }
@@ -46,7 +46,6 @@ module.exports.uploadImage = async (req, res) => {
     const previousImage =  product !== undefined ? product.cover : undefined;
 
     productModel.findByIdAndUpdate(req.params.id, {cover: myFile.name}, (err, results) => {
-        console.log(results);
         if (results !== undefined) {
             myFile.mv(`./assets/produtos/${myFile.name}`, function (err) {
                 if (err) {
@@ -54,7 +53,7 @@ module.exports.uploadImage = async (req, res) => {
                     return res.status(500).send({ msg: "Error occured" });
                 }
             });
-            if (previousImage !== undefined)
+            if (previousImage !== undefined && previousImage !== myFile.name)
                 fs.unlink(path.join(__dirname, '../assets/produtos', previousImage), err => {if (err) throw err});
             res.status(200).send("Image updated");
         }
@@ -166,7 +165,11 @@ module.exports.deleteProduct = async (req, res) => {
 }
 
 module.exports.buyProduct = async (req, res) => {
-    const product = await userModel.findById(req.params.id);
+    const product = await productModel.findById(req.params.id);
+    console.log("o  produto eh" + product)
+    console.log(" o req.params.id eh" + req.params.id)
+    const teste = await productModel.find({});
+    console.log(teste)
 
     productModel.findByIdAndUpdate(req.params.id, {
         "available": product.available - req.body.quantity, 
