@@ -92,32 +92,38 @@ module.exports.getProduct = async (req, res) => {
 
 // * OK
 module.exports.getProductsFilter = async (req, res) => {
-    console.log(req.body);
-    let query = {}
-    if (req.body.hasOwnProperty('available'))
-        query.available = req.body.available === true ? {$gt: 0} : 0;
-    
-    if (req.body.hasOwnProperty('gender')) {
-        try {
-            query.gender = new mongoose.Types.ObjectId(req.body.gender);
-        }
-        catch(e) {
-            return res.status(400).send("gender is not ObjectID");
-        }
+    const products = await productModel.find({})
+    let productsF = products
+    if(req.query.available === "true"){
+        productsF = productsF.filter(el=>
+            el.available > 0
+            )
     }
-    if (req.body.hasOwnProperty('price'))
-        query.price = req.body.price;
-    
-    try {
-        productModel.find(query, (err, products) => {
-            if (products)
-                return res.status(200).send(products);
-            return res.status(500).send("Unknown error ocurred");
-        });
+    if(Number(req.query.lowPrice) !== 0){
+        productsF = productsF.filter(el=>
+            Number(el.price.substring(3)) >= Number(req.query.lowPrice)
+            )
     }
-    catch (e) {
-        console.log(e);
+    if(Number(req.query.highPrice) !== 0){
+        productsF = productsF.filter(el=>
+            Number(el.price.substring(3)) <= Number(req.query.highPrice)
+            )
     }
+    if(req.query.search !== null && req.query.search !== undefined){
+        productsF = productsF.filter(el=>
+            el.name.includes(req.query.search)
+        )
+    }
+    if(req.query.gender !== null && req.query.gender !== undefined){
+        productsF = productsF.filter(el=>
+            el.genders.includes(req.query.gender)
+        )
+    }
+
+    if (productsF === null)
+        return res.status(404).send("Products not Found")
+
+    return res.status(200).send(productsF)
 }
 
 // * OK

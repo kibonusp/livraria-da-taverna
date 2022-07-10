@@ -79,7 +79,7 @@ export default function Navbar({data, setData}) {
                     }
                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping} /></Link>
                     <Link to="/search"><FontAwesomeIcon icon={faSearch} /></Link>
-                    <Search placeholder="pesquise aqui..." onInput={e => setSearch(e.target.value)} onKeyDownCapture={sendSearch}/>
+                    <Search placeholder="pesquise aqui..." onInput={e => setSearch(e.target.value)} onKeyDown={sendSearch}/>
                 </Links>
             </Utils>
         </NavHeader>

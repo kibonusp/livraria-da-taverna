@@ -90,7 +90,7 @@ export default function Book({data, setData}) {
                     {
                         generos.map((gender, index) =>
                         gender !== "Selecione" ?
-                        <Link key={index} to="/search" state={{"gender": gender}}>
+                        <Link key={index} to="/search" state={{"gender": livro.genders[index]}}>
                                 <button>{gender}</button>
                             </Link>
                             :
