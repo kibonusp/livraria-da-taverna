@@ -71,7 +71,7 @@ export default function Cart({data, setData}) {
             <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
                 <p>Tem certeza que deseja finalizar compra?</p>
                 <Row>
-                    <PopUpButton onClick={() => navigate("/cart/confirm")} theme="light">Confirmar</PopUpButton>
+                    <PopUpButton onClick={() => navigate("/cart/confirm", {state: {"carrinho": data.cart}})} theme="light">Confirmar</PopUpButton>
                     <PopUpButton onClick={() => setButtonPopUp(false)}>Cancelar</PopUpButton>
                 </Row>
             </PopUp>

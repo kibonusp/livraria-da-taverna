@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer} from '@fortawesome/free-solid-svg-icons'
 import { Livro, Cover, Descricao, Titulo, Autor, PrecoTaverna, Row, Resultados, HR, Container, Filtros, Generos, PrecoInput, Disponibilidade, GeneroFiltro } from "../styles/userStyles/SearchStyles"
 import { useEffect, useState } from "react"
-import { productImages } from "../images"
 
 import axios from "axios";
 
@@ -53,13 +52,10 @@ export default function Search({data, setData}) {
                             newGenders[index].amount += 1
                     }
                 }
-                // console.log(newGenders)
                 setGenders(newGenders);
             });
 
         });
-
-
     })
 
     return (
@@ -120,7 +116,7 @@ export default function Search({data, setData}) {
                                     books.slice(index*3, index*3 + 3).map((book, bookIndex) =>
                                         <Livro key={bookIndex}>
                                             <Link to="/book" state={{id: book._id}}>
-                                                <Cover src={productImages[book.cover]} alt={book.name} />
+                                                <Cover src={`http://localhost:11323/produto/${book._id}/image`} alt={book.name} />
                                                 <Descricao>
                                                     <Titulo>{book.name}</Titulo>
                                                     <Autor>{book.author[0]}</Autor>

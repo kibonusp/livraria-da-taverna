@@ -9,28 +9,23 @@ import PopUp from "./PopUp";
 import { PopUpButton } from "../styles/componentsStyles/PopUpStyle"
 
 import { useState } from "react"
+import axios from "axios";
+import { getCookie } from "../auth";
 
 
-export default function UserName({data, setData, update, setUpdate, user}) {
+export default function UserName({user}) {
 
     const [buttonPopUp, setButtonPopUp] = useState(false);
 
-    const deleteUser = name => {
-        let datacopy = data.users;
-        let i = 0;
-        let found = false;
-        while (i < data.users.length && !found) {
-            if (datacopy[i].name === name) {
-                datacopy.splice(i, 1);
-                setData({...data, users: datacopy});
-                if (i === data.logged.user)
-                    setData({...data, logged: {situation: false, user: undefined}});
-                
-                setUpdate(!update);
-                found = true
+    const deleteUser = id => {
+        console.log(id);
+        axios.delete(`http://localhost:11323/user/${id}`, {
+            headers: {
+                'authorization': `Bearer: ${getCookie("token")}`
             }
-            i++;
-        }
+        }).then(response => {
+            console.log(response)
+        })
         setButtonPopUp(false);
     }
 
@@ -38,15 +33,15 @@ export default function UserName({data, setData, update, setUpdate, user}) {
         <>
         <Result>
             <Profile>
-                <img src={userImages[user.photo]} alt={user.name} />
-                <p>{user.name}</p>
+                <img src={userImages[user.photo]} alt={user.email} />
+                <p>{user.email}</p>
             </Profile>
             <button onClick={() => setButtonPopUp(true)}><FontAwesomeIcon icon={faClose} color="white"/> </button>
         </Result>
         <PopUp trigger={buttonPopUp} setTrigger={setButtonPopUp}>
-            <p> O usuário {user.name} será removido. </p>
+            <p> O usuário {user.email} será removido. </p>
             <Row>
-                <PopUpButton onClick={() => deleteUser(user.name)}theme="light">Confirmar</PopUpButton>
+                <PopUpButton onClick={() => deleteUser(user.id)} theme="light">Confirmar</PopUpButton>
                 <PopUpButton onClick={() => setButtonPopUp(false)}>Cancelar</PopUpButton>
             </Row>
         </PopUp>

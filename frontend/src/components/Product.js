@@ -6,7 +6,6 @@ import { PopUpButton } from "../styles/componentsStyles/PopUpStyle"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faMinus, faPlus, faTrash} from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
-import { productImages } from "../images"
 
 
 import axios from "axios";
@@ -21,13 +20,9 @@ export default function Product({data, setData, productCart}) {
     const [livro, setLivro] = useState();
 
     useEffect(() => {
-        console.log(productCart)
         const newURL = baseURL + productCart.id;
-        console.log(newURL)
         axios.get(newURL).then((response) => {
             setLivro(response.data);
-            console.log(response.data)
-            
         });
 
         let i = 0;
@@ -76,7 +71,7 @@ export default function Product({data, setData, productCart}) {
             "" :
             <Description>
                 <Cell>
-                    <Cover src={productImages[livro.cover]} alt={livro.name} />
+                    <Cover src={`http://localhost:11323/produto/${livro._id}/image`} alt={livro.name} />
                 </Cell>
                 <Cell>
                     <Titulo><Link to="/book">{livro.name}</Link></Titulo>

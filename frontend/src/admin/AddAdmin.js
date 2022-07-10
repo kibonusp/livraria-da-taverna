@@ -9,7 +9,6 @@ export default function AddAdmin() {
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([])
     const [search, setSearch] = useState("");
-    const [update, setUpdate] = useState(false);
 
     useEffect(() => {
         axios.get("http://localhost:11323/user", {

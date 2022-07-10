@@ -4,8 +4,6 @@ import { Link } from "react-router-dom"
 import { Fit, Livro, Tags, Fit2, Texto, Titulo, Autor, Descricao, Preco, Box, Flexbox2,
         Qlabel, Qbutton, PrecoTaverna, Capa } from "../styles/userStyles/BookStyles"
 import { Bounce } from "../styles/userStyles/GenderStyles"
-
-import { productImages } from '../images'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from "react"
 import PopUp from '../components/PopUp'
@@ -54,7 +52,6 @@ export default function Book({data, setData}) {
 
     const adicionarCarrinho = () => {
         let datacopy = data;
-        console.log("inCart: " + inCart);
         if (inCart) {
             let i = 0;
             let found = false;
@@ -75,7 +72,6 @@ export default function Book({data, setData}) {
         else {
             setButtonPopUpNot(true);
         }
-        console.log(datacopy.cart)
         setData(datacopy);
     }
 
@@ -99,7 +95,7 @@ export default function Book({data, setData}) {
                     }
                 </Tags>
                 <Fit2>
-                    <Capa src={productImages[livro.cover]} alt="Capa Livro"></Capa>
+                    <Capa src={`http://localhost:11323/produto/${location.state.id}/image`} alt="Capa Livro"></Capa>
                     <Texto>
                         <Titulo>{livro.name}</Titulo>
                         <Autor> <i> {livro.author}</i> </Autor>

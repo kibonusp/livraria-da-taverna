@@ -4,13 +4,12 @@ import { Description, Container } from '../styles/adminStyles/HomeAdminStyle'
 import { ResultList,Search } from '../styles/adminStyles/UsersStyles'
 import DemoteName from '../components/DemoteName';
 import axios from "axios";
-import { getCookie, parseJwt } from "../auth";
+import { getCookie } from "../auth";
 
 export default function RemoveAdmin({data, setData}) {
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([])
     const [search, setSearch] = useState("");
-    const [update, setUpdate] = useState(false);
 
 
     useEffect(() => {

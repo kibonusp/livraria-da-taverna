@@ -5,7 +5,7 @@ import { userImages } from '../images';
 import PopUp from "./PopUp";
 import { PopUpButton } from "../styles/componentsStyles/PopUpStyle"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import axios from "axios";
 import { getCookie } from "../auth";
 

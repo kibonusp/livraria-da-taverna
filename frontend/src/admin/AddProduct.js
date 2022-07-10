@@ -2,72 +2,94 @@ import { Description } from "../styles/adminStyles/HomeAdminStyle";
 import { FormLabel, FormDiv, FormInput, FormText, FormFile, FileDiv, FormStock, FormButton, FormForm, SelectDiv, MultiSelectDiv } from "../styles/adminStyles/formStyle";
 import { useState } from "react";
 import PopUp from "../components/PopUp";
+import axios from "axios"
+import { useEffect } from "react";
+import { getCookie } from "../auth";
 
 
-export default function AddProduct({data, setData}) {
+export default function AddProduct() {
     const [fileName, setFileName] = useState("Arquivo não selecionado");
-
+    const [image, setImage] = useState();
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
     const [autores, setAutores] = useState([]);
     const [preco, setPreco] = useState("");
     const [quantidade, setQuantidade] = useState(0);
     const [buttonPopUp, setButtonPopUp] = useState(false);
+    const [allGenders, setAllGenders] = useState([]);
     const [genders, setGenders] = useState({
         "genero1": "Selecione",
         "genero2": "Selecione",
         "genero3": "Selecione"
     });
 
+    useEffect(() => {
+        axios.get("http://localhost:11323/genero").then(response => {
+            setAllGenders((response.data).map(value => value.name));
+        })
+    }, [])
+
     const createProduct = e => {
         e.preventDefault();
-        let i = 0;
-        let foundIndex = -1;
-        while (i < data.products.length && foundIndex === -1) {
-            if (data.products[i].name === nome)
-                foundIndex = i;
-            i++;
-        }
 
         let hasGender = false;
         let productGenders = []
         for (let key in genders) {
-            if (genders[key] !== "Selecione")
+            if (genders[key] !== "Selecione") {
                 hasGender = true;
-            productGenders.push(genders[key]);
+                productGenders.push(genders[key]);
+            }
         }
 
-        if (foundIndex !== -1)
-            alert("Produto com mesmo nome já existente.");
-        else if (fileName === "Arquivo não selecionado")
+        if (fileName === "Arquivo não selecionado")
             alert("Selecione uma imagem");
         else if (!hasGender)
             alert("Selecione um gênero pelo menos");
         else {
-            const newProduct = {
-                "name": nome,
-                "author": autores,
-                "description": descricao,
-                "genders": productGenders,
-                "cover": fileName,
-                "price": preco,
-                "available": parseInt(quantidade),
-                "sold": 0
+            let genderPromises = []
+            for (let gender of productGenders) {
+                genderPromises.push(axios.get(`http://localhost:11323/genero/nome/${gender}`));
             }
-    
-            let dataCopy = data;
-
-            dataCopy.products.push(newProduct);
-            setData(dataCopy);
-            setButtonPopUp(true);
+            console.log(genderPromises)
+            Promise.all(genderPromises).then(ids => {
+                axios.post("http://localhost:11323/produto", {
+                    "name": nome,
+                    "author": autores,
+                    "description": descricao,
+                    "genders": ids.map(value => value.data._id),
+                    "cover": fileName,
+                    "price": preco,
+                    "available": parseInt(quantidade),
+                    "sold": 0
+                }, {
+                    headers: {
+                        'authorization': `Bearer ${getCookie("token")}`
+                    }
+                }).then(response => {
+                    const formData = new FormData();
+                    formData.append("image", image);
+                    fetch(`http://localhost:11323/produto/${response.data._id}/image`,
+                    {
+                        body: formData,
+                        method: "put",
+                        headers: new Headers({
+                            'Authorization': `Bearer ${getCookie("token")}`
+                        })
+                    });
+                }).catch(e => console.log(e));
+                setButtonPopUp(true);
+            })
         }
     }
 
     const changeFile = e => {
         let filepath = e.target.value;
         let paths = filepath.split("\\");
-        if (paths[paths.length-1])
+        if (paths[paths.length-1]) {
             setFileName(paths[paths.length - 1]);
+            setImage(e.target.files[0]);
+            console.log(e.target.files[0]);
+        }
         else
             setFileName("Arquivo não selecionado");
     }
@@ -96,8 +118,8 @@ export default function AddProduct({data, setData}) {
                         <select defaultValue={"Selecione"} onChange={e => setGenders({...genders, "genero1": e.target.value})}>
                             <option value="Selecione">Selecione</option>
                             {
-                                data.genders.map((gender, index) =>
-                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                allGenders.map((gender, index) =>
+                                    <option key={index} value={gender}>{gender}</option>  
                                 )
                             }
                         </select>
@@ -107,8 +129,8 @@ export default function AddProduct({data, setData}) {
                         <select defaultValue={"Selecione"} onChange={e => setGenders({...genders, "genero2": e.target.value})}>
                             <option value="Selecione">Selecione</option>
                             {
-                                data.genders.map((gender, index) =>
-                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                allGenders.map((gender, index) =>
+                                    <option key={index} value={gender}>{gender}</option>  
                                 )
                             }
                         </select>
@@ -118,8 +140,8 @@ export default function AddProduct({data, setData}) {
                         <select defaultValue={"Selecione"} onChange={e => setGenders({...genders, "genero3": e.target.value})}>
                             <option value="Selecione">Selecione</option>
                             {
-                                data.genders.map((gender, index) =>
-                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                allGenders.map((gender, index) =>
+                                    <option key={index} value={gender}>{gender}</option>  
                                 )
                             }
                         </select>

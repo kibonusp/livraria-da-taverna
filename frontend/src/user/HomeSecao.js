@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faBeer} from '@fortawesome/free-solid-svg-icons'
-import { productImages } from '../images'
 
 import axios from "axios";
 
@@ -16,7 +15,6 @@ export default function HomeSecao({nome}) {
     useEffect(() => {
         axios.get(baseURL).then((response) => {
             setLivrosSection(response.data);
-            // console.log(response.data)
         });
     }, []);
 
@@ -51,7 +49,7 @@ export default function HomeSecao({nome}) {
                         index <= 4 ?
                         <Livro key={index}>
                             <Link to="/book" state={{id: livro._id}}>
-                                <ImgLivro src={productImages[livro.cover]} alt={livro.name} />
+                                <ImgLivro src={`http://localhost:11323/produto/${livro._id}/image`} alt={livro.name} />
                                 <TituloLivro>{livro.name}</TituloLivro>
                                 <Autor>{livro.author}</Autor>
                                 <PrecoTaverna>
