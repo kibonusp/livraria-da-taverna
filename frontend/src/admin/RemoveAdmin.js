@@ -3,22 +3,37 @@ import { useEffect, useState } from 'react'
 import { Description, Container } from '../styles/adminStyles/HomeAdminStyle'
 import { ResultList,Search } from '../styles/adminStyles/UsersStyles'
 import DemoteName from '../components/DemoteName';
+import axios from "axios";
+import { getCookie, parseJwt } from "../auth";
 
 export default function RemoveAdmin({data, setData}) {
-    const [users, setUsers] = useState(data.users);
+    const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([])
     const [search, setSearch] = useState("");
     const [update, setUpdate] = useState(false);
 
+
+    useEffect(() => {
+        axios.get("http://localhost:11323/user", {
+            headers: {
+                'authorization': `Bearer ${getCookie("token")}`
+            }
+        }).then(response => {
+            setUsers(response.data);
+            setFilteredUsers(response.data);
+        })
+    }, [])
+
     useEffect(() => {
         let newUsers = []
-        for (let user of data.users) {
-            let formatedUser = user.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+        for (let user of users) {
+            let formatedUser = user.email.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
             let formatedSearch = search.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
             if (user.admin && formatedUser.includes(formatedSearch))
                 newUsers.push(user);
         }
-        setUsers(newUsers);
-    }, [search, update, data.users])
+        setFilteredUsers(newUsers);
+    }, [search, users]);
 
     return (
         <Container>
@@ -26,8 +41,8 @@ export default function RemoveAdmin({data, setData}) {
             <Search onInput={e => setSearch(e.target.value)} />
             <ResultList>
             {
-                users.map((user, index) => 
-                    <DemoteName key={index} data={data} setData={setData} update={update} setUpdate={setUpdate} user={user}/>
+                filteredUsers.map((user, index) => 
+                    <DemoteName key={index} user={user}/>
                 )
             }
             </ResultList>

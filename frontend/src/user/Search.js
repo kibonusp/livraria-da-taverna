@@ -1,3 +1,4 @@
+
 import { Link, useLocation } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBeer} from '@fortawesome/free-solid-svg-icons'
@@ -5,70 +6,85 @@ import { Livro, Cover, Descricao, Titulo, Autor, PrecoTaverna, Row, Resultados, 
 import { useEffect, useState } from "react"
 import { productImages } from "../images"
 
+import axios from "axios";
+
+const genderURL = "http://localhost:11323/genero"
+const bookURL = "http://localhost:11323/produtos"
+const allBookURL = "http://localhost:11323/produto"
+
+
+
 export default function Search({data, setData}) {
     const location = useLocation();
     const [books, setBooks] = useState([]);
+    const [genders, setGenders] = useState([]);
 
+    
     const [filter, setFilter] = useState({
-        gender: location.state !== null ? location.state.gender : undefined,
-        search: location.state !== null ? location.state.products : data.products,
-        genders: data.genders.reduce((o, gender) => ({ ...o, [gender.name]: 1}), {}),
-        lowPrice: "",
-        highPrice: "",
+        gender: location.state !== null ? location.state.gender : null,
+        search: location.state !== null ? location.state.string : null,
+        lowPrice: 0,
+        highPrice: 0,
         available: false
     })
+    
+    useEffect(() => {
+        let copy = {params: filter}
+        axios.get(bookURL, copy).then((response) => {
+            setBooks(response.data);
+        });
+    }, [filter])
 
     useEffect(() => {
-        let newGenders = {}
-        for (let i = 0; i < data.products.length; i++) {
-            for (let j = 0; j < data.products[i].genders.length; j++) {
-                if (data.products[i].genders[j] in newGenders)
-                    newGenders[data.products[i].genders[j]] += 1
-                else if (data.products[i].genders[j] !== "Selecione")
-                    newGenders[data.products[i].genders[j]] = 1;
-            }
-        }
-        setFilter({...filter, genders: newGenders});
-        
-        // eslint-disable-next-line
-    }, [data.products])
-    
-    
-    useEffect(() => {
-        let products = data.products;
-        if (filter.search !== undefined)
-            products = filter.search
-        if (filter.gender !== undefined) {
-            products = products.filter(function(product) {
-                return product.genders.includes(filter.gender)
-            })
-        }
-        if (filter.lowPrice !== "") {
-            products = products.filter(function(product) {
-                return parseFloat(product.price.substring(3)) >= filter.lowPrice
-            })
-        }
-        if (filter.highPrice !== "") {
-            products = products.filter(function(product) {
-                return parseFloat(product.price.substring(3)) <= filter.highPrice
-            })
-        }
-        if (filter.available === true) {
-            products = products.filter(function(product) {
-                return product.available > 0;
-            })
-        }
-        setBooks(products)
-    }, [filter, data.products])
+        axios.get(allBookURL).then((response) => {
+            let genderPromisses = []
+            genderPromisses.push(axios.get(genderURL))
+            Promise.all(genderPromisses).then(values => {
+                let newGenders = values[0].data
+                for (let i = 0; i < response.data.length; i++) {
+                    for (let j = 0; j < response.data[i].genders.length; j++) {
+                        let index = newGenders.findIndex(x=>x._id === response.data[i].genders[j])
+                        if (newGenders[index].amount === undefined)
+                            newGenders[index].amount = 1
+                        else 
+                            newGenders[index].amount += 1
+                    }
+                }
+                console.log(newGenders)
+                setGenders(newGenders);
+            });
+
+        });
+
+
+    })
 
     return (
+        <>
+        {
+            books.length === 0 && genders.length === 0 ?
+            "":
         <Container>
             <Filtros>
                 <Generos>
                     <h3>Gêneros</h3>
                     {
-                        Object.entries(filter.genders).map((value, index) =>
-                            <GeneroFiltro selected={value[0] === filter.gender} onClick={() => setFilter({...filter, gender: value[0]})} key={index} >{value[0] + " (" + value[1] + ")"}</GeneroFiltro>
+                        genders.map((value, index) =>
+                        
+                            <GeneroFiltro selected={value._id === filter.gender} onClick={() => {
+                                if(filter.gender === value._id) setFilter({...filter, gender: null})
+                                else setFilter({...filter, gender: value._id})
+                                
+                                }} key={index} >
+                                {value.name + " (" + 
+                                (  
+                                    value.amount === undefined ?
+                                    "0": value.amount
+                                )
+                            + ")"}
+                            
+                            </GeneroFiltro>
+                        
                         )
                     }
                 </Generos>
@@ -76,9 +92,9 @@ export default function Search({data, setData}) {
                     <h3>Preço</h3>
                     <PrecoInput>
                         <span>De R$ </span>
-                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, lowPrice: e.target.value})} />
+                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, lowPrice: Number(e.target.value)})} />
                         <span> à R$ </span>
-                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, highPrice: e.target.value})}/>
+                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, highPrice: Number(e.target.value)})}/>
                     </PrecoInput>
                 </div>
 
@@ -100,7 +116,7 @@ export default function Search({data, setData}) {
                                 {
                                     books.slice(index*3, index*3 + 3).map((book, bookIndex) =>
                                         <Livro key={bookIndex}>
-                                            <Link to="/book" state={{ nome: book.name }}>
+                                            <Link to="/book" state={{id: book._id}}>
                                                 <Cover src={productImages[book.cover]} alt={book.name} />
                                                 <Descricao>
                                                     <Titulo>{book.name}</Titulo>
@@ -120,16 +136,9 @@ export default function Search({data, setData}) {
                     )
                 }
             </Resultados> 
-
         </Container>
+        }
+        </>
             
     )
 }
-
-/*
-{
-                        Object.entries(genders).map((value, index) =>
-                            <GeneroFiltro onClick={() => setGender(value[0])} key={index} >{value[0] + " (" + value[1] + ")"}</GeneroFiltro>
-                        )
-                    }
-*/

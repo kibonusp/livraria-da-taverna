@@ -1,13 +1,24 @@
 import { Secao, SecaoUl, Titulo, Seta, 
     Livro, ImgLivro, TituloLivro, Autor, PrecoTaverna } from "../styles/userStyles/HomeStyles"
 import { Link } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faBeer} from '@fortawesome/free-solid-svg-icons'
 import { productImages } from '../images'
 
-export default function HomeSecao({nome, livros}) {
-    const [livrosSection, setLivrosSection] = useState(livros);
+import axios from "axios";
+
+const baseURL = "http://localhost:11323/produto"
+
+export default function HomeSecao({nome}) {
+    const [livrosSection, setLivrosSection] = useState([]);
+
+    useEffect(() => {
+        axios.get(baseURL).then((response) => {
+            setLivrosSection(response.data);
+            // console.log(response.data)
+        });
+    }, []);
 
     const moveLeft = () => {
         const newLivros = livrosSection;
@@ -24,7 +35,11 @@ export default function HomeSecao({nome, livros}) {
     }
 
     return (
-        <Secao>
+        <>
+        {
+            livrosSection.length === 0 ?
+            "":
+            <Secao>
             <Titulo>{nome}</Titulo>
             <SecaoUl>
                 <Seta onClick={() => moveLeft()}>
@@ -35,7 +50,7 @@ export default function HomeSecao({nome, livros}) {
                     livrosSection.map((livro, index) =>
                         index <= 4 ?
                         <Livro key={index}>
-                            <Link to="/book" state={{ nome: livro.name }}>
+                            <Link to="/book" state={{id: livro._id}}>
                                 <ImgLivro src={productImages[livro.cover]} alt={livro.name} />
                                 <TituloLivro>{livro.name}</TituloLivro>
                                 <Autor>{livro.author}</Autor>
@@ -53,5 +68,7 @@ export default function HomeSecao({nome, livros}) {
                 </Seta>
             </SecaoUl>
         </Secao>
+        }
+        </>
     )
 }
