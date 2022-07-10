@@ -42,8 +42,12 @@ module.exports.uploadImage = async (req, res) => {
 
     const myFile = req.files.image;
 
+    console.log(myFile);
+    console.log(req.params.id);
+
     const product = await productModel.findById(req.params.id);
-    const previousImage =  product !== undefined ? product.cover : undefined;
+    console.log(product)
+    const previousImage = product !== undefined ? product.cover : undefined;
 
     productModel.findByIdAndUpdate(req.params.id, {cover: myFile.name}, (err, results) => {
         if (results !== undefined) {
@@ -91,43 +95,39 @@ module.exports.getProduct = async (req, res) => {
 
 // * OK
 module.exports.getProductsFilter = async (req, res) => {
-    const products = await productModel.find({})
-    let productsF = products
-    if(req.query.available === "true"){
-        productsF = productsF.filter(el=>
-            el.available > 0
-            )
+    console.log(req.body);
+    let query = {}
+    if (req.body.hasOwnProperty('available'))
+        query.available = req.body.available === true ? {$gt: 0} : 0;
+    
+    if (req.body.hasOwnProperty('gender')) {
+        try {
+            query.gender = new mongoose.Types.ObjectId(req.body.gender);
+        }
+        catch(e) {
+            return res.status(400).send("gender is not ObjectID");
+        }
     }
-    if(Number(req.query.lowPrice) !== 0){
-        productsF = productsF.filter(el=>
-            Number(el.price.substring(3)) >= Number(req.query.lowPrice)
-            )
+    if (req.body.hasOwnProperty('price'))
+        query.price = req.body.price;
+    
+    try {
+        productModel.find(query, (err, products) => {
+            if (products)
+                return res.status(200).send(products);
+            return res.status(500).send("Unknown error ocurred");
+        });
     }
-    if(Number(req.query.highPrice) !== 0){
-        productsF = productsF.filter(el=>
-            Number(el.price.substring(3)) <= Number(req.query.highPrice)
-            )
+    catch (e) {
+        console.log(e);
     }
-    if(req.query.search !== null && req.query.search !== undefined){
-        productsF = productsF.filter(el=>
-            el.name.includes(req.query.search)
-        )
-    }
-    if(req.query.gender !== null && req.query.gender !== undefined){
-        productsF = productsF.filter(el=>
-            el.genders.includes(req.query.gender)
-        )
-    }
-
-    if (productsF === null)
-        return res.status(404).send("Products not Found")
-
-    return res.status(200).send(productsF)
 }
 
 // * OK
 module.exports.updateProduct = async (req, res) => {
-    let genders = [];const sub = req.sub;
+    console.log("Atualizando o produto")
+    let genders = [];
+    const sub = req.sub;
     const curUser = await userModel.findById(sub);
     if (curUser.admin === false)
         return res.status(401).send({error: 'No access to this user'});
@@ -172,10 +172,6 @@ module.exports.deleteProduct = async (req, res) => {
 
 module.exports.buyProduct = async (req, res) => {
     const product = await productModel.findById(req.params.id);
-    console.log("o  produto eh" + product)
-    console.log(" o req.params.id eh" + req.params.id)
-    const teste = await productModel.find({});
-    console.log(teste)
 
     productModel.findByIdAndUpdate(req.params.id, {
         "available": product.available - req.body.quantity, 
