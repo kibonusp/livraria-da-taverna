@@ -95,18 +95,23 @@ module.exports.getProduct = async (req, res) => {
 
 // * OK
 module.exports.getProductsFilter = async (req, res) => {
-    console.log(req.body);
-    let query = {}
-    if (req.body.hasOwnProperty('available'))
-        query.available = req.body.available === true ? {$gt: 0} : 0;
+    const products = await productModel.find({})
+    let productsF = products
     
-    if (req.body.hasOwnProperty('gender')) {
-        try {
-            query.gender = new mongoose.Types.ObjectId(req.body.gender);
-        }
-        catch(e) {
-            return res.status(400).send("gender is not ObjectID");
-        }
+    if(req.query.available === "true"){
+        productsF = productsF.filter(el=>
+            el.available > 0
+            )
+    }
+    if(Number(req.query.lowPrice) !== 0){
+        productsF = productsF.filter(el=>
+            Number(el.price.substring(3)) >= Number(req.query.lowPrice)
+            )
+    }
+    if(Number(req.query.highPrice) !== 0){
+        productsF = productsF.filter(el=>
+            Number(el.price.substring(3)) <= Number(req.query.highPrice)
+            )
     }
     if (req.body.hasOwnProperty('price'))
         query.price = req.body.price;
