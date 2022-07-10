@@ -10,6 +10,8 @@ import axios from "axios";
 
 const genderURL = "http://localhost:11323/genero"
 const bookURL = "http://localhost:11323/produtos"
+const allBookURL = "http://localhost:11323/produto"
+
 
 
 export default function Search({data, setData}) {
@@ -19,52 +21,43 @@ export default function Search({data, setData}) {
 
     
     const [filter, setFilter] = useState({
-        gender: location.state !== null ? location.state.gender : undefined,
-        search: location.state !== null ? location.state.string : undefined,
-        lowPrice: "",
-        highPrice: "",
+        gender: location.state !== null ? location.state.gender : null,
+        search: location.state !== null ? location.state.string : null,
+        lowPrice: 0,
+        highPrice: 0,
         available: false
     })
     
     useEffect(() => {
-        let curFilter = {"params": {}}
-        if(filter.gender !== undefined){
-            curFilter.params["genero"] = filter.gender;
-        }
-        if(filter.search !== undefined){
-            curFilter.params["search"] = filter.search;
-        }
-        if(filter.lowPrice !== ""){
-            curFilter.params["lowPrice"] = filter.lowPrice;
-        }
-        if(filter.highPrice !== ""){
-            curFilter.params["highPrice"] = filter.highPrice;
-        }
-        if(filter.available !== false){
-            curFilter.params["available"] = filter.available;
-        }
-        console.log(curFilter)
-        
-        axios.get(bookURL, curFilter).then((response) => {
-            console.log(curFilter)
+        let copy = {params: filter}
+        axios.get(bookURL, copy).then((response) => {
             setBooks(response.data);
-            console.log(response.data)
         });
-        axios.get(genderURL).then((response) => {
-            let newGenders = response.data
-            for (let i = 0; i < books.length; i++) {
-                for (let j = 0; j < books[i].genders.length; j++) {
-                    let index = newGenders.findIndex(x=>x._id === books[i].genders[j])
-                    if (newGenders[index].amount === undefined)
-                        newGenders[index].amount = 1
-                    else 
-                        newGenders[index].amount += 1
-                }
-            }
-            setGenders(newGenders);
-        });
-    }, [filter, books])
+    }, [filter])
 
+    useEffect(() => {
+        axios.get(allBookURL).then((response) => {
+            let genderPromisses = []
+            genderPromisses.push(axios.get(genderURL))
+            Promise.all(genderPromisses).then(values => {
+                let newGenders = values[0].data
+                for (let i = 0; i < response.data.length; i++) {
+                    for (let j = 0; j < response.data[i].genders.length; j++) {
+                        let index = newGenders.findIndex(x=>x._id === response.data[i].genders[j])
+                        if (newGenders[index].amount === undefined)
+                            newGenders[index].amount = 1
+                        else 
+                            newGenders[index].amount += 1
+                    }
+                }
+                console.log(newGenders)
+                setGenders(newGenders);
+            });
+
+        });
+
+
+    })
 
     return (
         <>
@@ -77,13 +70,21 @@ export default function Search({data, setData}) {
                     <h3>Gêneros</h3>
                     {
                         genders.map((value, index) =>
-                        <>
-                        {   
-                            value.amount === undefined ?
-                            "":
-                            <GeneroFiltro selected={value._id === filter.gender} onClick={() => setFilter({...filter, gender: value._id})} key={index} >{value.name + " (" + value.amount + ")"}</GeneroFiltro>
-                        }
-                        </>
+                        
+                            <GeneroFiltro selected={value._id === filter.gender} onClick={() => {
+                                if(filter.gender === value._id) setFilter({...filter, gender: null})
+                                else setFilter({...filter, gender: value._id})
+                                
+                                }} key={index} >
+                                {value.name + " (" + 
+                                (  
+                                    value.amount === undefined ?
+                                    "0": value.amount
+                                )
+                            + ")"}
+                            
+                            </GeneroFiltro>
+                        
                         )
                     }
                 </Generos>
@@ -91,9 +92,9 @@ export default function Search({data, setData}) {
                     <h3>Preço</h3>
                     <PrecoInput>
                         <span>De R$ </span>
-                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, lowPrice: e.target.value})} />
+                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, lowPrice: Number(e.target.value)})} />
                         <span> à R$ </span>
-                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, highPrice: e.target.value})}/>
+                        <input type="number" min="0" step="any" onInput={e => setFilter({...filter, highPrice: Number(e.target.value)})}/>
                     </PrecoInput>
                 </div>
 
@@ -115,7 +116,7 @@ export default function Search({data, setData}) {
                                 {
                                     books.slice(index*3, index*3 + 3).map((book, bookIndex) =>
                                         <Livro key={bookIndex}>
-                                            <Link to="/book" state={{ nome: book.name }}>
+                                            <Link to="/book" state={{id: book._id}}>
                                                 <Cover src={productImages[book.cover]} alt={book.name} />
                                                 <Descricao>
                                                     <Titulo>{book.name}</Titulo>
@@ -141,11 +142,3 @@ export default function Search({data, setData}) {
             
     )
 }
-
-/*
-{
-                        Object.entries(genders).map((value, index) =>
-                            <GeneroFiltro onClick={() => setGender(value[0])} key={index} >{value[0] + " (" + value[1] + ")"}</GeneroFiltro>
-                        )
-                    }
-*/
