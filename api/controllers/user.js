@@ -35,7 +35,6 @@ module.exports.uploadImage = async (req, res) => {
     const previousImage = user.photo;
 
     userModel.findByIdAndUpdate(req.params.id, {cover: myFile.name}, (err, results) => {
-        console.log(results);
         if (results !== undefined) {
             myFile.mv(`./assets/users/${myFile.name}`, function (err) {
                 if (err) {
@@ -74,8 +73,6 @@ module.exports.getImage = async(req, res) => {
 
 module.exports.getUser = async (req, res) => {
     const sub = req.sub;
-    console.log(req.params.id)
-    console.log(sub)
 
     if (req.params.id != sub)
         return res.status(401).send({error: 'No access to this user'});
@@ -143,7 +140,6 @@ module.exports.deleteUser = async (req, res) => {
     if (sub !== req.params.id && curUser.admin === false)
         return res.status(401).send({error: 'No access to this user'});
 
-
     userModel.findByIdAndRemove(req.params.id, (err, user) => {
         if (user)
             return res.status(200).send("User deleted");
@@ -154,8 +150,6 @@ module.exports.deleteUser = async (req, res) => {
 module.exports.validateToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
-
-    console.log(token);
 
     if (!token)
         return res.sendStatus(401);

@@ -27,4 +27,7 @@ router.put('/produto/:id/image', userController.validateToken, productController
 // anyone
 router.get('/produto/:id/image', productController.getImage);
 
+// anyone
+router.put('/produto/:id/purchase', productController.buyProduct);
+
 module.exports = router;

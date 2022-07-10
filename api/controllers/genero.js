@@ -21,6 +21,15 @@ module.exports.getGender = async (req, res) => {
     return res.status(200).send(gender);
 }
 
+module.exports.getGenderByName = async (req, res) => {
+    const gender = await genderModel.findOne({name: req.params.nome}, (err, gender) => {
+        if (!gender)
+            return res.status(404).send("Gender not Found");
+        
+        return res.status(200).send(gender);
+    });
+}
+
 // * OK
 module.exports.getGenders = async (req, res) => {
     const genders = await genderModel.find({});

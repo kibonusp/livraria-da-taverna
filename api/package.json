@@ -4,7 +4,7 @@
   "description": "Restful API for bookstore webpage. Project conducted for SCC0219 - Introduction to  Web Development course.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --trace-warnings index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Gabriel Freitas, Raíssa Barreira, Rodrigo Assaf",

@@ -3,6 +3,7 @@ const genderModel = require('../models/genero');
 const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
+const userModel = require('../models/user')
 
 // * OK
 module.exports.createProduct = async (req, res) => {
@@ -42,7 +43,7 @@ module.exports.uploadImage = async (req, res) => {
     const myFile = req.files.image;
 
     const product = await productModel.findById(req.params.id);
-    const previousImage = product.cover;
+    const previousImage =  product !== undefined ? product.cover : undefined;
 
     productModel.findByIdAndUpdate(req.params.id, {cover: myFile.name}, (err, results) => {
         console.log(results);
@@ -53,7 +54,7 @@ module.exports.uploadImage = async (req, res) => {
                     return res.status(500).send({ msg: "Error occured" });
                 }
             });
-            if (previousImage !== null && previousImage !== "")
+            if (previousImage !== undefined)
                 fs.unlink(path.join(__dirname, '../assets/produtos', previousImage), err => {if (err) throw err});
             res.status(200).send("Image updated");
         }
@@ -161,5 +162,19 @@ module.exports.deleteProduct = async (req, res) => {
         if (product)
             return res.status(200).send("Product deleted");
         return res.status(404).send("Product not Found");
+    })
+}
+
+module.exports.buyProduct = async (req, res) => {
+    const product = await userModel.findById(req.params.id);
+
+    productModel.findByIdAndUpdate(req.params.id, {
+        "available": product.available - req.body.quantity, 
+        "sold": product.sold + req.body.quantity
+    }, (err, product) => {
+        if (product)
+            res.status(200).send("Product was updated")
+        else
+            res.status(404).send("Product not found");
     })
 }
