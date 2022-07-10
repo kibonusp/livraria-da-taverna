@@ -94,6 +94,7 @@ module.exports.getProduct = async (req, res) => {
 module.exports.getProductsFilter = async (req, res) => {
     const products = await productModel.find({})
     let productsF = products
+    
     if(req.query.available === "true"){
         productsF = productsF.filter(el=>
             el.available > 0
