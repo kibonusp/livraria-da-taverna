@@ -30,6 +30,9 @@ export default function Search({data, setData}) {
     
     useEffect(() => {
         let copy = {params: filter}
+        if(location.state)
+            copy.params.search = location.state.string
+        console.log(location.state)
         axios.get(bookURL, copy).then((response) => {
             setBooks(response.data);
         });
@@ -50,7 +53,7 @@ export default function Search({data, setData}) {
                             newGenders[index].amount += 1
                     }
                 }
-                console.log(newGenders)
+                // console.log(newGenders)
                 setGenders(newGenders);
             });
 
