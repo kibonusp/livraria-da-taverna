@@ -1,6 +1,5 @@
 import { Row } from "../styles/userStyles/CartStyles"
 import { Result, Profile} from '../styles/adminStyles/UsersStyles'
-import { userImages } from '../images';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faClose } from "@fortawesome/free-solid-svg-icons"
@@ -32,7 +31,7 @@ export default function DemoteName({data, setData, update, setUpdate, user}) {
         <>
         <Result>
             <Profile>
-                <img src={userImages[user.photo]} alt={user.email} />
+                <img src={`http://localhost:11323/user/${user.id}/image`} alt={user.email} />
                 <p>{user.email}</p>
             </Profile>
             <button onClick={() => setButtonPopUp(true)}><FontAwesomeIcon icon={faClose} color="white"/> </button>

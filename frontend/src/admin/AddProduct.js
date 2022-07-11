@@ -6,14 +6,13 @@ import axios from "axios"
 import { useEffect } from "react";
 import { getCookie } from "../auth";
 
-
 export default function AddProduct() {
     const [fileName, setFileName] = useState("Arquivo não selecionado");
     const [image, setImage] = useState();
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
     const [autores, setAutores] = useState([]);
-    const [preco, setPreco] = useState("");
+    const [preco, setPreco] = useState();
     const [quantidade, setQuantidade] = useState(0);
     const [buttonPopUp, setButtonPopUp] = useState(false);
     const [allGenders, setAllGenders] = useState([]);
@@ -41,6 +40,10 @@ export default function AddProduct() {
             }
         }
 
+        let formatedPreco = preco.toString();
+        if (!formatedPreco.includes('.'))
+            formatedPreco += ".00"
+
         if (fileName === "Arquivo não selecionado")
             alert("Selecione uma imagem");
         else if (!hasGender)
@@ -58,7 +61,7 @@ export default function AddProduct() {
                     "description": descricao,
                     "genders": ids.map(value => value.data._id),
                     "cover": fileName,
-                    "price": preco,
+                    "price": "R$ " + formatedPreco,
                     "available": parseInt(quantidade),
                     "sold": 0
                 }, {
@@ -150,7 +153,7 @@ export default function AddProduct() {
             </FormDiv>
             <FormDiv>
                 <FormLabel>Preço</FormLabel>
-                <FormInput type="number" required onInput={e => setPreco("R$ " + e.target.value)}/>
+                <FormInput type="number" required onInput={e => setPreco(parseFloat(e.target.value))}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Foto</FormLabel>

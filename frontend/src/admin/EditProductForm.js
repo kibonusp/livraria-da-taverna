@@ -21,7 +21,6 @@ export default function EditProductForm({data, setData}) {
     const navigate = useNavigate();
     const [allGenders, setAllGenders] = useState([]);
     const [genders, setGenders] = useState([])
-    const [ update, setUpdate ] = useState(false);
 
     useEffect(() => {
         axios.get(`http://localhost:11323/produto/${productID}`).then(response => {
@@ -34,16 +33,20 @@ export default function EditProductForm({data, setData}) {
             }
             Promise.all(genderPromisses).then(gendersAPI => {
                 setGenders(gendersAPI.map(genderAPI => genderAPI.data.name))
-                setUpdate(!update);
             })
         }).catch(err => {
             console.log(err)
         })
 
         axios.get("http://localhost:11323/genero").then(response => {
+            console.log(response.data);
             setAllGenders((response.data).map(value => value.name));
         })
-    }, [])
+    }, [productID])
+
+    useEffect(() => {
+        console.log(allGenders)
+    }, [allGenders])
 
     const setGender = (i, value) => {
         let genderscopy = genders;
@@ -61,27 +64,39 @@ export default function EditProductForm({data, setData}) {
                 updateProduct[key] = editProduct[key];
         }
 
-        updateProduct.genders = genders;
-        updateProduct.cover = fileName;
-        updateProduct.available += parseInt(addStock);
+        console.log(genders);
 
-        
-        let formData = new FormData();
-        formData.append("image", image);
-        fetch(`http://localhost:11323/produto/${productID}/image`,
-        {
-            body: formData,
-            method: "put",
-            headers: new Headers({
-                'Authorization': `Bearer ${getCookie("token")}`
-            })
-        }).then(response => {
-            axios.put(`http://localhost:11323/produto/${productID}`, updateProduct, {
-                headers: {
-                    'authorization': `Bearer ${getCookie("token")}`
-                }
-            })
-        });
+        let genderPromises = []
+        for (let gender of genders) {
+            console.log(gender);
+            genderPromises.push(axios.get(`http://localhost:11323/genero/nome/${gender}`))
+        }
+
+        console.log(genderPromises)
+
+        Promise.all(genderPromises).then(response => {
+            console.log(response)
+            updateProduct.genders = response.data.map(gender => gender)
+            updateProduct.cover = fileName;
+            updateProduct.available += parseInt(addStock);
+            
+            let formData = new FormData();
+            formData.append("image", image);
+            fetch(`http://localhost:11323/produto/${productID}/image`,
+            {
+                body: formData,
+                method: "put",
+                headers: new Headers({
+                    'Authorization': `Bearer ${getCookie("token")}`
+                })
+            }).then(response => {
+                axios.put(`http://localhost:11323/produto/${productID}`, updateProduct, {
+                    headers: {
+                        'authorization': `Bearer ${getCookie("token")}`
+                    }
+                })
+            });
+        })
 
         setButtonPopUp(true);
     }
@@ -94,7 +109,6 @@ export default function EditProductForm({data, setData}) {
     }
 
     const deleteProduct = (e, name) => {
-        e.preventDefault();
         e.preventDefault();
         axios.delete(`http://localhost:11323/produto/${productID}`, {
             headers: {
@@ -137,33 +151,33 @@ export default function EditProductForm({data, setData}) {
                 <MultiSelectDiv>
                     <SelectDiv>
                         <label>Gênero 1</label>
-                        <select key={update ? 'notLoadedYet' : 'loaded'} defaultValue={product === undefined ? "Selecione" : product.genders[0]} onChange={e => setGender(0, e.target.value)}>
+                        <select defaultValue={product === undefined ? "Selecione" : product.genders[0]} onChange={e => setGender(0, e.target.value)}>
                             <option value="Selecione">Selecione</option>
                             {
                                 allGenders.map((gender, index) =>
-                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                    <option key={index} value={gender}>{gender}</option>  
                                 )
                             }
                         </select>
                     </SelectDiv>
                     <SelectDiv>
                         <label>Gênero 2</label>
-                        <select key={update ? 'notLoadedYet' : 'loaded'} defaultValue={product === undefined ? "Selecione" : product.genders[1]} onChange={e => setGender(1, e.target.value)}>
+                        <select defaultValue={product === undefined ? "Selecione" : product.genders[1]} onChange={e => setGender(1, e.target.value)}>
                             <option value="Selecione">Selecione</option>
                             {
                                 allGenders.map((gender, index) =>
-                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                    <option key={index} value={gender}>{gender}</option>  
                                 )
                             }
                         </select>
                     </SelectDiv>
                     <SelectDiv>
                         <label>Gênero 3</label>
-                        <select key={update ? 'notLoadedYet' : 'loaded'} defaultValue={product === undefined ? "Selecione" : product.genders[2]} onChange={e => setGender(2, e.target.value)}>
+                        <select defaultValue={product === undefined ? "Selecione" : product.genders[2]} onChange={e => setGender(2, e.target.value)}>
                             <option value="Selecione">Selecione</option>
                             {
                                 allGenders.map((gender, index) =>
-                                    <option key={index} value={gender.name}>{gender.name}</option>  
+                                    <option key={index} value={gender}>{gender}</option>  
                                 )
                             }
                         </select>

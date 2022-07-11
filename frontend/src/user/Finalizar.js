@@ -5,7 +5,6 @@ import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import PopUp from "../components/PopUp";
 import axios from "axios";
-import { getCookie } from "../auth";
 const baseURL = "http://localhost:11323/produto"
 
 export default function Finalizar({data, setData}) {
@@ -41,27 +40,16 @@ export default function Finalizar({data, setData}) {
             setButtonPopUpWrong(true);
         }
 
-        else{
-            console.log("fznd a req agr")
-            
-            axios.put(baseURL, {
-                headers: {
-                    'authorization': `Bearer ${getCookie("token")}`
-                }
-            }).then(response => {
-        
-                
-            //axios.get(baseURL).then((response) => {
+        else{            
+            axios.get(baseURL).then((response) => {
                 let confirmPromises = []
-                console.log("fora do loop")
                 for (let book of carrinho) {
                     console.log(book)
-                    confirmPromises.push(axios.put(`http://localhost:11323/produto/${book._id}/purchase`))
+                    confirmPromises.push(axios.put(`http://localhost:11323/produto/${book.id}/purchase`, {"quantity": book.quantity}))
                 }
                 Promise.all(confirmPromises).then(confirmBook => {
                     console.log(confirmBook)
-                });
-                console.log("to aqui")
+                }).catch(e => console.log(e));
                 setProducts(response.data);
                 setButtonPopUpSuccess(true);
                 setTimeout(() => {
@@ -70,99 +58,6 @@ export default function Finalizar({data, setData}) {
             });
         }
     }
-        /*
-useEffect(() => {
-        axios.put(baseURL, {
-                headers: {
-                    'authorization': `Bearer ${getCookie("token")}`
-                }
-            }).then(response => {
-            let confirmPromises = []
-            for (let book in carrinho) {
-                console.log(book)
-                confirmPromises.push(axios.put(`http://localhost:11323/produto/${book._id}/purchase`))
-            }
-            Promise.all(confirmPromises).then(confirmBook => {
-                console.log(confirmBook)
-            });
-            console.log("to aqui")
-                setProducts(response.data);
-                setButtonPopUpSuccess(true);
-                setTimeout(() => {
-                    navigate("/");
-                }, 3000);
-        });
-    }, []);
-
-        useEffect(() => {
-        axios.get(http://localhost:11323/produto/${productID}).then(response => {
-            setProduct(response.data);
-            setEditProduct(response.data)
-            setFileName(response.data.cover);
-            let genderPromisses = []
-            for (let genderID of response.data.genders) {
-                genderPromisses.push(axios.get(http://localhost:11323/genero/${genderID}))
-            }
-            Promise.all(genderPromisses).then(gendersAPI => {
-                setGenders(gendersAPI.map(genderAPI => genderAPI.data.name))
-                setUpdate(!update);
-            })
-        }).catch(err => {
-            console.log(err)
-        })
-
-        axios.get("http://localhost:11323/genero").then(response => {
-            setAllGenders((response.data).map(value => value.name));
-        })
-    }, [])
-
-
-    axios.put(`http://localhost:11323/produto/${carrinho}/purchase`, {
-                headers: {
-                    'authorization': `Bearer ${getCookie("token")}`
-                }
-            }).then(response => {
-                console.log("to aqui")
-                setProducts(response.data);
-                setButtonPopUpSuccess(true);
-                setTimeout(() => {
-                    navigate("/");
-                }, 3000);
-            })    
-
-
-        e.preventDefault()
-        let notCompleted = false;
-        let fields = []
-        for (let key in pay) {
-            if (pay[key] === undefined) {
-                notCompleted = true;
-                fields.push(key);
-            }
-        }
-
-        console.log(pay);
-        if (notCompleted) {
-            setMassageString(fields.join(", "));
-            setButtonPopUpWrong(true);
-        }
-
-        else{
-                setData({...data, products: data.products.map((product, index) => {
-                    let cartProduct = data.cart.find(item => item.indexProduct === index);
-                    console.log(cartProduct);
-                    if (cartProduct !== undefined)
-                        return {...product, available: product.available - cartProduct.quantity, sold: product.sold + cartProduct.quantity}
-                    return product;
-                }), cart: []})
-
-                setButtonPopUpSuccess(true);
-                setTimeout(() => {
-                    navigate("/");
-                }, 3000);
-                
-        }
-    }*/
 
 
     return (

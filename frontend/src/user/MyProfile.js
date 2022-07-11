@@ -1,20 +1,49 @@
 import { useNavigate } from "react-router-dom"
 import { FormDiv, FormInput, FormLabel, FileDiv, FormFile, FormButton, FormForm } from "../styles/adminStyles/formStyle"
 import { Description, ActionDiv } from "../styles/adminStyles/HomeAdminStyle"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PopUp from "../components/PopUp";
 import { PopUpButton } from "../styles/componentsStyles/PopUpStyle";
 import { Row } from "../styles/userStyles/CartStyles";
+import axios from "axios";
+import { getCookie, parseJwt } from "../auth";
 
 export default function MyProfile({data, setData}) {
-    const [fileName, setFileName] = useState(data.users[data.logged.user].photo);
+    const [fileName, setFileName] = useState();
+    const [image, setImage] = useState();
     const [editProfile, setEditProfile] = useState(false);
-    const [profile, setNewProfile] = useState(data.users[data.logged.user]);
+    const [profile, setProfile] = useState({
+        "name": undefined,
+        "email": undefined,
+        "telephone": undefined,
+        "address": undefined
+    });
     const [passwords, setPasswords] = useState({password: undefined, confirm: undefined});
     const [buttonPopUpDelete, setButtonPopUpDelete] = useState(false);
     const [buttonPopUp, setButtonPopUp] = useState(false);
     const [buttonPopUpWarning, setButtonPopUpWarning] = useState(false);
 
+    
+    useEffect(() => {
+        const token = parseJwt(getCookie("token"));
+        if (token != "" ) {
+            axios.get(`http://localhost:11323/user/${token.id}`, {
+                headers: {
+                    'authorization': `Bearer ${getCookie("token")}`
+                }
+            }).then(res => {
+                console.log(res);
+                setProfile({
+                    name: res.data.name,
+                    email: res.data.email,
+                    telephone: res.data.telephone,
+                    address: res.data.address
+                });
+                setPasswords({password: res.data.password, confirm: res.data.password});
+                setFileName(res.data.photo);
+            })
+        }
+    }, [])
 
     const navigate = useNavigate();
 
@@ -22,17 +51,26 @@ export default function MyProfile({data, setData}) {
         let filepath = e.target.value;
         let paths = filepath.split("\\");
         setFileName(paths[paths.length - 1]);
+        setImage(e.target.files[0]);
     }
 
     const deleteUser = e => {
         e.preventDefault();
         setButtonPopUpWarning(false);
         setButtonPopUpDelete(true);
-            setTimeout(() => {
-                setData({...data, users: data.users.splice(data.logged.user, 1)});
-                setData({...data, logged: {"situation": false, "user": undefined}});
-                navigate("/");
-            }, 3000);
+
+        const token = parseJwt(getCookie("token"));
+        console.log(token);
+        console.log(getCookie("token"));
+        if (token !== "") {
+            axios.delete(`http://localhost:11323/user/${token.id}`, {                
+                headers: {
+                    'authorization': `Bearer ${getCookie("token")}`
+                }
+            }).then((response) => {
+                setData(response.data);
+            }).catch(e => console.log(e));
+        }
     }
 
     const warningUser = e => {
@@ -48,16 +86,32 @@ export default function MyProfile({data, setData}) {
                 console.log("Alterei a senha");
                 profile.password = passwords.password;
             }
-
             profile.photo = fileName;
+
             
-            let datacopy = data.users;
-            datacopy[data.logged.user] = profile;
-            setData({...data, users: datacopy});
-            setButtonPopUp(true);
-            setTimeout(() => {
-                navigate("/");
-            }, 3000);
+            const token = parseJwt(getCookie("token"));
+            console.log(token);
+            console.log(getCookie("token"));
+            if (token !== "") {
+                axios.put(`http://localhost:11323/user/${token.id}`, {
+                    "name": profile.name,
+                    "email": profile.email,
+                    "telephone": profile.telephone,
+                    "address": profile.address,
+                    "password": passwords.password
+                }, {                
+                    headers: {
+                        'authorization': `Bearer ${getCookie("token")}`
+                    }
+                }).then((response) => {
+                    setData(response.data);
+                    setProfile(response.data);
+                }).catch(e => console.log(e));
+                setButtonPopUp(true);
+                setTimeout(() => {
+                    navigate("/");
+                }, 3000);
+            }
         }
         else
             console.log("Mudanças não foram realizadas. As senhas não coincidem.")
@@ -69,27 +123,27 @@ export default function MyProfile({data, setData}) {
             <Description>Seu Perfil</Description>
             <FormDiv>
                 <FormLabel>Nome</FormLabel>
-                <FormInput placeholder={data.users[data.logged.user].name} readOnly={!editProfile} onInput={e => setNewProfile({...profile, name: e.target.value})} />
+                <FormInput placeholder={profile.name} readOnly={!editProfile} onInput={e => setProfile({...profile, name: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Email</FormLabel>
-                <FormInput placeholder={data.users[data.logged.user].email} readOnly={!editProfile} onInput={e => setNewProfile({...profile, email: e.target.value})} />
+                <FormInput placeholder={profile.email} readOnly={!editProfile} onInput={e => setProfile({...profile, email: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Telefone</FormLabel>
-                <FormInput placeholder={data.users[data.logged.user].telephone} readOnly={!editProfile} onInput={e => setNewProfile({...profile, telephone: e.target.value})} />
+                <FormInput placeholder={profile.telephone} readOnly={!editProfile} onInput={e => setProfile({...profile, telephone: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Endereço</FormLabel>
-                <FormInput placeholder={data.users[data.logged.user].address} readOnly={!editProfile} onInput={e => setNewProfile({...profile, address: e.target.value})} />
+                <FormInput placeholder={profile.address} readOnly={!editProfile} onInput={e => setProfile({...profile, address: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Senha</FormLabel>
-                <FormInput placeholder="********" readOnly={!editProfile} onInput={e => setPasswords({...passwords, "password": e.target.value})} />
+                <FormInput placeholder="********" readOnly={!editProfile} onInput={e => setPasswords({...passwords, password: e.target.value})} />
             </FormDiv>
             <FormDiv>
                 <FormLabel>Confirme senha</FormLabel>
-                <FormInput placeholder="********" readOnly={!editProfile} onInput={e => setPasswords({...passwords, "confirm": e.target.value})} />
+                <FormInput placeholder="********" readOnly={!editProfile}  onInput={e => setPasswords({...passwords, confirm: e.target.value})} />
             </FormDiv>
             <FormDiv>
                 <FormLabel>Foto</FormLabel>
@@ -102,14 +156,14 @@ export default function MyProfile({data, setData}) {
                 </FileDiv>
             </FormDiv>
             <ActionDiv width="70">
-                {
+                {  
                     editProfile === false ? 
                     <FormButton onClick={() => setEditProfile(true)}>Editar Página</FormButton>
                     :
                     <>
-                            <FormButton onClick={e => saveChanges(e)}>Salvar</FormButton>
-                            <FormButton onClick={() => setEditProfile(false)}>Cancelar</FormButton>
-                        </>
+                        <FormButton onClick={e => saveChanges(e)}>Salvar</FormButton>
+                        <FormButton onClick={() => setEditProfile(false)}>Cancelar</FormButton>
+                    </>
                 }
                 <FormButton delete="true" onClick={e => warningUser(e)}>Deletar Perfil</FormButton>
             </ActionDiv>
@@ -123,8 +177,8 @@ export default function MyProfile({data, setData}) {
         <PopUp trigger={buttonPopUpWarning} setTrigger={setButtonPopUpWarning}>
             <p>Certeza que deja apagar o usuário?</p>
             <Row>
-                <PopUpButton onClick={e => deleteUser(e)}theme="light">Confirmar</PopUpButton>
                 <PopUpButton onClick={() => setButtonPopUpWarning(false)}>Cancelar</PopUpButton>
+                <PopUpButton onClick={e => deleteUser(e)}theme="light">Confirmar</PopUpButton>
             </Row>
         </PopUp>
         </>

@@ -2,7 +2,8 @@ import { FormDiv, FormInput, FormLabel, Container, FormFile, FileDiv, Descriptio
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import PopUp from "../components/PopUp";
-
+import axios from "axios"
+const baseURL = "http://localhost:11323/user"
 
 
 export default function Cadastro({data, setData}) {
@@ -23,14 +24,20 @@ export default function Cadastro({data, setData}) {
     const [buttonPopUpSuccess, setButtonPopUpSuccess] = useState(false);
     const [buttonPopUpWrong, setButtonPopUpWrong] = useState(false);
     const [massageString, setMassageString] = useState("");
-
+    const [image, setImage] = useState();
     
     
 
     const changeFile = e => {
         let filepath = e.target.value;
         let paths = filepath.split("\\");
-        setFileName(paths[paths.length - 1]);
+        if (paths[paths.length-1]) {
+            setFileName(paths[paths.length - 1]);
+            setImage(e.target.files[0]);
+            console.log(e.target.files[0]);
+        }
+        else
+            setFileName("Arquivo não selecionado");
     }
     
     const createUser = e => {
@@ -58,27 +65,25 @@ export default function Cadastro({data, setData}) {
         }
 
         else if (passwordConfirm === user.password) {
-            let exists = false;
-            let i = 0;
-            while (i < data.users.length && !exists) {
-                if (data.users[i].email === user.email) {
-                    // botar um alert ou popup aqui
-                    console.log("Usuário já existe com esse email");
-                    setButtonPopUpExist(true);
-                    exists = true;
-                }
-                i++;
-            }
-            if (!exists) {
-                // botar um alert ou popup aqui
-                console.log("Usuário criado")
-                console.log(user);
-                setButtonPopUpSuccess(true);
-                setData({...data, users: [...data.users, user]});
+            axios.post(baseURL, user).then(response  => {
+                const formData = new FormData();
+                formData.append("image", image);
+                fetch(baseURL +`/${response.data._id}/image`,
+                {
+                    body: formData,
+                    method: "put"
+                });
+                setButtonPopUpSuccess(true)
                 setTimeout(() => {
                     navigate("/login");
                 }, 3000);
-            }
+
+            }).catch(function(error) {
+                if(error.response){
+                    console.log("Usuário já existe com esse email");
+                    setButtonPopUpExist(true);
+                }
+            })
         }
         else {
             // botar um alert ou popup aqui
@@ -122,7 +127,7 @@ export default function Cadastro({data, setData}) {
                         <p>{fileName}</p>
                         <FormFile>
                             Escolher arquivo
-                            <input type="file" onInput={e => changeFile(e)} accept=".jpg,.png,.jpeg" />
+                            <input type="file" onInput={e => changeFile(e)} accept=".jpg,.png,.jpeg" required/>
                         </FormFile>
                     </FileDiv>
                 </FormDiv>

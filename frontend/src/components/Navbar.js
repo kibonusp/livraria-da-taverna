@@ -15,7 +15,6 @@ export default function Navbar({data, setData}) {
     
     useEffect(() => {
         const token = parseJwt(getCookie("token"));
-        console.log(token);
         if (token !== "") {
             axios.get(`http://localhost:11323/user/${token.id}`, {
                 headers: {
@@ -51,7 +50,7 @@ export default function Navbar({data, setData}) {
                     user
                      ? 
                         <>
-                            <UserPhoto src={userImages[user.photo]} alt="Foto do usuário" />
+                            <UserPhoto src={`http://localhost:11323/user/${user._id}/image`} alt="Foto do usuário" />
                             <Link to="/myProfile">Olá, {user.name.split(' ')[0]}</Link>
                             <Link to="/login" onClick={() => signOut()}>
                                 <Sair>Sair</Sair>

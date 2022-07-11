@@ -1,6 +1,5 @@
 import { Row } from "../styles/userStyles/CartStyles"
 import { Result, Profile} from '../styles/adminStyles/UsersStyles'
-import { userImages } from '../images';
 
 import PopUp from "./PopUp";
 import { PopUpButton } from "../styles/componentsStyles/PopUpStyle"
@@ -29,7 +28,7 @@ export default function PromoteName({user}) {
         <>
         <Result cursor="click" onClick={() => setButtonPopUp(true)}>
             <Profile>
-                <img src={userImages[user.photo]} alt={user.email} />
+                <img src={`http://localhost:11323/user/${user.id}/image`} alt={user.email} />
                 <p>{user.email}</p>
             </Profile>
         </Result>
