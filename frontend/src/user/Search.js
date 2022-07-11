@@ -11,13 +11,10 @@ const genderURL = "http://localhost:11323/genero"
 const bookURL = "http://localhost:11323/produtos"
 const allBookURL = "http://localhost:11323/produto"
 
-
-
 export default function Search({data, setData}) {
     const location = useLocation();
     const [books, setBooks] = useState([]);
     const [genders, setGenders] = useState([]);
-
     
     const [filter, setFilter] = useState({
         gender: location.state !== null ? location.state.gender : null,
@@ -31,11 +28,10 @@ export default function Search({data, setData}) {
         let copy = {params: filter}
         if(location.state)
             copy.params.search = location.state.string
-        console.log(location.state)
         axios.get(bookURL, copy).then((response) => {
             setBooks(response.data);
         });
-    }, [filter])
+    }, [filter, location.state])
 
     useEffect(() => {
         axios.get(allBookURL).then((response) => {

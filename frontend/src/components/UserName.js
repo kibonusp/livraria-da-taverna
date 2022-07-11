@@ -16,13 +16,10 @@ export default function UserName({user}) {
     const [buttonPopUp, setButtonPopUp] = useState(false);
 
     const deleteUser = id => {
-        console.log(id);
         axios.delete(`http://localhost:11323/user/${id}`, {
             headers: {
                 'authorization': `Bearer: ${getCookie("token")}`
             }
-        }).then(response => {
-            console.log(response)
         })
         setButtonPopUp(false);
     }

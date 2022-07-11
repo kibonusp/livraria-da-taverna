@@ -26,8 +26,6 @@ export default function Cart({data, setData}) {
         if (data.cart.length === 0)
             setTotal(0);
     }, [data.cart])
-
-    console.log(total)
   
     return (
         <>

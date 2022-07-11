@@ -22,17 +22,15 @@ export default function MyProfile({data, setData}) {
     const [buttonPopUpDelete, setButtonPopUpDelete] = useState(false);
     const [buttonPopUp, setButtonPopUp] = useState(false);
     const [buttonPopUpWarning, setButtonPopUpWarning] = useState(false);
-
     
     useEffect(() => {
         const token = parseJwt(getCookie("token"));
-        if (token != "" ) {
+        if (token !== "" ) {
             axios.get(`http://localhost:11323/user/${token.id}`, {
                 headers: {
                     'authorization': `Bearer ${getCookie("token")}`
                 }
             }).then(res => {
-                console.log(res);
                 setProfile({
                     name: res.data.name,
                     email: res.data.email,
@@ -60,8 +58,6 @@ export default function MyProfile({data, setData}) {
         setButtonPopUpDelete(true);
 
         const token = parseJwt(getCookie("token"));
-        console.log(token);
-        console.log(getCookie("token"));
         if (token !== "") {
             axios.delete(`http://localhost:11323/user/${token.id}`, {                
                 headers: {
@@ -81,40 +77,42 @@ export default function MyProfile({data, setData}) {
     const saveChanges = e => {
         e.preventDefault()
         if (passwords.password === passwords.confirm) {
-            console.log("Alterei a senha");
             if (passwords.passwords !== undefined) {
-                console.log("Alterei a senha");
                 profile.password = passwords.password;
             }
             profile.photo = fileName;
 
             
             const token = parseJwt(getCookie("token"));
-            console.log(token);
-            console.log(getCookie("token"));
             if (token !== "") {
-                axios.put(`http://localhost:11323/user/${token.id}`, {
-                    "name": profile.name,
-                    "email": profile.email,
-                    "telephone": profile.telephone,
-                    "address": profile.address,
-                    "password": passwords.password
-                }, {                
-                    headers: {
-                        'authorization': `Bearer ${getCookie("token")}`
-                    }
-                }).then((response) => {
-                    setData(response.data);
-                    setProfile(response.data);
-                }).catch(e => console.log(e));
-                setButtonPopUp(true);
-                setTimeout(() => {
-                    navigate("/");
-                }, 3000);
+                let formData = new FormData();
+                formData.append("image", image);
+                fetch(`http://localhost:11323/user/${token.id}/image`,
+                {
+                    body: formData,
+                    method: "put"
+                }).then(ressponse => {
+                    axios.put(`http://localhost:11323/user/${token.id}`, {
+                        "name": profile.name,
+                        "email": profile.email,
+                        "telephone": profile.telephone,
+                        "address": profile.address,
+                        "password": passwords.password
+                    }, {                
+                        headers: {
+                            'authorization': `Bearer ${getCookie("token")}`
+                        }
+                    }).then((response) => {
+                        setData(response.data);
+                        setProfile(response.data);
+                    }).catch(e => console.log(e));
+                    setButtonPopUp(true);
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 3000);
+                })
             }
         }
-        else
-            console.log("Mudanças não foram realizadas. As senhas não coincidem.")
     }
     
     return (

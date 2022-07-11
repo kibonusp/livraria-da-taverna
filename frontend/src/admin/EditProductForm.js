@@ -39,14 +39,9 @@ export default function EditProductForm({data, setData}) {
         })
 
         axios.get("http://localhost:11323/genero").then(response => {
-            console.log(response.data);
             setAllGenders((response.data).map(value => value.name));
         })
     }, [productID])
-
-    useEffect(() => {
-        console.log(allGenders)
-    }, [allGenders])
 
     const setGender = (i, value) => {
         let genderscopy = genders;
@@ -64,18 +59,12 @@ export default function EditProductForm({data, setData}) {
                 updateProduct[key] = editProduct[key];
         }
 
-        console.log(genders);
-
         let genderPromises = []
         for (let gender of genders) {
-            console.log(gender);
             genderPromises.push(axios.get(`http://localhost:11323/genero/nome/${gender}`))
         }
 
-        console.log(genderPromises)
-
         Promise.all(genderPromises).then(response => {
-            console.log(response)
             updateProduct.genders = response.data.map(gender => gender)
             updateProduct.cover = fileName;
             updateProduct.available += parseInt(addStock);

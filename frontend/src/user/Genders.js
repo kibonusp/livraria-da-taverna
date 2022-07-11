@@ -34,7 +34,6 @@ export default function Genders({data, setData}) {
     useEffect(() => {
         axios.get(baseURL).then((response) => {
             setGenders(response.data);
-            console.log(response.data)
         });
     }, []);
 

@@ -26,7 +26,6 @@ export default function EditProduct() {
                 newProducts.push(product);
         }
         setFilteredProducts(newProducts);
-        console.log(newProducts);
     }, [search, products])
 
     return (

@@ -26,7 +26,7 @@ export default function Navbar({data, setData}) {
                 console.log(error);
             })
         }
-    }, [data.logged])
+    })
 
     const signOut = () => {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -38,11 +38,7 @@ export default function Navbar({data, setData}) {
             navigate("/search", {state: {"string": search}})
         }
     }
-
-    useEffect(() => {
-        console.log(user)
-    }, [user])
-
+    
     return (
         <NavHeader>
             <Profile>

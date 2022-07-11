@@ -53,7 +53,6 @@ export default function AddProduct() {
             for (let gender of productGenders) {
                 genderPromises.push(axios.get(`http://localhost:11323/genero/nome/${gender}`));
             }
-            console.log(genderPromises)
             Promise.all(genderPromises).then(ids => {
                 axios.post("http://localhost:11323/produto", {
                     "name": nome,
@@ -91,7 +90,6 @@ export default function AddProduct() {
         if (paths[paths.length-1]) {
             setFileName(paths[paths.length - 1]);
             setImage(e.target.files[0]);
-            console.log(e.target.files[0]);
         }
         else
             setFileName("Arquivo não selecionado");

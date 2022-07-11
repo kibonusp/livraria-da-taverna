@@ -34,7 +34,6 @@ export default function Cadastro({data, setData}) {
         if (paths[paths.length-1]) {
             setFileName(paths[paths.length - 1]);
             setImage(e.target.files[0]);
-            console.log(e.target.files[0]);
         }
         else
             setFileName("Arquivo não selecionado");
@@ -42,7 +41,6 @@ export default function Cadastro({data, setData}) {
     
     const createUser = e => {
         e.preventDefault()
-        console.log(data.users);
         let notCompleted = false;
         user.photo = fileName;
         let fields = []
@@ -57,9 +55,7 @@ export default function Cadastro({data, setData}) {
             }
         }
 
-        console.log(user);
         if (notCompleted) {
-            console.log("Os campos " + fields.join(", ") + " não foram preenchidos");
             setMassageString(fields.join(", "));
             setButtonPopUpMissing(true);
         }
@@ -79,17 +75,12 @@ export default function Cadastro({data, setData}) {
                 }, 3000);
 
             }).catch(function(error) {
-                if(error.response){
-                    console.log("Usuário já existe com esse email");
+                if(error.response)
                     setButtonPopUpExist(true);
-                }
             })
         }
-        else {
-            // botar um alert ou popup aqui
-            console.log("Senhas não coincidem")
+        else
             setButtonPopUpWrong(true);
-        }
     }
     
     return (
