@@ -91,7 +91,7 @@ export default function MyProfile({data, setData}) {
                 {
                     body: formData,
                     method: "put"
-                }).then(ressponse => {
+                }).then(() => {
                     axios.put(`http://localhost:11323/user/${token.id}`, {
                         "name": profile.name,
                         "email": profile.email,
