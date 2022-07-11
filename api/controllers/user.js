@@ -1,6 +1,8 @@
 const userModel = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const path = require('path');
+const fs = require('fs');
 
 module.exports.createUser = async (req, res) => {
     const newUser = new userModel({
@@ -18,23 +20,19 @@ module.exports.createUser = async (req, res) => {
     }
     catch(e){
         console.log(e);
-        return res.status(409).send("User with this e-mail already exists");   
+        return res.status(409).send({error: "User with this e-mail already exists"});   
     }
 }
 
 // TODO: tem que testar
 module.exports.uploadImage = async (req, res) => {
-    const sub = req.sub;
-
-    if (req.params.id != sub)
-        return res.status(401).send({error: 'No access to this user'});
-
     const myFile = req.files.image;
 
-    const user = await userModel.findById(req.params.id);
-    const previousImage = user.photo;
 
-    userModel.findByIdAndUpdate(req.params.id, {cover: myFile.name}, (err, results) => {
+    const user = await userModel.findById(req.params.id);
+    const previousImage = user !== undefined ? user.photo : undefined;
+
+    userModel.findByIdAndUpdate(req.params.id, {photo: myFile.name}, (err, results) => {
         if (results !== undefined) {
             myFile.mv(`./assets/users/${myFile.name}`, function (err) {
                 if (err) {
@@ -42,7 +40,7 @@ module.exports.uploadImage = async (req, res) => {
                     return res.status(500).send({ msg: "Error occured" });
                 }
             });
-            if (previousImage !== null && previousImage !== "")
+            if (previousImage !== undefined && previousImage !== myFile.name)
                 fs.unlink(path.join(__dirname, '../assets/users', previousImage), err => {if (err) throw err});
             res.status(200).send("Image updated");
         }
@@ -53,17 +51,10 @@ module.exports.uploadImage = async (req, res) => {
 
 // TODO: tem que testar
 module.exports.getImage = async(req, res) => {
-    const sub = req.sub;
-
-    const curUser = await userModel.findById(sub);
-
-    if (sub !== req.params.id && curUser.admin === false)
-        return res.status(401).send({error: 'No access to this user'});
-
     try {
         const user = await userModel.findById(req.params.id);
         if (user) 
-            res.status(200).sendFile(path.join(__dirname, '../assets/users', e));
+            res.status(200).sendFile(path.join(__dirname, '../assets/users', user.photo));
         else res.status(404).json("Image not found");
     }
     catch(e) {

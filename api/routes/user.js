@@ -17,11 +17,11 @@ router.put('/admin/users/:userID', userController.validateToken, userController.
 // admin only, but just email, photo and admin -- done
 router.get('/user', userController.validateToken, userController.getUsers);
 
-// user only -- done
-router.put('/user/:id/image', userController.validateToken, userController.uploadImage);
+// anyone -- done
+router.put('/user/:id/image', userController.uploadImage);
 
 // user and admin -- done
-router.get('/user/:id/image', userController.validateToken, userController.getImage);
+router.get('/user/:id/image', userController.getImage);
 
 // user and admin -- done
 router.delete('/user/:id', userController.validateToken, userController.deleteUser);

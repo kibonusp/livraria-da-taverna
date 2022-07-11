@@ -28,7 +28,6 @@ module.exports.createProduct = async (req, res) => {
         return res.status(200).send(productSaved);
     }
     catch(e) {
-        console.log("entrei aqui")
         return res.status(409).send("Product with this name already exists");
     }
 }
@@ -42,20 +41,14 @@ module.exports.uploadImage = async (req, res) => {
 
     const myFile = req.files.image;
 
-    console.log(myFile);
-    console.log(req.params.id);
-
     const product = await productModel.findById(req.params.id);
-    console.log(product)
     const previousImage = product !== undefined ? product.cover : undefined;
 
     productModel.findByIdAndUpdate(req.params.id, {cover: myFile.name}, (err, results) => {
         if (results !== undefined) {
             myFile.mv(`./assets/produtos/${myFile.name}`, function (err) {
-                if (err) {
-                    console.log(err);
+                if (err)
                     return res.status(500).send({ msg: "Error occured" });
-                }
             });
             if (previousImage !== undefined && previousImage !== myFile.name)
                 fs.unlink(path.join(__dirname, '../assets/produtos', previousImage), err => {if (err) throw err});
@@ -101,7 +94,7 @@ module.exports.getProductsFilter = async (req, res) => {
     if(req.query.available === "true"){
         productsF = productsF.filter(el=>
             el.available > 0
-            )
+        )
     }
     if(Number(req.query.lowPrice) !== 0){
         productsF = productsF.filter(el=>
@@ -113,24 +106,25 @@ module.exports.getProductsFilter = async (req, res) => {
             Number(el.price.substring(3)) <= Number(req.query.highPrice)
             )
     }
-    if (req.body.hasOwnProperty('price'))
-        query.price = req.body.price;
-    
-    try {
-        productModel.find(query, (err, products) => {
-            if (products)
-                return res.status(200).send(products);
-            return res.status(500).send("Unknown error ocurred");
-        });
+    if(req.query.search !== null && req.query.search !== undefined){
+        productsF = productsF.filter(el=>
+            el.name.includes(req.query.search)
+        )
     }
-    catch (e) {
-        console.log(e);
+    if(req.query.gender !== null && req.query.gender !== undefined){
+        productsF = productsF.filter(el=>
+            el.genders.includes(req.query.gender)
+        )
     }
+
+    if (productsF === null)
+        return res.status(404).send("Products not Found")
+
+    return res.status(200).send(productsF)
 }
 
 // * OK
 module.exports.updateProduct = async (req, res) => {
-    console.log("Atualizando o produto")
     let genders = [];
     const sub = req.sub;
     const curUser = await userModel.findById(sub);
