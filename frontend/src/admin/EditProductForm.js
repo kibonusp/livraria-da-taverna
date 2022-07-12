@@ -49,6 +49,7 @@ export default function EditProductForm({data, setData}) {
             // Promise.all(genderPromisses).then(gendersAPI => {
             //     setGenders(gendersAPI.map(genderAPI => genderAPI.data.name))
             // })
+            console.log(response)
         }).catch(err => {
             console.log(err)
         })
@@ -140,6 +141,10 @@ export default function EditProductForm({data, setData}) {
 
     return (
         <>
+        {
+            product.name === undefined ?
+            "" :
+            <>
         <FormForm>
             <Description>Edição de Produto</Description>
             <FormDiv>
@@ -175,7 +180,7 @@ export default function EditProductForm({data, setData}) {
                             {
                                 allGenders.map((gender, index) =>
                                     <option key={index} value={gender}>{gender.name}</option>  
-                                )
+                                    )
                             }
                         </select>
                     </SelectDiv>
@@ -235,7 +240,7 @@ export default function EditProductForm({data, setData}) {
             {
                 product === undefined ?
                 "" : 
-                <p> O produto {product.description} foi atualizado. </p>
+                <p> O produto {product.name} foi atualizado. </p>
             }
         </PopUp>
         <PopUp trigger={buttonPopUpDelete} setTrigger={setButtonPopUpDelete}>
@@ -253,6 +258,8 @@ export default function EditProductForm({data, setData}) {
                 <PopUpButton onClick={() => setButtonPopUpDelete(false)}>Cancelar</PopUpButton>
             </Row>
         </PopUp>
+        </>
+        }
         </>
     )
 }
