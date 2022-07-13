@@ -5,6 +5,8 @@ import PopUp from "../components/PopUp";
 import axios from "axios"
 import { useEffect } from "react";
 import { getCookie } from "../auth";
+import {useNavigate } from "react-router-dom";
+
 
 export default function AddProduct() {
     const [fileName, setFileName] = useState("Arquivo não selecionado");
@@ -21,6 +23,8 @@ export default function AddProduct() {
         "genero2": "Selecione",
         "genero3": "Selecione"
     });
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         axios.get("http://localhost:11323/genero").then(response => {
@@ -80,6 +84,9 @@ export default function AddProduct() {
                     });
                 }).catch(e => console.log(e));
                 setButtonPopUp(true);
+                setTimeout(() => {
+                    navigate(-1);
+                }, 3000);
             })
         }
     }

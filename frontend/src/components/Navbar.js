@@ -4,14 +4,17 @@ import { NavHeader, UserPhoto, Profile, Logo, Utils, Links, Sair, Search } from 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCartShopping} from '@fortawesome/free-solid-svg-icons'
 import { userImages } from "../images"
-import { useState, useEffect } from "react"
+import { useState, useEffect} from "react"
 import axios from "axios";
 import { getCookie, parseJwt } from "../auth"
+
 
 export default function Navbar({data, setData}) {
     const [search, setSearch] = useState("");
     const navigate = useNavigate();
     const [user, setUser] = useState("");
+    const [image, setImage] = useState("")
+    const [check, setCheck] = useState(true)
     
     useEffect(() => {
         const token = parseJwt(getCookie("token"));
@@ -22,12 +25,15 @@ export default function Navbar({data, setData}) {
                 }
             }).then(response => {
                 setUser(response.data)
+                if(response.data.photo != image) {
+                    setImage(response.data.photo)
+                    setCheck(!check)
+                }
             }).catch(error => {
                 console.log(error);
             })
         }
     })
-
     const signOut = () => {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         setData({logged: false})
@@ -44,9 +50,15 @@ export default function Navbar({data, setData}) {
             <Profile>
                 {
                     user
-                     ? 
+                    ? 
                         <>
-                            <UserPhoto src={`http://localhost:11323/user/${user._id}/image`} alt="Foto do usuário" />
+                            {
+                                check
+                                ?
+                                <UserPhoto src={`http://localhost:11323/user/${user._id}/image`} alt="Foto do usuário" />
+                                :
+                                <UserPhoto src={`http://localhost:11323/user/${user._id}/image`} alt="Foto do usuário" />
+                            }
                             <Link to="/myProfile">Olá, {user.name.split(' ')[0]}</Link>
                             <Link to="/login" onClick={() => signOut()}>
                                 <Sair>Sair</Sair>

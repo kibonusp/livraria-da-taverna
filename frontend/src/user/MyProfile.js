@@ -8,6 +8,7 @@ import { Row } from "../styles/userStyles/CartStyles";
 import axios from "axios";
 import { getCookie, parseJwt } from "../auth";
 
+
 export default function MyProfile({data, setData}) {
     const [fileName, setFileName] = useState();
     const [image, setImage] = useState();
@@ -67,6 +68,9 @@ export default function MyProfile({data, setData}) {
                 setData(response.data);
             }).catch(e => console.log(e));
         }
+        setTimeout(() => {
+            navigate("/");
+        }, 3000);
     }
 
     const warningUser = e => {
@@ -80,37 +84,37 @@ export default function MyProfile({data, setData}) {
             if (passwords.passwords !== undefined) {
                 profile.password = passwords.password;
             }
-            profile.photo = fileName;
-
             
             const token = parseJwt(getCookie("token"));
             if (token !== "") {
-                let formData = new FormData();
-                formData.append("image", image);
-                fetch(`http://localhost:11323/user/${token.id}/image`,
-                {
-                    body: formData,
-                    method: "put"
-                }).then(() => {
-                    axios.put(`http://localhost:11323/user/${token.id}`, {
-                        "name": profile.name,
-                        "email": profile.email,
-                        "telephone": profile.telephone,
-                        "address": profile.address,
-                        "password": passwords.password
-                    }, {                
-                        headers: {
-                            'authorization': `Bearer ${getCookie("token")}`
-                        }
-                    }).then((response) => {
-                        setData(response.data);
-                        setProfile(response.data);
-                    }).catch(e => console.log(e));
-                    setButtonPopUp(true);
-                    setTimeout(() => {
-                        navigate("/");
-                    }, 3000);
-                })
+                if(fileName) {
+                    let formData = new FormData();
+                    formData.append("image", image);
+                    fetch(`http://localhost:11323/user/${token.id}/image`,
+                    {
+                        body: formData,
+                        method: "put"
+                    })
+                }
+                axios.put(`http://localhost:11323/user/${token.id}`, {
+                    "name": profile.name,
+                    "email": profile.email,
+                    "telephone": profile.telephone,
+                    "address": profile.address,
+                    "password": passwords.password
+                }, {                
+                    headers: {
+                        'authorization': `Bearer ${getCookie("token")}`
+                    }
+                }).then((response) => {
+                    setData(response.data);
+                    setProfile(response.data);
+                }).catch(e => console.log(e));
+                setButtonPopUp(true);
+                setTimeout(() => {
+                    navigate("/");
+                }, 3000);
+                
             }
         }
     }

@@ -7,11 +7,13 @@ import { PopUpButton } from "../styles/componentsStyles/PopUpStyle"
 import { useState } from "react"
 import axios from "axios";
 import { getCookie } from "../auth";
+import {useNavigate } from "react-router-dom";
 
 
 export default function PromoteName({user}) {
 
     const [buttonPopUp, setButtonPopUp] = useState(false);
+    const navigate = useNavigate();
 
     const turnAdmin = id => {
         axios.put(`http://localhost:11323/admin/users/${id}`, {
@@ -22,6 +24,7 @@ export default function PromoteName({user}) {
             }
         })
         setButtonPopUp(false);
+        navigate(-1);
     }
 
     return (

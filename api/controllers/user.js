@@ -26,27 +26,31 @@ module.exports.createUser = async (req, res) => {
 
 // TODO: tem que testar
 module.exports.uploadImage = async (req, res) => {
-    const myFile = req.files.image;
+    if(req.files !== null && req.files !== undefined){
+        const myFile = req.files.image;
 
+        const user = await userModel.findById(req.params.id);
+        const previousImage = user !== undefined ? user.photo : undefined;
 
-    const user = await userModel.findById(req.params.id);
-    const previousImage = user !== undefined ? user.photo : undefined;
-
-    userModel.findByIdAndUpdate(req.params.id, {photo: myFile.name}, (err, results) => {
-        if (results !== undefined) {
-            myFile.mv(`./assets/users/${myFile.name}`, function (err) {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).send({ msg: "Error occured" });
-                }
-            });
-            if (previousImage !== undefined && previousImage !== myFile.name)
-                fs.unlink(path.join(__dirname, '../assets/users', previousImage), err => {if (err) throw err});
-            res.status(200).send("Image updated");
-        }
-        else
-            res.status(505).send("Error in setImage");
-    });
+        userModel.findByIdAndUpdate(req.params.id, {photo: myFile.name}, (err, results) => {
+            if (results !== undefined) {
+                myFile.mv(`./assets/users/${myFile.name}`, function (err) {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).send({ msg: "Error occured" });
+                    }
+                });
+                if (previousImage !== undefined && previousImage !== myFile.name)
+                    fs.unlink(path.join(__dirname, '../assets/users', previousImage), err => {if (err) throw err});
+                res.status(200).send("Image updated");
+            }
+            else
+                res.status(505).send("Error in setImage");
+        });
+    }
+    else{
+        res.status(404).send("Files not received")
+    }
 }
 
 // TODO: tem que testar

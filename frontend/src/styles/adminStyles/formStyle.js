@@ -50,6 +50,7 @@ export const FormInput = styled.input`
     color: #502514;
     font-weight: 600;
     font-family: Gilroy;
+
 `
 
 export const FormText = styled.textarea`

@@ -39,24 +39,29 @@ module.exports.uploadImage = async (req, res) => {
     if (curUser.admin === false)
         return res.status(401).send({error: 'No access to this user'});
 
-    const myFile = req.files.image;
+    if(req.files !== null && req.files !== undefined){
+    
+        const myFile = req.files.image;
+        const product = await productModel.findById(req.params.id);
+        const previousImage = product !== undefined ? product.cover : undefined;
 
-    const product = await productModel.findById(req.params.id);
-    const previousImage = product !== undefined ? product.cover : undefined;
-
-    productModel.findByIdAndUpdate(req.params.id, {cover: myFile.name}, (err, results) => {
-        if (results !== undefined) {
-            myFile.mv(`./assets/produtos/${myFile.name}`, function (err) {
-                if (err)
-                    return res.status(500).send({ msg: "Error occured" });
-            });
-            if (previousImage !== undefined && previousImage !== myFile.name)
-                fs.unlink(path.join(__dirname, '../assets/produtos', previousImage), err => {if (err) throw err});
-            res.status(200).send("Image updated");
-        }
-        else
-            res.status(505).send("Error in setImage");
-    });
+        productModel.findByIdAndUpdate(req.params.id, {cover: myFile.name}, (err, results) => {
+            if (results !== undefined) {
+                myFile.mv(`./assets/produtos/${myFile.name}`, function (err) {
+                    if (err)
+                        return res.status(500).send({ msg: "Error occured" });
+                });
+                if (previousImage !== undefined && previousImage !== myFile.name)
+                    fs.unlink(path.join(__dirname, '../assets/produtos', previousImage), err => {if (err) throw err});
+                res.status(200).send("Image updated");
+            }
+            else
+                res.status(505).send("Error in setImage");
+        });
+    }
+    else{
+        res.status(404).send("Files not received")
+    }
 }
 
 // TODO: tem que testar
@@ -131,11 +136,10 @@ module.exports.updateProduct = async (req, res) => {
     if (curUser.admin === false)
         return res.status(401).send({error: 'No access to this user'});
 
+
     for (let gender of req.body.genders) {
-        genderModel.findOne({"name": gender}, (err, gdr) => {
-            if (gdr) 
-                genders.push(gdr._id);
-        });
+        let temp = await genderModel.findById(gender);
+        if(temp) genders.push(gender)
     }
 
     productModel.findByIdAndUpdate(req.params.id, {
@@ -147,9 +151,9 @@ module.exports.updateProduct = async (req, res) => {
         "price": req.body.price,
         "available": req.body.available,
         "sold": req.body.sold
-    }, (err, product) => {
+    }, {new: true}, (err, product) => {
         if (product)
-            return res.status(200).send("Product was updated");
+            return res.status(200).send(product);
         if(err.codeName === "DuplicateKey") return res.status(404).send("Product name already used");
         return res.status(404).send("Product not found");
     })

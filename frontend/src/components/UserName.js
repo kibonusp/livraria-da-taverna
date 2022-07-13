@@ -10,10 +10,12 @@ import { PopUpButton } from "../styles/componentsStyles/PopUpStyle"
 import { useState } from "react"
 import axios from "axios";
 import { getCookie } from "../auth";
+import {useNavigate } from "react-router-dom";
 
 
 export default function UserName({user}) {
     const [buttonPopUp, setButtonPopUp] = useState(false);
+    const navigate = useNavigate();
 
     const deleteUser = id => {
         axios.delete(`http://localhost:11323/user/${id}`, {
@@ -22,6 +24,7 @@ export default function UserName({user}) {
             }
         })
         setButtonPopUp(false);
+        navigate(-1);
     }
 
     return (

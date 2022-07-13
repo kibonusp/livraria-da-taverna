@@ -23,67 +23,61 @@ export default function EditProductForm({data, setData}) {
         "available": undefined,
         "sold": undefined
     });
+    const [placeHolder, setPlaceHolder] = useState({})
     const [addStock, setAddStock] = useState(0);
     const [buttonPopUp, setButtonPopUp] = useState(false);
     const [buttonPopUpDelete, setButtonPopUpDelete] = useState(false);
     const navigate = useNavigate();
     const [allGenders, setAllGenders] = useState([]);
     const [genders, setGenders] = useState([])
-
+    const [update, setUpdate] = useState(false)
     useEffect(() => {
-        axios.get(`http://localhost:11323/produto/${productID}`).then(response => {
-            setProduct({
-                "name": response.data.name,
-                "author": response.data.author,
-                "description": response.data.description,
-                "price": response.data.price,
-                "available": response.data.available,
-                "sold": response.data.sold
-            });
-            setFileName(response.data.cover);
-            setGenders(response.data.genders)
-            // let genderPromisses = []
-            // for (let genderID of response.data.genders) {
-            //     genderPromisses.push(axios.get(`http://localhost:11323/genero/${genderID}`))
-            // }
-            // Promise.all(genderPromisses).then(gendersAPI => {
-            //     setGenders(gendersAPI.map(genderAPI => genderAPI.data.name))
-            // })
-            console.log(response)
-        }).catch(err => {
-            console.log(err)
-        })
-
         axios.get("http://localhost:11323/genero").then(response => {
             setAllGenders(response.data);
+        }).then(() => {
+            axios.get(`http://localhost:11323/produto/${productID}`).then(response => {
+                setProduct({
+                    "name": response.data.name,
+                    "author": response.data.author,
+                    "description": response.data.description,
+                    "price": response.data.price,
+                    "available": response.data.available,
+                    "sold": response.data.sold
+                });
+                setFileName(response.data.cover);
+                for(let i = 0; i < 3; i++){
+                    if(!response.data.genders[i]) response.data.genders.push("")
+                }
+                setGenders(response.data.genders)
+            }).catch(err => {
+                console.log(err)
+            })
         })
     }, [productID])
 
+    useEffect(() => {
+            axios.get(`http://localhost:11323/produto/${productID}`).then(response => {
+                setPlaceHolder({
+                    "name": response.data.name,
+                    "author": response.data.author,
+                    "description": response.data.description,
+                    "price": response.data.price,
+                })
+            }).catch(err => {
+                console.log(err)
+            })
+    }, [productID, update])
+
+
     const setGender = (i, value) => {
         let genderscopy = genders;
-        genderscopy[i] = value;
+        genderscopy[i] = value
         setGenders(genderscopy);
     }
 
     const editProductButton = e => {
         e.preventDefault();
-
-        // // decido como \ai ser a atualização
-        // for (let key in editProduct) {
-        //     if (editProduct[key])
-        //         updateProduct[key] = editProduct[key];
-        // }
-
-        // let genderPromises = []
-        // for (let gender of genders) {
-        //     genderPromises.push(axios.get(`http://localhost:11323/genero/nome/${gender}`))
-        // }
-
-        let curGenders = []
-        genders.forEach(gender => {
-            curGenders.push(gender._id)
-        })
-        
+        setUpdate(!update)
         let formData = new FormData();
         formData.append("image", image);
         fetch(`http://localhost:11323/produto/${productID}/image`,
@@ -94,13 +88,23 @@ export default function EditProductForm({data, setData}) {
                 'Authorization': `Bearer ${getCookie("token")}`
             })
         }).then(() => {
+            let name = product.name
+            if(name === "" || name === null || name === undefined) name = placeHolder.name
+            let author = product.author
+            if(author === "" || author === null || author === undefined) author = placeHolder.author
+            let description = product.description
+            if(description === "" || description === null || description === undefined) description = placeHolder.description
+            let price = product.price
+            if(price === "" || price === null || price === undefined) price = placeHolder.price
+            let formatedPreco = price.toString();
+            if (!formatedPreco.includes('.')) formatedPreco += ".00"
+            
             axios.put(`http://localhost:11323/produto/${productID}`, {
-                "name": product.name,
-                "author": product.author,
-                "description": product.description,
-                "genders": curGenders,
-                "cover": fileName,
-                "price": product.price,
+                "name": name,
+                "author": author,
+                "description": description,
+                "genders": genders.filter(gender => gender !== ""),
+                "price": formatedPreco,
                 "available": parseInt(product.available) + parseInt(addStock),
                 "sold": product.sold
             }, {
@@ -116,10 +120,17 @@ export default function EditProductForm({data, setData}) {
                     "available": response.data.available,
                     "sold": response.data.sold
                 });
+                for(let i = 0; i < 3; i++){
+                    if(!response.data.genders[i]) response.data.genders.push("")
+                }
+                setGenders(response.data.genders)
             })
         });
 
         setButtonPopUp(true);
+        setTimeout(() => {
+            navigate(-1);
+        }, 3000);
     }
 
     const changeFile = e => {
@@ -138,59 +149,60 @@ export default function EditProductForm({data, setData}) {
         })
         navigate(-1);
     }
+    
 
     return (
         <>
         {
-            product.name === undefined ?
+            product.name === undefined  || genders === [] || allGenders === [] || placeHolder === {} ?
             "" :
             <>
         <FormForm>
             <Description>Edição de Produto</Description>
             <FormDiv>
                 <FormLabel>Nome</FormLabel>
-                <FormInput placeholder={product.name} readOnly={!editProduct}  onInput={e => setProduct({...product, name: e.target.value})}/>
+                <FormInput placeholder={placeHolder.name} readOnly={!editProduct}  onInput={e => setProduct({...product, name: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Descrição</FormLabel>
-                <FormInput placeholder={product.description} readOnly={!editProduct}  onInput={e => setProduct({...product, description: e.target.value})}/>
+                <FormInput placeholder={placeHolder.description} readOnly={!editProduct}  onInput={e => setProduct({...product, description: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Autores</FormLabel>
-                <FormInput placeholder={product.author.join(",")} readOnly={!editProduct} onInput={e => setProduct({...product, author: e.target.value.split(',')})} />
+                <FormInput placeholder={placeHolder.author.join(",")} readOnly={!editProduct} onInput={e => setProduct({...product, author: e.target.value.split(',')})} />
             </FormDiv>
             <FormDiv>
                 <FormLabel>Gêneros</FormLabel>
                 <MultiSelectDiv>
                     <SelectDiv>
                         <label>Gênero 1</label>
-                        <select defaultValue={genders[0] === undefined ? "Selecione" : genders[0]} onChange={e => setGender(0, e.target.value)}>
-                            <option value="Selecione">Selecione</option>
+                        <select defaultValue={genders[0]} onChange={e => setGender(0, e.target.value)}>
+                            <option value="">Selecione</option>
                             {
                                 allGenders.map((gender, index) =>
-                                    <option key={index} value={gender}>{gender.name}</option>  
+                                    <option key={index} value={gender._id}>{gender.name}</option>  
                                 )
                             }
                         </select>
                     </SelectDiv>
                     <SelectDiv>
                         <label>Gênero 2</label>
-                        <select defaultValue={genders[1] === undefined ? "Selecione" : genders[1]} onChange={e => setGender(1, e.target.value)}>
-                            <option value="Selecione">Selecione</option>
+                        <select defaultValue={genders[1]} onChange={e => setGender(1, e.target.value)}>
+                            <option value="">Selecione</option>
                             {
                                 allGenders.map((gender, index) =>
-                                    <option key={index} value={gender}>{gender.name}</option>  
+                                    <option key={index} value={gender._id}>{gender.name}</option>  
                                     )
                             }
                         </select>
                     </SelectDiv>
                     <SelectDiv>
                         <label>Gênero 3</label>
-                        <select defaultValue={genders[2] === undefined ? "Selecione" : genders[2]} onChange={e => setGender(2, e.target.value)}>
-                            <option value="Selecione">Selecione</option>
+                        <select defaultValue={genders[2]} onChange={e => setGender(2, e.target.value)}>
+                            <option value="">Selecione</option>
                             {
                                 allGenders.map((gender, index) =>
-                                    <option key={index} value={gender}>{gender.name}</option>  
+                                    <option key={index} value={gender._id}>{gender.name}</option>  
                                 )
                             }
                         </select>
@@ -199,7 +211,7 @@ export default function EditProductForm({data, setData}) {
             </FormDiv>
             <FormDiv>
                 <FormLabel>Preço</FormLabel>
-                <FormInput type="number" placeholder={parseFloat((product.price).substring(3))} readOnly={!editProduct} onInput={e => setProduct({...product, price: "R$ " + e.target.value})}/>
+                <FormInput type="number" placeholder={placeHolder.price} readOnly={!editProduct} onInput={e => setProduct({...product, price: parseFloat(e.target.value)})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Foto</FormLabel>
