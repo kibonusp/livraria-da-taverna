@@ -158,7 +158,7 @@ export default function AddProduct() {
             </FormDiv>
             <FormDiv>
                 <FormLabel>Preço</FormLabel>
-                <FormInput type="number" required onInput={e => setPreco(parseFloat(e.target.value))}/>
+                <FormInput type="number" required onInput={e => setPreco(parseFloat(e.target.value).toFixed(2))}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Foto</FormLabel>

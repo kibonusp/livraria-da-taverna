@@ -19,6 +19,7 @@ export default function MyProfile({data, setData}) {
         "telephone": undefined,
         "address": undefined
     });
+    const [placeHolder, setPlaceHolder] = useState({});
     const [passwords, setPasswords] = useState({password: undefined, confirm: undefined});
     const [buttonPopUpDelete, setButtonPopUpDelete] = useState(false);
     const [buttonPopUp, setButtonPopUp] = useState(false);
@@ -33,6 +34,12 @@ export default function MyProfile({data, setData}) {
                 }
             }).then(res => {
                 setProfile({
+                    name: res.data.name,
+                    email: res.data.email,
+                    telephone: res.data.telephone,
+                    address: res.data.address
+                });
+                setPlaceHolder({
                     name: res.data.name,
                     email: res.data.email,
                     telephone: res.data.telephone,
@@ -96,11 +103,19 @@ export default function MyProfile({data, setData}) {
                         method: "put"
                     })
                 }
+                let name = profile.name
+                if(name === "" || name === null || name === undefined) name = placeHolder.name
+                let email = profile.email
+                if(email === "" || email === null || email === undefined) email = placeHolder.email
+                let telephone = profile.telephone
+                if(telephone === "" || telephone === null || telephone === undefined) telephone = placeHolder.telephone
+                let address = profile.address
+                if(address === "" || address === null || address === undefined) address = placeHolder.address
                 axios.put(`http://localhost:11323/user/${token.id}`, {
-                    "name": profile.name,
-                    "email": profile.email,
-                    "telephone": profile.telephone,
-                    "address": profile.address,
+                    "name": name,
+                    "email": email,
+                    "telephone": telephone,
+                    "address": address,
                     "password": passwords.password
                 }, {                
                     headers: {
@@ -109,6 +124,7 @@ export default function MyProfile({data, setData}) {
                 }).then((response) => {
                     setData(response.data);
                     setProfile(response.data);
+                    setPlaceHolder(response.data)
                 }).catch(e => console.log(e));
                 setButtonPopUp(true);
                 setTimeout(() => {
@@ -125,19 +141,19 @@ export default function MyProfile({data, setData}) {
             <Description>Seu Perfil</Description>
             <FormDiv>
                 <FormLabel>Nome</FormLabel>
-                <FormInput placeholder={profile.name} readOnly={!editProfile} onInput={e => setProfile({...profile, name: e.target.value})}/>
+                <FormInput placeholder={placeHolder.name} readOnly={!editProfile} onInput={e => setProfile({...profile, name: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Email</FormLabel>
-                <FormInput placeholder={profile.email} readOnly={!editProfile} onInput={e => setProfile({...profile, email: e.target.value})}/>
+                <FormInput placeholder={placeHolder.email} readOnly={!editProfile} onInput={e => setProfile({...profile, email: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Telefone</FormLabel>
-                <FormInput placeholder={profile.telephone} readOnly={!editProfile} onInput={e => setProfile({...profile, telephone: e.target.value})}/>
+                <FormInput placeholder={placeHolder.telephone} readOnly={!editProfile} onInput={e => setProfile({...profile, telephone: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Endereço</FormLabel>
-                <FormInput placeholder={profile.address} readOnly={!editProfile} onInput={e => setProfile({...profile, address: e.target.value})}/>
+                <FormInput placeholder={placeHolder.address} readOnly={!editProfile} onInput={e => setProfile({...profile, address: e.target.value})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Senha</FormLabel>

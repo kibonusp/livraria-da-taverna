@@ -96,7 +96,7 @@ export default function EditProductForm({data, setData}) {
             if(description === "" || description === null || description === undefined) description = placeHolder.description
             let price = product.price
             if(price === "" || price === null || price === undefined) price = placeHolder.price
-            let formatedPreco = price.toString();
+            let formatedPreco = "R$ " + price.toString();
             if (!formatedPreco.includes('.')) formatedPreco += ".00"
             
             axios.put(`http://localhost:11323/produto/${productID}`, {
@@ -211,7 +211,7 @@ export default function EditProductForm({data, setData}) {
             </FormDiv>
             <FormDiv>
                 <FormLabel>Preço</FormLabel>
-                <FormInput type="number" placeholder={placeHolder.price} readOnly={!editProduct} onInput={e => setProduct({...product, price: parseFloat(e.target.value)})}/>
+                <FormInput type="number" placeholder={placeHolder.price} readOnly={!editProduct} onInput={e => setProduct({...product, price: parseFloat(e.target.value).toFixed(2)})}/>
             </FormDiv>
             <FormDiv>
                 <FormLabel>Foto</FormLabel>

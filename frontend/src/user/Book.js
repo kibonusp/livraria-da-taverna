@@ -117,7 +117,7 @@ export default function Book({data, setData}) {
                         <Qlabel>Quantidade:</Qlabel>
                         {
                             livro.available > 0 ? 
-                            <input type="number" min="0" max={livro.available} value={quantidade} onChange={e => setQuantidade(parseFloat(e.target.value))} />
+                            <input type="number" min="0" max={livro.available} value={quantidade} onChange={e => setQuantidade(parseInt(e.target.value))} />
                             :
                             <p style={{fontSize: "1.3rem", color: "grey"}}>Produto indisponível</p>
                         }
