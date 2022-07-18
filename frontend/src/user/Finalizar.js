@@ -25,8 +25,7 @@ function validarCPF(cpf){
 
 export default function Finalizar({data, setData}) {
     const location = useLocation();
-    const {carrinho} = location.state 
-    const [products, setProducts] = useState([]);
+    const {carrinho} = location.state;
 
     const [pay, setPay] = useState({
         "cpf": undefined,
@@ -71,7 +70,6 @@ export default function Finalizar({data, setData}) {
                 Promise.all(confirmPromises).then(confirmBook => {
                     console.log(confirmBook)
                 }).catch(e => console.log(e));
-                setProducts(response.data);
                 setData({...data, cart: []})
                 setButtonPopUpSuccess(true);
                 setTimeout(() => {
