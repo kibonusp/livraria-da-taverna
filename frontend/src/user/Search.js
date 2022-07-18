@@ -56,7 +56,7 @@ export default function Search({data, setData}) {
 
     useEffect(() => {
         setFilter({...filter, search: data.search})
-    }, [data, filter])
+    }, [data])
 
     return (
         <>
