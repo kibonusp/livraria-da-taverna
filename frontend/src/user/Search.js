@@ -18,7 +18,7 @@ export default function Search({data, setData}) {
     
     const [filter, setFilter] = useState({
         gender: location.state !== null ? location.state.gender : null,
-        search: location.state !== null ? location.state.string : null,
+        search: data.search,
         lowPrice: 0,
         highPrice: 0,
         available: false
@@ -53,6 +53,10 @@ export default function Search({data, setData}) {
 
         });
     })
+
+    useEffect(() => {
+        setFilter({...filter, search: data.search})
+    }, [data, filter])
 
     return (
         <>

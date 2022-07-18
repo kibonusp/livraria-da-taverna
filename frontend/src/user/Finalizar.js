@@ -9,7 +9,7 @@ const baseURL = "http://localhost:11323/produto"
 
 function validarCPF(cpf){
     cpf = cpf.replace(/\D/g, '');
-    if(cpf.toString().length != 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    if(cpf.toString().length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
     var result = true;
     [9,10].forEach(function(j){
         var soma = 0, r;
@@ -18,7 +18,7 @@ function validarCPF(cpf){
         });
         r = soma % 11;
         r = (r <2)?0:11-r;
-        if(r != cpf.substring(j, j+1)) result = false;
+        if(r !== cpf.substring(j, j+1)) result = false;
     });
     return result;
 }

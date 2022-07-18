@@ -48,7 +48,7 @@ export default function Book({data, setData}) {
             }
             j++;
         }
-    }, [location]);
+    }, [location, data]);
 
     const adicionarCarrinho = () => {
         let datacopy = data;

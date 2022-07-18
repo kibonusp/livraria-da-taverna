@@ -24,7 +24,8 @@ import { useState } from "react";
 function App() {
     const [data, setData] = useState({
         "logged": false,
-        "cart": []
+        "cart": [],
+        "search": ""
     });
 
     return (

@@ -1,5 +1,5 @@
 import { Description } from "../styles/adminStyles/HomeAdminStyle";
-import { FormLabel, FormDiv, FormInput, FormText, FormFile, FileDiv, FormStock, FormButton, FormStockRead, FormForm, MultiSelectDiv, SelectDiv } from "../styles/adminStyles/formStyle";
+import { FormLabel, FormDiv, FormInput, FormFile, FileDiv, FormStock, FormButton, FormStockRead, FormForm, MultiSelectDiv, SelectDiv } from "../styles/adminStyles/formStyle";
 import { useEffect, useState } from "react";
 import {useNavigate, useLocation } from "react-router-dom";
 import PopUp from "../components/PopUp";

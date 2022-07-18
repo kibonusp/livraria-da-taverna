@@ -10,7 +10,6 @@ import { getCookie, parseJwt } from "../auth"
 
 
 export default function Navbar({data, setData}) {
-    const [search, setSearch] = useState("");
     const navigate = useNavigate();
     const [user, setUser] = useState("");
     const [image, setImage] = useState("")
@@ -25,7 +24,7 @@ export default function Navbar({data, setData}) {
                 }
             }).then(response => {
                 setUser(response.data)
-                if(response.data.photo != image) {
+                if(response.data.photo !== image) {
                     setImage(response.data.photo)
                     setCheck(!check)
                 }
@@ -41,7 +40,7 @@ export default function Navbar({data, setData}) {
 
     const sendSearch = e => {
         if(e.key === 'Enter'){
-            navigate("/search", {state: {"string": search}})
+            navigate("/search")
         }
     }
     
@@ -86,7 +85,7 @@ export default function Navbar({data, setData}) {
                     }
                     <Link to="/cart"><FontAwesomeIcon icon={faCartShopping} /></Link>
                     <Link to="/search"><FontAwesomeIcon icon={faSearch} /></Link>
-                    <Search placeholder="pesquise aqui..." onInput={e => setSearch(e.target.value)} onKeyDown={sendSearch}/>
+                    <Search placeholder="pesquise aqui..." onInput={e => setData({...data, search: e.target.value})} onKeyDown={sendSearch}/>
                 </Links>
             </Utils>
         </NavHeader>
